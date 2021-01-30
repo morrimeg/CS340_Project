@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!-- This code allows the website to be responsive (e.g. any size can be used.). Bootstrap
+	is built for mobile websites first, so we need to make sure that my website will scale
+	no matter what type of device is being used. I found this code here:
+	https://getbootstrap.com/docs/4.5/getting-started/introduction/
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- I will be using Bootstrap to style my website. This chunck of link code
+		 is pulling in the bootstrap styling, which I plan on using.
+	 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
+       You need to include their CDN in order to use their icons. The icons I will be 
+       using here are for LinkedIn and Github.
+	-->
+	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
+
+	<!-- Including my own CSS-->
+	<link rel="stylesheet" type="text/css" href="css/classes.css">
+
+		<title>Hello World Pets! - Classes</title>
+
+</head>
+
+<body>
+	<!-- This code below came from Bootstrap. It's what they call external content. it
+		allows me to create a navbar at the top of my webpage with an icon. This navbar will
+    have 4 links to direct users to each of the pages on my website.
+		The code can be found here:
+		https://getbootstrap.com/docs/4.5/components/navbar/?
+	-->
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  		<a class="navbar-brand" href="#">HWP</sup></a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      			<li class="nav-item active">
+        			<a id="home" class="nav-link" href="index.html">Home</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="customers" class="nav-link" href="customers.html">Customers</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="classes" class="nav-link" href="classes.html"><span class="sr-only">(current)</span>Classes</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="vets" class="nav-link" href="vets.html">Vets</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="admin" class="nav-link" href="admin.html">Admin</a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>
+
+  <!-- Header -->
+  <div class="ClassHeader">
+    <h1>Let's Find a Class For Your Pet</h1>
+  </div>
+
+  <br>
+  <br>
+
+  <!-- Footer gets pushed down as content is added -->
+  <div class="footer">
+		<div class="container">
+  			<div id="footerRow" class="row">
+    			<div class="col-sm-4">
+      				Contact Us:
+    			</div>
+    			<div class="col-sm-4">
+      				<p>1234 Some Road, USA</p>
+    			</div>
+    			<div class="col-sm-4">
+      				<p>Phone: 123-456-7890</p>
+    			</div>
+  			</div>
+		</div>
+	</div>
+
+</body>
+
+
+</html>

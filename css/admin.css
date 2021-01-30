@@ -1,0 +1,52 @@
+/* Homepage CSS*/
+
+/* background photo is from https://www.pexels.com/photo/blue-wallpaper-2680270/
+   Photo by: Mudassir Ali
+
+   Found coding info here: https://developer.mozilla.org/en-US/docs/Web/CSS/background-image
+
+*/
+body{
+  background-image: url('');
+}
+
+/* Found this on stack overflow:
+https://www.w3schools.com/jsref/event_onclick.asp
+
+It is used to change the text color of the navbar. We have to 
+drill down to the exact text of the navbat which lives under
+li and a tags.
+*/
+.navbar.navbar-expand-lg.navbar-light.bg-secondary li a{
+  color:white;
+}
+
+/* Similar to above, we want to change the text color of
+the 'logo' in the navbar
+*/
+.navbar.navbar-expand-lg.navbar-light.bg-secondary a{
+  color:white;
+}
+
+.adminHeader{
+	margin-top: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom: 30px;
+	align-self: center;
+	text-align: center;
+  	font-family: ariel;
+  	color: rgb(0,0,0,0.8);
+}
+
+#hpTitle{
+  margin-bottom: 20px;
+}
+
+.contianer{
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  margin-left: 5%;
+  margin-right: 5%;
+}

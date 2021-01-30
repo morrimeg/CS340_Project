@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!-- This code allows the website to be responsive (e.g. any size can be used.). Bootstrap
+	is built for mobile websites first, so we need to make sure that my website will scale
+	no matter what type of device is being used. I found this code here:
+	https://getbootstrap.com/docs/4.5/getting-started/introduction/
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- I will be using Bootstrap to style my website. This chunck of link code
+		 is pulling in the bootstrap styling, which I plan on using.
+	 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
+       You need to include their CDN in order to use their icons. The icons I will be 
+       using here are for LinkedIn and Github.
+	-->
+	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
+
+	<!-- Including my own CSS-->
+	<link rel="stylesheet" type="text/css" href="css/admin.css">
+
+		<title>Hello World Pets! - Classes</title>
+
+</head>
+
+<body>
+	
+	<!-- This code below came from Bootstrap. It's what they call external content. it
+		allows me to create a navbar at the top of my webpage with an icon. This navbar will
+    have 4 links to direct users to each of the pages on my website.
+		The code can be found here:
+		https://getbootstrap.com/docs/4.5/components/navbar/?
+	-->
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  		<a class="navbar-brand" href="#">HWP</sup></a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      			<li class="nav-item active">
+        			<a id="home" class="nav-link" href="index.html">Home</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="customers" class="nav-link" href="customers.html">Customers</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="classes" class="nav-link" href="classes.html">Classes</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="vets" class="nav-link" href="vets.html">Vets</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="admin" class="nav-link" href="admin.html"><span class="sr-only">(current)</span>Admin</a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>
+
+  <!-- Header -->
+  <div class="adminHeader">
+    <h1>Make Changes to Here</h1>
+  </div>
+
+
+  <!-- Table for Customers Data -->
+  <div class="contianer">
+	<h5 class="card-title">Customers</h5>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Phone</th>
+				<th scope="col">Address</th>
+				<th scope="col">City</th>
+				<th scope="col">State</th>
+				<th scope="col">Zip Code</th>
+				<th scope="col">Number of Pets</th>
+				<th scope="col">Update</th>
+				<th scope="col">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th scope="row">1</th>
+			<td> Cindy</td>
+			<td>Lou Who</td>
+			<td>cindyLou@gmail.com</td>
+			<td>231-333-3333</td>
+			<td>1234 Whoville Drive</td>
+			<td>Whoville</td>
+			<td>Who</td>
+			<td>01234</td>
+			<td>1</td>
+			<td>
+				<button class="btn btn-info">Update</button>
+			</td>
+			<td>
+				<button class="btn btn-danger">Delete</button>
+			</td>
+
+			<tr>
+				<td colspan="7">
+					<button class="btn btn-secondary">Add Customer</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+  <!-- Table for Pets Data -->
+  <div class="contianer">
+	<h5 class="card-title">Pets</h5>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Species</th>
+				<th scope="col">Breed</th>
+				<th scope="col">Age (years)</th>
+				<th scope="col">Gender</th>
+				<th scope="col">Vet ID</th>
+				<th scope="col">Customer ID</th>
+				<th scope="col">Update</th>
+				<th scope="col">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th scope="row">1</th>
+			<td> Max</td>
+			<td>Dog</td>
+			<td>Cocker Spaniel</td>
+			<td>5</td>
+			<td>Male</td>
+			<td>1</td>
+			<td>1</td>
+			<td>
+				<button class="btn btn-info">Update</button>
+			</td>
+			<td>
+				<button class="btn btn-danger">Delete</button>
+			</td>
+
+			<tr>
+				<td colspan="7">
+					<button class="btn btn-secondary">Add Pet</button>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+
+  <!-- Table for Classes -->
+  <div class="contianer">
+	<h5 class="card-title">Classes</h5>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Class Name</th>
+				<th scope="col">Description</th>
+				<th scope="col">Day</th>
+				<th scope="col">Time</th>
+				<th scope="col">Price</th>
+				<th scope="col">Update</th>
+				<th scope="col">Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th scope="row">1</th>
+			<td> Puppy Training 1</td>
+			<td>For puppies 8 weeks old to 20 weeks old. Teaches basic interaction and commands</td>
+			<td>Monday</td>
+			<td>1300</td>
+			<td>$100</td>
+			<td>
+				<button class="btn btn-info">Update</button>
+			</td>
+			<td>
+				<button class="btn btn-danger">Delete</button>
+			</td>
+
+			<tr>
+				<td colspan="7">
+					<button class="btn btn-secondary">Add Class</button>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>
+
+<!-- Table for Vets -->
+  <div class="contianer">
+	<h5 class="card-title">Vets</h5>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Phone</th>
+				<th scope="col">Specialty</th>
+				<th scope="col">Number of Patients</th>
+				<th scope="col">Update</th>
+				<th scope="col">Delete</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<th scope="row">1</th>
+			<td> John </td>
+			<td>Smith</td>
+			<td>jsmith@gmail.com</td>
+			<td>123-456-7890</td>
+			<td>Adult dogs</td>
+			<td>3</td>
+			<td>
+				<button class="btn btn-info">Update</button>
+			</td>
+			<td>
+				<button class="btn btn-danger">Delete</button>
+			</td>
+
+			<tr>
+				<td colspan="7">
+					<button class="btn btn-secondary">Add Vet</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+</body>
+
+</html>

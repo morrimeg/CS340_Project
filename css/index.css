@@ -31,17 +31,30 @@ the 'logo' in the navbar
 
 .hpHeader{
 	margin-top: 20px;
-	padding-bottom: 10px;
+	padding-bottom: 30px;
 	padding-top: 10px;
 	align-self: center;
 	text-align: center;
-  font-family: ariel;
-  color: rgb(0,0,0,0.8);
+  	font-family: ariel;
+  	color: rgb(0,0,0,0.8);
 }
 
 #hpTitle{
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
+
+.col{
+	padding-left: 5px;
+}
+
+#catImg{
+	border: 3px solid grey;
+}
+
+#dogCatImg{
+	border: 3px solid grey;
+}
+
 
 
 .footer{

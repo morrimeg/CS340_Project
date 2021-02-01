@@ -50,3 +50,14 @@ the 'logo' in the navbar
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.footer{
+  margin-top: 20%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  align-self: center;
+  width: 100%;
+  background-color: rgb(0,0,0, 0.45);
+  color: white;
+}

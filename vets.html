@@ -22,9 +22,9 @@
 	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
 
 	<!-- Including my own CSS-->
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/classes.css">
 
-		<title>Hello World Pets!</title>
+		<title>Hello World Pets! - Vets</title>
 
 </head>
 
@@ -45,16 +45,16 @@
   		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       			<li class="nav-item active">
-        			<a id="home" class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        			<a id="home" class="nav-link" href="index.html">Home</a>
       			</li>
+            <li class="nav-item active">
+              <a id="home" class="nav-link" href="customers.html">Customers</a>
+            </li>
       			<li class="nav-item">
         			<a id="customers" class="nav-link" href="pets.html">Pets</a>
       			</li>
       			<li class="nav-item">
-        			<a id="pets" class="nav-link" href="pets.html">Pets</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="classes" class="nav-link" href="classes.html">Classes</a>
+        			<a id="classes" class="nav-link" href="classes.html"><span class="sr-only">(current)</span>Classes</a>
       			</li>
       			<li class="nav-item">
         			<a id="vets" class="nav-link" href="vets.html">Vets</a>
@@ -66,63 +66,81 @@
   		</div>
 	</nav>
 
+  <!-- Header -->
+  <div class="ClassHeader">
+    <h1>Hello World Vets</h1>
+  </div>
 
-		<div class="hpHeader">
+  <br>
+  <p class="text-center">Meet our team of expert veterinarians, ready to attend to every aspect of your pet's wellbeing during their time at Hello World Pets.</p>
+  <p class="text-center">You can find a vet by name, specialty, or the name of a pet currently in their care.</p>
+  <br>
 
-		<h1 id="hpTitle">Welcome to Hello World Pets!</h1>
+  <!-- This search functionality was created using Bootstrap cards. It 
+  	places the content nicely in a succinct container and allows the user
+  	to easily select what they're searching for.
+  	https://getbootstrap.com/docs/5.0/components/card/
+  -->
+  <div class="card">
+  <div class="card-header">
+    Search for a Vet
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Search By: </h5>
+    <form action="" method="post">
+    	<fieldset>
+    		<div class="form-check form-check-inline">
+    			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
+  				<label class="form-check-label" for="className">Vet Name</label>
+  			</div>
 
-<!-- Content for body of the page. We will have two paragraphs and
-       two photos that are on the same row. We will use Bootstrap's grid system
-       to achieve this. The grid system spaces out each webpage into rows and 
-       columns.
+  			<div class="form-check form-check-inline">
+  				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
+  				<label class="form-check-label" for="day">Vet Specialty</label>
+  			</div>
 
-       https://getbootstrap.com/docs/4.5/layout/grid/
--->
-	<div class="container">
-  		<div class="row">
-    		<div class="col">
-    			<img id="catImg" src="images/home/cats.jpg" alt="cats" width="275px" height="300px">
-    		</div>
-    	
-    		<div class="col-6">
-      		<p>
-      			Let your pets find their best lives at Hello World Pets.
-      			Hello World Pets offers a wide range of classes for every
-      			stage in your pet's life. We also have a state of the art
-      			veterinary team on hand, so you never have to worry about
-      			leaving your pets with us!
-      		</p>
-    		</div>
-    		
-    		<!-- Image from:
-    			https://www.pexels.com/photo/orange-tabby-cat-beside-fawn-short-coated-puppy-46024/
-    		-->
-    		<div class="col">
-    			<img id="dogCatImg" src="images/home/dogCat.jpg" alt="dogCat" width="275px" height="300px">
-    		</div>
-  		</div>
-  		<div class="row">
-    
-    		<!-- Image from:
-    			https://www.pexels.com/photo/jumping-cute-playing-animals-4602/
-    		-->
-    		<div class="col">
-      		
-    		</div>
-    		
-    		<div class="col-5">
-      		<p>
-      			<h5>If your pet is ready to join us click <a href='customers.html'>here!</a></h5>
-      		</p>
-    		</div>
-    		
-    		<div class="col">
-    		</div>
-  		</div>
-	</div>
+  			<div class="form-check form-check-inline">
+  				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
+  				<label class="form-check-label" for="time">Pet name</label>
+  			</div>
+
+  			<div>
+  				<input type="text" style="width: 400px;">
+  				<button type="submit" class="btn btn-primary">Find Vets</button>
+  			</div>
+    	</fieldset>
+  	
+  	</div>
+</div>
+
+<!-- Adding a dummy table of what users will see after searching -->
+<div class="contianer">
+	<h5 class="card-title">Vets</h5>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Vet Name</th>
+				<th scope="col">Specialty</th>
+				<th scope="col">Phone</th>
+				<th scope="col">E-mail</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th scope="row">1</th>
+			<td>Samantha Perkins</td>
+			<td>Feline Allergist</td>
+			<td>(650) 123-4567</td>
+			<td>sperk@hwp.org</td>
+		</tbody>
 
 
-	<div class="footer">
+	</table>
+
+</div>
+
+  <!-- Footer gets pushed down as content is added -->
+  <div class="footer">
 		<div class="container">
   			<div id="footerRow" class="row">
     			<div class="col-sm-4">
@@ -139,7 +157,6 @@
 	</div>
 
 </body>
-
 
 
 </html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!-- This code allows the website to be responsive (e.g. any size can be used.). Bootstrap
+	is built for mobile websites first, so we need to make sure that my website will scale
+	no matter what type of device is being used. I found this code here:
+	https://getbootstrap.com/docs/4.5/getting-started/introduction/
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- I will be using Bootstrap to style my website. This chunck of link code
+		 is pulling in the bootstrap styling, which I plan on using.
+	 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
+       You need to include their CDN in order to use their icons. The icons I will be 
+       using here are for LinkedIn and Github.
+	-->
+	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
+
+	<!-- Including my own CSS-->
+	<link rel="stylesheet" type="text/css" href="css/classes.css">
+
+		<title>Hello World Pets! - Classes</title>
+
+</head>
+
+<body>
+	<!-- This code below came from Bootstrap. It's what they call external content. it
+		allows me to create a navbar at the top of my webpage with an icon. This navbar will
+    have 4 links to direct users to each of the pages on my website.
+		The code can be found here:
+		https://getbootstrap.com/docs/4.5/components/navbar/?
+	-->
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  		<a class="navbar-brand" href="#">HWP</sup></a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      			<li class="nav-item active">
+        			<a id="home" class="nav-link" href="index.html">Home</a>
+      			</li>
+            <li class="nav-item active">
+              <a id="home" class="nav-link" href="customers.html">Customers</a>
+            </li>
+      			<li class="nav-item">
+        			<a id="customers" class="nav-link" href="pets.html">Pets</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="classes" class="nav-link" href="classes.html"><span class="sr-only">(current)</span>Classes</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="vets" class="nav-link" href="vets.html">Vets</a>
+      			</li>
+      			<li class="nav-item">
+        			<a id="admin" class="nav-link" href="admin.html">Admin</a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>
+
+  <!-- Header -->
+  <div class="ClassHeader">
+    <h1>Join Us at Hello World Pets</h1>
+  </div>
+
+  <br>
+  <p class="text-center">To get your pet started, you may register online by filling out the forms below. You may also contact us for assistance registering.</p>
+  <p class="text-center">Existing customers may add a new pet by locating their Customer ID, and filling out pet information below.</p>S
+
+  <!-- This search functionality was created using Bootstrap cards. It 
+  	places the content nicely in a succinct container and allows the user
+  	to easily select what they're searching for.
+  	https://getbootstrap.com/docs/5.0/components/card/
+  -->
+
+<main class="my-form">
+    <div class="container">
+        <div class="card-body">
+            <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">Register (For New Customers)</div>
+                        <div class="card-body">
+                            <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                                <div class="form-group row">
+                                    <label for="full_name" class="col-md-4 col-form-label text-md-right">Full Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="full_name" class="form-control" name="full-name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="email_address" class="form-control" name="email-address">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="phone_number" class="form-control" name="phone_number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="street address" class="col-md-4 col-form-label text-md-right">Street Address</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="street_address" class="form-control" name="street_address">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="city" class="col-md-4 col-form-label text-md-right">City</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="city" class="form-control" name="city">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="state" class="col-md-4 col-form-label text-md-right">State</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="nid_number" class="form-control" name="state">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="zip" class="col-md-4 col-form-label text-md-right">Zip Code</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="zip" class="form-control" name="zip">
+                                    </div>
+                                </div>
+
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                        Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<main class="my-form">
+    <div class="container">
+        <div class="card-body">
+            <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">Add a Pet (Existing Customers)</div>
+                        <div class="card-body">
+                            <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                                <div class="form-group row">
+                                    <label for="customer_id" class="col-md-4 col-form-label text-md-right">Customer ID</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="customer_id" class="form-control" name="customer-id">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="pet_name" class="col-md-4 col-form-label text-md-right">Pet Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="pet_name" class="form-control" name="pet-name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="pet_species" class="col-md-4 col-form-label text-md-right">Pet Species</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="pet_species" class="form-control" name="pet-species">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="pet_breed" class="col-md-4 col-form-label text-md-right">Pet Breed</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="pet_breed" class="form-control" name="pet-breed">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="pet_age" class="col-md-4 col-form-label text-md-right">Pet Age (Years)</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="pet_age" class="form-control" name="pet-age">
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="col-md-4 form-check-input text-md-right" type="radio" name="pet-gender" id="pet_gender1">
+                                  <label class="col-md-4 form-check-label text-md-right" for="pet_gender1">
+                                    Female
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="col-md-4 form-check-input text-md-right" type="radio" name="pet-gender" id="pet_gender2" checked>
+                                  <label class="col-md-4 form-check-label text-md-right" for="pet_gender2">
+                                    Male
+                                  </label>
+                                </div>
+
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                        Register
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+  <!-- Footer gets pushed down as content is added -->
+  <div class="footer">
+		<div class="container">
+  			<div id="footerRow" class="row">
+    			<div class="col-sm-4">
+      				Contact Us:
+    			</div>
+    			<div class="col-sm-4">
+      				<p>1234 Some Road, USA</p>
+    			</div>
+    			<div class="col-sm-4">
+      				<p>Phone: 123-456-7890</p>
+    			</div>
+  			</div>
+		</div>
+	</div>
+
+</body>
+
+
+</html>

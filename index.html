@@ -8,12 +8,14 @@
 	no matter what type of device is being used. I found this code here:
 	https://getbootstrap.com/docs/4.5/getting-started/introduction/
 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- I will be using Bootstrap to style my website. This chunck of link code
 		 is pulling in the bootstrap styling, which I plan on using.
 	 -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
 	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
        You need to include their CDN in order to use their icons. The icons I will be 
@@ -38,11 +40,11 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
   		<a class="navbar-brand" href="#">HWP</sup></a>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
   		</button>
 
-  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+  		<div class="navbar-collapse offset collapse" id="navbarNav">
     		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       			<li class="nav-item active">
         			<a id="home" class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -67,7 +69,7 @@
 	</nav>
 
 
-		<div class="hpHeader">
+		<div class="hpHeader" style="width:100%">
 
 		<h1 id="hpTitle">Welcome to Hello World Pets!</h1>
 
@@ -81,11 +83,11 @@
 	<div class="container">
   		<div class="row">
     		<div class="col">
-    			<img id="catImg" src="images/home/cats.jpg" alt="cats" width="275px" height="300px">
+    			<img id="catImg" src="images/home/cats.jpg" alt="cats" style="width:100%">
     		</div>
     	
     		<div class="col-6">
-      		<p>
+      		<p style="width:100%">
       			Let your pets find their best lives at Hello World Pets.
       			Hello World Pets offers a wide range of classes for every
       			stage in your pet's life. We also have a state of the art
@@ -98,7 +100,7 @@
     			https://www.pexels.com/photo/orange-tabby-cat-beside-fawn-short-coated-puppy-46024/
     		-->
     		<div class="col">
-    			<img id="dogCatImg" src="images/home/dogCat.jpg" alt="dogCat" width="275px" height="300px">
+    			<img id="dogCatImg" src="images/home/dogCat.jpg" alt="dogCat" style="width:100%">
     		</div>
   		</div>
   		<div class="row">
@@ -112,7 +114,7 @@
     		
     		<div class="col-5">
       		<p>
-      			<h5>If your pet is ready to join us click <a href='customers.html'>here!</a></h5>
+      			<h5 style="width:100%">If your pet is ready to join us click <a href='customers.html'>here!</a></h5>
       		</p>
     		</div>
     		
@@ -121,8 +123,16 @@
   		</div>
 	</div>
 
+	<!-- Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-	<div class="footer">
+	<!-- Bootstrap Javascript functionality to make things work -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+	<div class="footer" style="width:100%">
 		<div class="container">
   			<div id="footerRow" class="row">
     			<div class="col-sm-4">
@@ -137,6 +147,9 @@
   			</div>
 		</div>
 	</div>
+
+
+	<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>-->
 
 </body>
 

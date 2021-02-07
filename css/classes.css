@@ -43,6 +43,14 @@ the 'logo' in the navbar
   margin-bottom: 20px;
 }
 
+.classesExplained{
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+
+}
+
 .card{
   position: relative;
   margin-top: 40px;

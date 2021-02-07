@@ -8,12 +8,12 @@
 	no matter what type of device is being used. I found this code here:
 	https://getbootstrap.com/docs/4.5/getting-started/introduction/
 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- I will be using Bootstrap to style my website. This chunck of link code
 		 is pulling in the bootstrap styling, which I plan on using.
 	 -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
        You need to include their CDN in order to use their icons. The icons I will be 
@@ -38,11 +38,11 @@
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
   		<a class="navbar-brand" href="#">HWP</sup></a>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
   		</button>
 
-  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+  		<div class="navbar-collapse offset collapse" id="navbarNav">
     		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       			<li class="nav-item active">
         			<a id="home" class="nav-link" href="index.html">Home</a>
@@ -68,7 +68,13 @@
 
   <!-- Header -->
   <div class="ClassHeader">
-    <h1>Let's Find a Class For Your Pet</h1>
+    <h1 style="width:100%">Let's Find a Class For Your Pet</h1>
+  </div>
+
+    <!-- Paragraph -->
+  <div class="classesExplained">
+  	<h6>We have classes for every pet at every age! Feel free to search
+  	below to find the perfect class for your pet.</h6>
   </div>
 
   <br>
@@ -79,14 +85,14 @@
   	to easily select what they're searching for.
   	https://getbootstrap.com/docs/5.0/components/card/
   -->
-  <div class="card">
+  <div class="card" style="width:70%">
   <div class="card-header">
     Search for a class
   </div>
   <div class="card-body">
     <h5 class="card-title">Search By: </h5>
     <form action="" method="post">
-    	<fieldset>
+    	<fieldset style="width:100%">
     		<div class="form-check form-check-inline">
     			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
   				<label class="form-check-label" for="className">Class Name</label>
@@ -108,7 +114,7 @@
   			</div>
 
   			<div>
-  				<input type="text" style="width: 400px;">
+  				<input type="text" style="width:40%">
   				<button type="submit" class="btn btn-primary">Search Classes</button>
   			</div>
     	</fieldset>
@@ -117,7 +123,7 @@
 </div>
 
 <!-- Adding a dummy table of what users will see after searching -->
-<div class="contianer">
+<div class="contianer" style="width:70%">
 	<h5 class="card-title">Current Classes</h5>
 	<table class="table table-striped">
 		<thead>
@@ -128,6 +134,8 @@
 				<th scope="col">Day</th>
 				<th scope="col">Time</th>
 				<th scope="col">Price</th>
+				<th scope="col">Number Enrolled</th>
+				<th scope="col">Spaces Left</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -137,6 +145,8 @@
 			<td>Monday</td>
 			<td>1300</td>
 			<td>$100</td>
+			<td>3</td>
+			<td>5</td>
 		</tbody>
 
 
@@ -144,8 +154,17 @@
 
 </div>
 
+<!-- Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap Javascript functionality to make things work -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ 
   <!-- Footer gets pushed down as content is added -->
-  <div class="footer">
+  <div class="footer" style="width:100%">
 		<div class="container">
   			<div id="footerRow" class="row">
     			<div class="col-sm-4">

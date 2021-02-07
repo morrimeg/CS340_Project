@@ -61,6 +61,14 @@ the 'logo' in the navbar
 
 }
 
+.text-center{
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+  background-color: rgba(255,255,255,0.6)
+}
+
 .card{
   position: relative;
   margin-top: 40px;

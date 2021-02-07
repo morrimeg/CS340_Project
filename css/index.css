@@ -7,7 +7,8 @@
 
 */
 body{
-  background-image: url('');
+  background-image: url('background.jpg');
+  background-size: 150px;
 }
 
 /* Found this on stack overflow:
@@ -28,6 +29,10 @@ the 'logo' in the navbar
   color:white;
 }
 
+.navbar.navbar-expand-lg.navbar-light.bg-secondary{
+	opacity: 0.85
+}
+
 
 .hpHeader{
 	margin-top: 20px;
@@ -35,24 +40,43 @@ the 'logo' in the navbar
 	padding-top: 10px;
 	align-self: center;
 	text-align: center;
+	align-content: center;
   	font-family: ariel;
-  	color: rgb(0,0,0,0.8);
+  	color: rgba(0,0,0,1);
+  	background-color: rgba(255,255,255,0)
 }
 
 #hpTitle{
   margin-bottom: 40px;
+  color: rgb(108,117,125, 1);
+  text-align: center;
+  background-color: rgba(255,255,255,0.5);
+  /*text-shadow: 2px 2px 5px #000000;*/
 }
+
 
 .col{
 	padding-left: 5px;
 }
 
+.col-6{
+	background-color: rgba(255,255,255,0.6);
+	align-content: center;
+	text-align: center;
+}
+
+.col-5{
+	background-color: rgba(255,255,255,0.6);
+	align-content: center;
+	text-align: center;
+}
+
 #catImg{
-	border: 3px solid grey;
+	border: 3px solid white;
 }
 
 #dogCatImg{
-	border: 3px solid grey;
+	border: 3px solid white;
 }
 
 
@@ -64,6 +88,6 @@ the 'logo' in the navbar
   text-align: center;
   align-self: center;
   width: 100%;
-  background-color: rgb(0,0,0, 0.45);
+  background-color: rgb(108,117,125, 0.85);
   color: white;
 }

@@ -7,7 +7,8 @@
 
 */
 body{
-  background-image: url('');
+  background-image: url('background.jpg');
+  background-size: 150px;
 }
 
 /* Found this on stack overflow:
@@ -28,6 +29,10 @@ the 'logo' in the navbar
   color:white;
 }
 
+.navbar.navbar-expand-lg.navbar-light.bg-secondary{
+  opacity: 0.85
+}
+
 
 .ClassHeader{
 	margin-top: 20px;
@@ -36,11 +41,15 @@ the 'logo' in the navbar
 	align-self: center;
 	text-align: center;
   font-family: ariel;
-  color: rgb(0,0,0,0.8);
+  color: rgba(0,0,0,1);
+  background-color: rgba(255,255,255,0.4)
 }
 
-#hpTitle{
+#classId{
   margin-bottom: 20px;
+  color: rgba(108,117,125, 1);
+  text-align: center;
+  /*text-shadow: 2px 2px 5px #000000;*/
 }
 
 .classesExplained{
@@ -48,6 +57,7 @@ the 'logo' in the navbar
   margin-left: 25%;
   margin-right: 25%;
   text-align: center;
+  background-color: rgba(255,255,255,0.4)
 
 }
 
@@ -65,6 +75,7 @@ the 'logo' in the navbar
   margin-top: 100px;
   margin-left: 15%;
   margin-right: 15%;
+  background-color: rgba(255, 255, 255, 0.8)
 }
 
 
@@ -75,6 +86,6 @@ the 'logo' in the navbar
   text-align: center;
   align-self: center;
   width: 100%;
-  background-color: rgb(0,0,0, 0.45);
+  background-color: rgb(108,117,125, 0.85);
   color: white;
 }

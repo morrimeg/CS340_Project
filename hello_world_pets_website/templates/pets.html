@@ -13,7 +13,7 @@
 	<!-- I will be using Bootstrap to style my website. This chunck of link code
 		 is pulling in the bootstrap styling, which I plan on using.
 	 -->
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
        You need to include their CDN in order to use their icons. The icons I will be 
@@ -22,9 +22,9 @@
 	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
 
 	<!-- Including my own CSS-->
-	<link rel="stylesheet" type="text/css" href="css/classes.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/classes.css')}}">
 
-		<title>Hello World Pets! - Vets</title>
+		<title>Hello World Pets! - Pets</title>
 
 </head>
 
@@ -68,12 +68,12 @@
 
   <!-- Header -->
   <div class="ClassHeader">
-    <h1 id="classId">Hello World Vets</h1>
+    <h1 id="classId">Our Pets and Customers</h1>
   </div>
 
   <br>
-  <p class="text-center">Meet our team of expert veterinarians, ready to attend to every aspect of your pet's wellbeing during their time at Hello World Pets.</p>
-  <p class="text-center">You can find a vet by name, specialty, or the name of a pet currently in their care.</p>
+  <p class="text-center">Here you can explore the Hello World Pets family by searching for pets in our database.</p>
+  <p class="text-center">You can search for pets by Pet name, Customer name, or Pet type - for example, try 'bird'!</p>
   <br>
 
   <!-- This search functionality was created using Bootstrap cards. It 
@@ -83,7 +83,7 @@
   -->
   <div class="card">
   <div class="card-header">
-    Search for a Vet
+    Find a Pet!
   </div>
   <div class="card-body">
     <h5 class="card-title">Search By: </h5>
@@ -91,22 +91,22 @@
     	<fieldset>
     		<div class="form-check form-check-inline">
     			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
-  				<label class="form-check-label" for="className">Vet Name</label>
+  				<label class="form-check-label" for="className">Customer Name</label>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
-  				<label class="form-check-label" for="day">Vet Specialty</label>
+  				<label class="form-check-label" for="day">Pet Name</label>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
-  				<label class="form-check-label" for="time">Pet name</label>
+  				<label class="form-check-label" for="time">Pet Type</label>
   			</div>
 
   			<div>
   				<input type="text" style="width: 400px;">
-  				<button type="submit" class="btn btn-primary">Find Vets</button>
+  				<button type="submit" class="btn btn-primary">Find Pets</button>
   			</div>
     	</fieldset>
   	
@@ -115,33 +115,23 @@
 
 <!-- Adding a dummy table of what users will see after searching -->
 <div class="contianer">
-	<h5 class="card-title">Vets</h5>
+	<h5 class="card-title">Pets</h5>
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Vet Name</th>
-				<th scope="col">Specialty</th>
-				<th scope="col">Phone</th>
-				<th scope="col">E-mail</th>
+				<th scope="col">Pet Name</th>
+				<th scope="col">Type</th>
+				<th scope="col">Age</th>
+				<th scope="col">Customer</th>
 			</tr>
 		</thead>
 		<tbody>
-      <tr>
-  			<th scope="row">1</th>
-  			<td>Samantha Perkins</td>
-  			<td>Feline Allergist</td>
-  			<td>(650) 123-4567</td>
-  			<td>sperk@hwp.org</td>
-      </tr>
-
-      <tr>
-        <th scope="row">2</th>
-        <td>Aaron Wu</td>
-        <td>Avian and Canine</td>
-        <td>(650) 987-6543</td>
-        <td>awu@hwp.org</td>
-      </tr>
+			<th scope="row">1</th>
+			<td> Jack</td>
+			<td>Bird</td>
+			<td>1</td>
+			<td>Peter</td>
 		</tbody>
 
 

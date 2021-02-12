@@ -22,9 +22,9 @@
 	<script src="https://kit.fontawesome.com/f84faeb5a9.js" crossorigin="anonymous"></script>
 
 	<!-- Including my own CSS-->
-	<link rel="stylesheet" type="text/css" href="css/classes.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}">
 
-		<title>Hello World Pets! - Classes</title>
+		<title>Hello World Pets! - Customers</title>
 
 </head>
 
@@ -67,13 +67,27 @@
 	</nav>
 
   <!-- Header -->
-  <div class="ClassHeader">
-    <h1 id="classId">Join Us at Hello World Pets</h1>
+  <div class="hpHeader" style="width:100%">
+    <h1 id="classTitle">Join Us at Hello World Pets</h1>
   </div>
 
-  <br>
-  <p class="text-center">To get your pet started, you may register online by filling out the forms below. You may also contact us for assistance registering.</p>
-  <p class="text-center">Existing customers may add a new pet by locating their Customer ID, and filling out pet information below.</p>S
+  <div class="container">
+      <div class="row">
+          <div class="col">
+          </div>
+
+          <div class="col-6">
+          <p style="width:100%">
+            To get your pet started, you may register online by filling out the forms below. 
+            You may also contact us for assistance registering. Existing customers may add a 
+            new pet by locating their Customer ID, and filling out pet information below.
+          </p>
+          </div>
+
+          <div class="col">
+          </div>
+      </div>
+  </div>
 
   <!-- This search functionality was created using Bootstrap cards. It 
   	places the content nicely in a succinct container and allows the user

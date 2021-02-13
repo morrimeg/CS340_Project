@@ -102,6 +102,27 @@ CREATE TABLE IF NOT EXISTS `pets` (
     ON UPDATE CASCADE
 );
 
+---
+--- Insert into `pets`
+---
+LOCK TABLES `pets` WRITE;
+
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Kirby', 'Canine', 'Cavalier King Charles Spaniel', 1, 0,
+  SELECT(vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt')
+  SELECT(customer_id from customers where first_name = 'Mbali' and last_name = 'Octavius')
+);
+
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Scout', 'Canine', 'Springer Spaniel', 11, 0,
+  SELECT(vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt')
+  SELECT(customer_id from customers where first_name = 'Mira' and last_name = 'Magee')
+);
+
+INSERT INTO `pets` (pet_name, species, breed, age, gender) values ('Chairman Meow', 'Feline', 'Persian', 14, 0,
+  SELECT(vet_id from vets where first_name = 'Samantha' and last_name = 'Sukej')
+  SELECT(customer_id from customers where first_name = 'Sundar' and last_name = 'Pichai')
+);
+UNLOCK TABLES:
+
 --
 -- Table structure for table `classes`
 --
@@ -120,6 +141,15 @@ CREATE TABLE IF NOT EXISTS `classes`(
   PRIMARY KEY(`class_id`),
   CONSTRAINT `class_name` UNIQUE(`class_name`)
 );
+
+-- 
+-- Insert into `classes`
+--
+LOCK TABLES `classes` WRITE;
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Puppy Training', 'For puppies age 5-8 weeks. Learn basic commands and get socialized', '2021-02-15', '2021-02-15 13:00:00', 100.00, 5, 10);
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Cat Walking', 'Train your cat to walk on a leash just like dogs!', '2021-03-01', '2021-03-01 10:00:00', 150.00, 10, 15);
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Young Dog Training', 'For dogs aged 1-4. Learn basic commands and behavioral tips and tricks.', '2021-02-27', '2021-02-27 14:00:00', 80.00, 4, 8);
+UNLOCK TABLES;
 
 --
 -- Table structure for `enrollments` table (M:M Relationship)
@@ -141,6 +171,30 @@ CREATE TABLE IF NOT EXISTS `enrollments` (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+--
+-- Insert into Enrollments
+--
+LOCK TABLES `enrollments` WRITE;
+INSERT INTO `enrollments` (pets_id, class_id) values (
+  (SELECT pets_id from pets where pet_name = "Kirby"),
+  (SELECT class_id from classes where class_name = 'Puppy Training')
+);
+
+INSERT INTO `enrollments` (pet_id, class_id) values (
+  (SELECT pet_id from pets where pet_name = 'Chairman Meow'),
+  (SELECT class_id from classes where class_name = 'Cat Walking')
+
+);
+
+
+INSERT INTO `enrollments` (pet_id, class_id) values (
+  (SELECT pet_id from pets where pet_name = 'Kirby'),
+  (SELECT class_id from classes where class_name = 'Young Dog Training')
+
+);
+UNLOCK TABLES;
+
 
 
 

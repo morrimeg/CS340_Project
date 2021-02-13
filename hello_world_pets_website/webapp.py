@@ -40,7 +40,7 @@ def admin():
     return render_template('admin.html')
 
 # Testing DB connection
-@app.route('/db-test')
+@webapp.route('/db-test')
 def test_database_connection():
     print("Executing a sample query on the database using the credentials from db_credentials.py")
     db_connection = connect_to_database()

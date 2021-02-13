@@ -33,7 +33,10 @@ def classes():
 
 @webapp.route('/vets.html')
 def vets():
-    return render_template('vets.html')
+    db_connection = connect_to_database()
+    query = "SELECT * from vets;"
+    result = execute_query(db_connection, query)
+    return render_template('vets.html', rows=result)
 
 @webapp.route('/admin.html')
 def admin():

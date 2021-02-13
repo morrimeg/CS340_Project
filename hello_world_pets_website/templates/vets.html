@@ -105,7 +105,7 @@
   			</div>
 
   			<div>
-  				<input type="text" style="width: 400px;">
+  				<input type="text" style="width: 400px;">				<button type="submit" class="btn btn-primary">Find Vets</button>
   				<button type="submit" class="btn btn-primary">Find Vets</button>
   			</div>
     	</fieldset>
@@ -113,7 +113,8 @@
   	</div>
 </div>
 
-<!-- Adding a dummy table of what users will see after searching -->
+<!-- Add a simple table -->
+
 <div class="contianer">
 	<h5 class="card-title">Vets</h5>
 	<table class="table table-striped">
@@ -127,28 +128,20 @@
 			</tr>
 		</thead>
 		<tbody>
-      <tr>
-  			<th scope="row">1</th>
-  			<td>Samantha Perkins</td>
-  			<td>Feline Allergist</td>
-  			<td>(650) 123-4567</td>
-  			<td>sperk@hwp.org</td>
-      </tr>
-
-      <tr>
-        <th scope="row">2</th>
-        <td>Aaron Wu</td>
-        <td>Avian and Canine</td>
-        <td>(650) 987-6543</td>
-        <td>awu@hwp.org</td>
-      </tr>
+        {% for r in rows %}
+          <tr>
+            <th scope="row">{{r[0]}}</th>
+            <td>{{r[1]}}</td>
+            <td>{{r[2]}}</td>
+            <td>{{r[3]}}</td>
+            <td>{{r[4]}}</td>
+          </tr>
+        {% endfor %}
 		</tbody>
-
 
 	</table>
 
 </div>
-
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

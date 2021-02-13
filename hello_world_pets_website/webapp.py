@@ -38,6 +38,16 @@ def vets():
 @webapp.route('/admin.html')
 def admin():
     return render_template('admin.html')
+
+# Testing DB connection
+@app.route('/db-test')
+def test_database_connection():
+    print("Executing a sample query on the database using the credentials from db_credentials.py")
+    db_connection = connect_to_database()
+    query = "SELECT * from customers;"
+    result = execute_query(db_connection, query)
+    return render_template('db_test.html', rows=result)
+
 '''
 @webapp.route('/browse_bsg_people')
 #the name of this function is just a cosmetic thing

@@ -15,11 +15,15 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+USE `cs340_lundgret`;
+
 --
 -- Table structure for table `vets`
 --
 
 DROP TABLE IF EXISTS `vets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `vets` (
 
   `vet_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -29,19 +33,22 @@ CREATE TABLE IF NOT EXISTS `vets` (
   `phone` varchar(255) NOT NULL,
   `specialty` varchar(255) NOT NULL,
   PRIMARY KEY(`vet_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Insert into `vets` table
 --
 LOCK TABLES `vets` WRITE;
-INSERT INTO `vets` (first_name, last_name, email, phone, specialty, number_of_patients)
+/*!40000 ALTER TABLE `vets` DISABLE KEYS */;
+INSERT INTO `vets` (first_name, last_name, email, phone, specialty)
   VALUES
   ('Samantha', 'Sukej', 'ssukej@hwp.org', '6501234567', 'Feline'),
   ('Aaron', 'Wu', 'awu@hwp.org', '6509876543', 'Avian and Canine'),
   ('Michael', 'Cui', 'mcui@hwp.org', '6502481632', 'Reptile'),
   ('Elise', 'Noalhyt', 'enoalhyt@hwp.org', '6504132020', 'Canine')
-);
+;
+/*!40000 ALTER TABLE `vets` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -49,6 +56,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `customers` (
 
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -61,19 +70,22 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `state` varchar(255) NOT NULL,
   `zip_code` char(5) NOT NULL,
   PRIMARY KEY(`customer_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Insert into `customers` table
 --
 LOCK TABLES `customers` WRITE;
-INSERT INTO `customers` (first_name, last_name, email, phone, address, city, state, zip_code, number_of_pets)
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` (first_name, last_name, email, phone, address, city, state, zip_code)
   VALUES
   ('Mbali', 'Octavius', 'mbali@gmail.com', '7703523154', '342 Elsie Way', 'Mountain View', 'CA', '94040'),
   ('Sabina', 'Pitts', 'spitts@gmail.com', '3364952773', '2201 Deland Rd', 'Sunnyvale', 'CA', '94087'),
   ('Sundar', 'Pichai', 'sundar@google.com', '6505005931', '100 Innovation Way', 'Mountain View', 'CA', '94040'),
   ('Mira', 'Magee', 'mmagee@gmail.com', '6502381394', '597 Palomino Ave', 'Palo Alto', 'CA', '94028')
-);
+;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -81,6 +93,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `pets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `pets` (
 
   `pet_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -100,34 +114,39 @@ CREATE TABLE IF NOT EXISTS `pets` (
     foreign key(`customer_id`) references customers(customer_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
----
---- Insert into `pets`
----
-LOCK TABLES `pets` WRITE;
+--
+-- Insert into `pets`
+--
+LOCK TABLES `pets` WRITE, `vets` READ, `customers` READ;
+/*!40000 ALTER TABLE `pets` DISABLE KEYS */;
 
 INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Kirby', 'Canine', 'Cavalier King Charles Spaniel', 1, 0,
-  SELECT(vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt')
-  SELECT(customer_id from customers where first_name = 'Mbali' and last_name = 'Octavius')
+  (SELECT vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt'),
+  (SELECT customer_id from customers where first_name = 'Mbali' and last_name = 'Octavius')
 );
 
 INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Scout', 'Canine', 'Springer Spaniel', 11, 0,
-  SELECT(vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt')
-  SELECT(customer_id from customers where first_name = 'Mira' and last_name = 'Magee')
+  (SELECT vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt'),
+  (SELECT customer_id from customers where first_name = 'Mira' and last_name = 'Magee')
 );
 
-INSERT INTO `pets` (pet_name, species, breed, age, gender) values ('Chairman Meow', 'Feline', 'Persian', 14, 0,
-  SELECT(vet_id from vets where first_name = 'Samantha' and last_name = 'Sukej')
-  SELECT(customer_id from customers where first_name = 'Sundar' and last_name = 'Pichai')
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Chairman Meow', 'Feline', 'Persian', 14, 0,
+  (SELECT vet_id from vets where first_name = 'Samantha' and last_name = 'Sukej'),
+  (SELECT customer_id from customers where first_name = 'Sundar' and last_name = 'Pichai')
 );
-UNLOCK TABLES:
+/*!40000 ALTER TABLE `pets` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `classes`
 --
 
 DROP TABLE IF EXISTS `classes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `classes`(
 
   `class_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -140,15 +159,19 @@ CREATE TABLE IF NOT EXISTS `classes`(
   `class_seats` int(11) NOT NULL,
   PRIMARY KEY(`class_id`),
   CONSTRAINT `class_name` UNIQUE(`class_name`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 -- 
 -- Insert into `classes`
 --
 LOCK TABLES `classes` WRITE;
+/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
+
 INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Puppy Training', 'For puppies age 5-8 weeks. Learn basic commands and get socialized', '2021-02-15', '2021-02-15 13:00:00', 100.00, 5, 10);
 INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Cat Walking', 'Train your cat to walk on a leash just like dogs!', '2021-03-01', '2021-03-01 10:00:00', 150.00, 10, 15);
 INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Young Dog Training', 'For dogs aged 1-4. Learn basic commands and behavioral tips and tricks.', '2021-02-27', '2021-02-27 14:00:00', 80.00, 4, 8);
+/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -156,6 +179,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `enrollments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `enrollments` (
 
   `enrollment_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -170,14 +195,16 @@ CREATE TABLE IF NOT EXISTS `enrollments` (
     foreign key(`class_id`) references classes(class_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Insert into Enrollments
 --
-LOCK TABLES `enrollments` WRITE;
-INSERT INTO `enrollments` (pets_id, class_id) values (
-  (SELECT pets_id from pets where pet_name = "Kirby"),
+LOCK TABLES `enrollments` WRITE, `pets` READ, `classes` READ;
+/*!40000 ALTER TABLE `enrollments` DISABLE KEYS */;
+INSERT INTO `enrollments` (pet_id, class_id) values (
+  (SELECT pet_id from pets where pet_name = "Kirby"),
   (SELECT class_id from classes where class_name = 'Puppy Training')
 );
 
@@ -193,6 +220,7 @@ INSERT INTO `enrollments` (pet_id, class_id) values (
   (SELECT class_id from classes where class_name = 'Young Dog Training')
 
 );
+/*!40000 ALTER TABLE `enrollments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 

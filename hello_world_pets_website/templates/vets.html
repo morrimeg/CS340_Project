@@ -90,22 +90,27 @@
     <form action="" method="post">
     	<fieldset>
     		<div class="form-check form-check-inline">
-    			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
-  				<label class="form-check-label" for="className">Vet Name</label>
+    			<input class="form-check-input" type="radio" name="vetSearchType" value="vetFirstName" checked>
+  				<label class="form-check-label" for="vetFirstName">Vet First Name</label>
+  			</div>
+    		
+            <div class="form-check form-check-inline">
+    			<input class="form-check-input" type="radio" name="vetSearchType" value="vetLastName">
+  				<label class="form-check-label" for="vetLastName">Vet Last Name</label>
   			</div>
 
   			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
-  				<label class="form-check-label" for="day">Vet Specialty</label>
+  				<input class="form-check-input" type="radio" name="vetSearchType" value="vetSpecialty">
+  				<label class="form-check-label" for="vetSpecialty">Vet Specialty</label>
   			</div>
 
   			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
-  				<label class="form-check-label" for="time">Pet name</label>
+  				<input class="form-check-input" type="radio" name="vetSearchType" value="petName">
+  				<label class="form-check-label" for="petName">Pet Name</label>
   			</div>
 
   			<div>
-                <input type="text" style="width: 400px;">
+                <input type="text" style="width: 400px;" name="vetSearchText">
   				<button type="submit" class="btn btn-primary">Find Vets</button>
   			</div>
     	</fieldset>
@@ -113,8 +118,10 @@
   	</div>
 </div>
 
+
 <!-- Add a simple table -->
 
+{% if rows is defined and rows|length %}
 <div class="contianer">
 	<h5 class="card-title">Vets</h5>
 	<table class="table table-striped">
@@ -142,6 +149,15 @@
 	</table>
 
 </div>
+{% else %}
+{% if rows is defined %}
+<div>
+    <p class="text-center">
+    No vet found.
+    </p>
+</div>
+{% endif %}
+{% endif %}
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

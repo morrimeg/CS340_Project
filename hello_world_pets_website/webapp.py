@@ -93,7 +93,7 @@ def admin():
         classes_query = 'SELECT * from classes'
         classes_result = execute_query(db_connection, classes_query).fetchall()
     
-        enroll_query = 'SELECT * from enrollements'
+        enroll_query = 'SELECT * from enrollments'
         enroll_result = execute_query(db_connection, enroll_query).fetchall()
     
         vet_query = 'SELECT * from vets'

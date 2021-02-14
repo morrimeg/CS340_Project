@@ -88,28 +88,29 @@
 				<th scope="col">City</th>
 				<th scope="col">State</th>
 				<th scope="col">Zip Code</th>
-				<th scope="col">Number of Pets</th>
 				<th scope="col">Update</th>
 				<th scope="col">Delete</th>
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td> Cindy</td>
-			<td>Lou Who</td>
-			<td>cindyLou@gmail.com</td>
-			<td>231-333-3333</td>
-			<td>1234 Whoville Drive</td>
-			<td>Whoville</td>
-			<td>Who</td>
-			<td>01234</td>
-			<td>1</td>
-			<td>
-				<button class="btn btn-info">Update</button>
-			</td>
-			<td>
-				<button class="btn btn-danger">Delete</button>
-			</td>
+			{% for cust in customers %}
+			<tr>
+				<td>{{cust.first_name}}</td>
+				<td>{{cust.last_name}}</td>
+				<td>{{cust.email}}</td>
+				<td>{{cust.phone}}</td>
+				<td>{{cust.address}}</td>
+				<td>{{cust.city}}</td>
+				<td>{{cust.state}}</td>
+				<td>{{cust.zip_code}}</td>
+				<td>
+					<button class="btn btn-info">Update</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+			{% endfor %}
 
 			<tr>
 				<td colspan="7">

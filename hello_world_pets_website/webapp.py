@@ -79,8 +79,14 @@ def vets():
         # They're just visiting the page for the first time
         return render_template('vets.html')
 
-@webapp.route('/admin.html')
+@webapp.route('/admin.html', methods=['GET', 'POST'])
 def admin():
+    db_connection = connect_to_database()
+    
+    if request.method == 'GET':
+        query = 'SELECT * from customers'
+        result = execute_query(db_connection, query).fetchall()
+    
     return render_template('admin.html')
 
 # Testing DB connection

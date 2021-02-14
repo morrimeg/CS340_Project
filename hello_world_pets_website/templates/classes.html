@@ -114,7 +114,7 @@
   			</div>
 
   			<div>
-  				<input type="text" style="width:40%">
+  				<input type="text" style="width:40%" name="classSearchText">
   				<button type="submit" class="btn btn-primary">Search Classes</button>
   			</div>
     	</fieldset>
@@ -122,7 +122,8 @@
   	</div>
 </div>
 
-<!-- Adding a dummy table of what users will see after searching -->
+<!-- Add a simple table -->
+{% if rows is defined and rows|length %}
 <div class="contianer" style="width:70%">
 	<h5 class="card-title">Current Classes</h5>
 	<table class="table table-striped">
@@ -141,26 +142,38 @@
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td> Puppy Training 1</td>
-			<td>For puppies 8 weeks old to 20 weeks old. Teaches basic interaction and commands</td>
-			<td>Monday</td>
-			<td>1300</td>
-			<td>$100</td>
-			<td>3</td>
-			<td>5</td>
-      <td>
-        <input type="text" style="width:100%">
-      </td>
-      <td>
-        <button class="btn btn-info">Enroll Pet</button>
-      </td>
+        {% for r in rows %}
+        <tr>
+            <th scope="row">{{r[0]}}</th>
+            <td>{{r[1]}}</td>
+            <td>{{r[2]}}</td>
+            <td>{{r[3]}}</td>
+            <td>{{r[4]}}</td>
+            <td>{{r[5]}}</td>
+            <td>{{r[6]}}</td>
+            <td>{{r[7]}} - {{r[6]}}</td>
+            <td>
+              <input type="text" style="width:100%" name="enrollPetId">
+            </td>
+            <td>
+              <button class="btn btn-info" type="submit" name="enrollPet">Enroll Pet</button>
+            </td>
+        </tr>
+        {% endfor %}
 		</tbody>
-
 
 	</table>
 
 </div>
+{% else %}
+{% if rows is defined %}
+<div>
+    <p class="text-center">
+    No class found.
+    </p>
+</div>
+{% endif %}
+{% endif %}
 
 <!-- Jquery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

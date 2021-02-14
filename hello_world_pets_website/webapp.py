@@ -27,9 +27,31 @@ def customers():
 def pets():
     return render_template('pets.html')
 
-@webapp.route('/classes.html')
+@webapp.route('/classes.html', methods=['GET', 'POST'])
 def classes():
-    return render_template('classes.html')
+    db_connection = connect_to_database()
+    if request.method == 'POST':
+        # They submitted the form
+        if request.form['searchClasses'] == 'className':
+            className = request.form['classSearchText']
+            query = "SELECT * from classes where class_name = '" + className + "'"
+            result = execute_query(db_connection, query).fetchall()
+        elif request.form['searchClasses'] == 'day':
+            day = request.form['classSearchText']
+            query = "SELECT * from classes where class_day = '" + day + "'"
+            result = execute_query(db_connection, query).fetchall()
+        elif request.form['searchClasses'] == 'time':
+            time = request.form['classSearchText']
+            query = "SELECT * from vets class_time = '" + time + "'"
+            result = execute_query(db_connection, query).fetchall()
+        elif request.form['searchClasses'] == 'price':
+            price = request.form['classSearchText']
+            query = "SELECT * from classes where class_price = " + str(price)
+            result = execute_query(db_connection, query).fetchall()
+        return render_template('classes.html', rows=result)
+    else:
+        # They're just visiting the page for the first time
+        return render_template('classes.html')
 
 @webapp.route('/vets.html', methods=['GET','POST'])
 def vets():

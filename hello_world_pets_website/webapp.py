@@ -84,10 +84,22 @@ def admin():
     db_connection = connect_to_database()
     
     if request.method == 'GET':
-        query = 'SELECT * from customers'
-        result = execute_query(db_connection, query).fetchall()
+        customer_query = 'SELECT * from customers'
+        customer_result = execute_query(db_connection, customer_query).fetchall()
     
-    return render_template('admin.html')
+        pet_query = 'SELECT * from pets'
+        pet_result = execute_query(db_connection, pet_query).fetchall()
+    
+        classes_query = 'SELECT * from classes'
+        classes_result = execute_query(db_connection, classes_query).fetchall()
+    
+        enroll_query = 'SELECT * from enrollements'
+        enroll_result = execute_query(db_connection, enroll_query).fetchall()
+    
+        vet_query = 'SELECT * from vets'
+        vet_result = execute_query(db_connection, vet_query).fetchall()
+    
+    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
 
 # Testing DB connection
 @webapp.route('/db-test')

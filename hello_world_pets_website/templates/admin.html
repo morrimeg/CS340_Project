@@ -74,6 +74,7 @@
 
 
   <!-- Table for Customers Data -->
+  {% if rows is defined and rows|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Customers</h5>
 	<table class="table table-striped" style="width:100%">
@@ -93,16 +94,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for cust in customers %}
+			{% for r in rows %}
 			<tr>
-				<td>{{cust.first_name}}</td>
-				<td>{{cust.last_name}}</td>
-				<td>{{cust.email}}</td>
-				<td>{{cust.phone}}</td>
-				<td>{{cust.address}}</td>
-				<td>{{cust.city}}</td>
-				<td>{{cust.state}}</td>
-				<td>{{cust.zip_code}}</td>
+				<th scope="row">{{r[0]}}</th>
+				<td>{{r[1]}}</td>
+				<td>{{r[2]}}</td>
+				<td>{{r[3]}}</td>
+				<td>{{r[4]}}</td>
+				<td>{{r[5]}}</td>
+				<td>{{r[6]}}</td>
+				<td>{{r[7]}}</td>
+				<td>{{r[8]}}</td>
 				<td>
 					<button class="btn btn-info">Update</button>
 				</td>
@@ -113,16 +115,18 @@
 			{% endfor %}
 
 			<tr>
-				<td colspan="7">
+				<td colspan="11">
 					<button class="btn btn-secondary">Add Customer</button>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+{% endif %}
 
 
   <!-- Table for Pets Data -->
+   {% if pets is defined and pets|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Pets</h5>
 	<table class="table table-striped" style="width:100%">
@@ -141,23 +145,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td> Max</td>
-			<td>Dog</td>
-			<td>Cocker Spaniel</td>
-			<td>5</td>
-			<td>Male</td>
-			<td>1</td>
-			<td>1</td>
+			{% for p in pets %}
+		<tr>
+			<th scope="row">{{p[0]}}</th>
+			<td>{{p[1]}}</td>
+			<td>{{p[2]}}</td>
+			<td>{{p[3]}}</td>
+			<td>{{p[4]}}</td>
+			<td>{{p[5]}}</td>
+			<td>{{p[6]}}</td>
+			<td>{{p[7}}</td>
 			<td>
 				<button class="btn btn-info">Update</button>
 			</td>
 			<td>
 				<button class="btn btn-danger">Delete</button>
 			</td>
+		</tr>
+		{% endfor %}
 
 			<tr>
-				<td colspan="7">
+				<td colspan="10">
 					<button class="btn btn-secondary">Add Pet</button>
 				</td>
 			</tr>
@@ -165,8 +173,11 @@
 		</tbody>
 	</table>
 </div>
+{% endif %}
+
 
   <!-- Table for Classes -->
+  {% if classes is defined and classes|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Classes</h5>
 	<table class="table table-striped" style="width:100%">
@@ -185,23 +196,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td> Puppy Training 1</td>
-			<td>For puppies 8 weeks old to 20 weeks old. Teaches basic interaction and commands</td>
-			<td>Monday</td>
-			<td>1300</td>
-			<td>$100</td>
-			<td>3</td>
-			<td>5</td>
+			<tr>
+				{% for c in classes %}
+			<th scope="row">{{c[0]}}</th>
+			<td>{{c[1]}}</td>
+			<td>{{c[2]}}</td>
+			<td>{{c[3]}}</td>
+			<td>{{c[4]}}</td>
+			<td>{{c[5]}}</td>
+			<td>{{c[6]}}</td>
+			<td>{{c[7]}}</td>
 			<td>
 				<button class="btn btn-info">Update</button>
 			</td>
 			<td>
 				<button class="btn btn-danger">Delete</button>
 			</td>
+		</tr>
+		{% endfor %}
 
 			<tr>
-				<td colspan="7">
+				<td colspan="10">
 					<button class="btn btn-secondary">Add Class</button>
 				</td>
 			</tr>
@@ -209,8 +224,11 @@
 		</tbody>
 	</table>
 </div>
+{% endif %}
+
 
   <!-- Table for Enrollments -->
+  {% if enroll is defined and enroll|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Enrollments</h5>
 	<table class="table table-striped" style="width:100%">
@@ -224,15 +242,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td>1</td>
-			<td>1</td>
-			<td>
-				<button class="btn btn-info">Update</button>
-			</td>
-			<td>
-				<button class="btn btn-danger">Delete</button>
-			</td>
+			<tr>
+				{% for e in enroll %}
+				<th scope="row">{{e[0]}}</th>
+				<td>{{e[1]}}</td>
+				<td>{{e[2]}}</td>
+				<td>
+					<button class="btn btn-info">Update</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+			{% endfor %}
 
 			<tr>
 				<td colspan="7">
@@ -242,9 +264,11 @@
 
 		</tbody>
 	</table>
-</div>
+</di{v>
+{% endif %}
 
 <!-- Table for Vets -->
+  {% if vet is defined and vet|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Vets</h5>
 	<table class="table table-striped" style="width:100%">
@@ -256,35 +280,38 @@
 				<th scope="col">Email</th>
 				<th scope="col">Phone</th>
 				<th scope="col">Specialty</th>
-				<th scope="col">Number of Patients</th>
 				<th scope="col">Update</th>
 				<th scope="col">Delete</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td>Samantha</td>
-			<td>Perkins</td>
-			<td>sperk@hwp.org</td>
-			<td>(650) 123-4567</td>
-			<td>Feline Allergist</td>
-			<td>0</td>
-			<td>
-				<button class="btn btn-info">Update</button>
-			</td>
-			<td>
-				<button class="btn btn-danger">Delete</button>
-			</td>
+			<tr>
+				{% for v in vet %}
+				<th scope="row">{{v[0]}}</th>
+				<td>{{v[1]}}</td>
+				<td>{{v[2]}}</td>
+				<td>{{v[3]}}</td>
+				<td>{{v[4]}}</td>
+				<td>{{v[5]}}</td>
+				<td>
+					<button class="btn btn-info">Update</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+			{% endfor %}
 
 			<tr>
-				<td colspan="7">
+				<td colspan="8">
 					<button class="btn btn-secondary">Add Vet</button>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+{% endif %}
 
 	<!-- Jquery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

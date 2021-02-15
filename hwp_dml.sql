@@ -64,8 +64,8 @@ INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VA
 
 -- Admin page: add Class
 INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats)
-VALUES (:class_name_Input, :class_description_Input, :class_day_Input, :class_time_Input, :class_price_Input,
-		:class_enrollments_Input, :class_seats_Input)
+VALUES (:className, :classDescription, :classDay, :classTime, :classPrice,
+		:classEnrollments, :classSeats)
 
 -- Admin page: add Enrollment
 INSERT INTO enrollments (pet_id, class_id) values (
@@ -85,10 +85,14 @@ INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:first
 -- Admin page: update Customer
 
 -- Admin page: update Pet
+UPDATE pet SET pet_name = :petName, species= :petSpecies, breed = :petBreed, age = :petAge, age= :ageInput , gender = :petGender WHERE pet_id = :petId
 
 -- Admin page: update Class
+UPDATE class SET class_name = :className, class_description = :classDescription, class_day = :classDay, class_time = :classTime, class_price = :classPrice, class_enrollments = :classEnrollments, class_seats = :classSeats
+WHERE class_id = :classId
 
 -- Admin page: update Enrollment
+UPDATE enrollment SET pet_id = :petId, class_id = :classId WHERE enrollment_id = :enrollmentID
 
 -- Admin page: update Vet
 
@@ -99,9 +103,12 @@ INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:first
 -- Admin page: delete Customer
 
 -- Admin page: delete Pet
+DELETE FROM pets WHERE pet_id = :petId
 
 -- Admin page: delete Class
+DELETE FROM classes WHERE class_id = :classId
 
 -- Admin page: delete Enrollment
+DELETE FROM enrollments where enrollment_id = :enrollmentId
 
 -- Admin page: delete Vet

@@ -55,7 +55,6 @@ INSERT INTO enrollments (pet_id, class_id) VALUES(
 	(SELECT class_id from classes WHERE class_id = :classId)
 )
 
-
 -- Admin page: add Customer
 INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (:firstName, :lastName, :email, :phone, :address, :city, :state, :zip)
 
@@ -74,7 +73,6 @@ INSERT INTO enrollments (pet_id, class_id) values (
 
 )
 
-
 -- Admin page: add Vet
 INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:firstName, :lastName, :email, :phone, :specialty)
 
@@ -83,24 +81,29 @@ INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:first
 --
 
 -- Admin page: update Customer
+UPDATE customers SET first_name = :firstName, last_name = :lastName, email = :email, phone = :phone, address = :address, city = :city, state = :state, zip_code = :zipCode
+WHERE customer_id = :customerId
 
 -- Admin page: update Pet
-UPDATE pet SET pet_name = :petName, species= :petSpecies, breed = :petBreed, age = :petAge, age= :ageInput , gender = :petGender WHERE pet_id = :petId
+UPDATE pets SET pet_name = :petName, species= :petSpecies, breed = :petBreed, age = :petAge, age= :ageInput , gender = :petGender WHERE pet_id = :petId
 
 -- Admin page: update Class
-UPDATE class SET class_name = :className, class_description = :classDescription, class_day = :classDay, class_time = :classTime, class_price = :classPrice, class_enrollments = :classEnrollments, class_seats = :classSeats
+UPDATE classes SET class_name = :className, class_description = :classDescription, class_day = :classDay, class_time = :classTime, class_price = :classPrice, class_enrollments = :classEnrollments, class_seats = :classSeats
 WHERE class_id = :classId
 
 -- Admin page: update Enrollment
-UPDATE enrollment SET pet_id = :petId, class_id = :classId WHERE enrollment_id = :enrollmentID
+UPDATE enrollments SET pet_id = :petId, class_id = :classId WHERE enrollment_id = :enrollmentID
 
 -- Admin page: update Vet
+UPDATE vets SET first_name = :firstName, last_name = :lastName, email = :email, phone = :phone, specialty = :specialty
+WHERE vet_id = :vetId
 
 -- 
 -- DELETE queries
 --
 
 -- Admin page: delete Customer
+DELETE FROM customers WHERE customer_id = :customerId
 
 -- Admin page: delete Pet
 DELETE FROM pets WHERE pet_id = :petId
@@ -112,3 +115,5 @@ DELETE FROM classes WHERE class_id = :classId
 DELETE FROM enrollments where enrollment_id = :enrollmentId
 
 -- Admin page: delete Vet
+DELETE FROM vets WHERE vet_id = :vetId
+

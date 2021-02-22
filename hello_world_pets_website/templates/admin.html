@@ -334,7 +334,7 @@
   {% if vet is defined and vet|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Vets</h5>
-	<table class="table table-striped" style="width:100%">
+	<table id="vetTable" class="table table-striped" style="width:100%">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -367,9 +367,23 @@
 			{% endfor %}
 
 			<tr>
-				<td colspan="8">
-					<button class="btn btn-secondary">Add Vet</button>
-				</td>
+				<!--<td colspan="8">-->
+				<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+				remove-table-rows-dynamically-using-jquery.php-->
+				<!-- We need to add a form attribute in order to add new vets to the DB. We are 
+				also using JQUERY to make the Add Vet button reactive-->
+				<!--<td colspan="11">-->
+					<form>
+						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
+						<td><input type="number" id="class_id" hidden></td>
+						<td><input type="text" id="vetFirsName" placeholder="First Name"></td>
+						<td><input type="text" id="vetLastName" placeholder="Last Name"></td>
+						<td><input type="text" id="vetEmail" placeholder="Email"></td>
+						<td><input type="text" id="vetPhone" placehoder="Phone"></td>
+						<td><input type="text" id="vetSpecialty" placeholder="Specialty"></td>
+					</form>
+					<td><button id="vetButton" class="btn btn-secondary">Add Vet</button></td>
+				<!--</td>-->
 			</tr>
 		</tbody>
 	</table>

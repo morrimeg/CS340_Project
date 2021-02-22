@@ -19,8 +19,16 @@ def index():
 def home():
     return render_template('index.html')
 
-@webapp.route('/customers.html')
+@webapp.route('/customers.html', methods=['GET', 'POST'])
 def customers():
+    db_connection = connect_to_database()
+    if request.method == 'POST':
+        # They submitted a form
+        if request.form.action == 'addCustomer':
+            return "Add a customer"
+        elif request.form.action == 'addPet':
+            return "Add a pet"
+
     return render_template('customers.html')
 
 @webapp.route('/pets.html')

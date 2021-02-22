@@ -24,9 +24,34 @@ def customers():
     db_connection = connect_to_database()
     if request.method == 'POST':
         # They submitted a form
-        if request.form.action == 'addCustomer':
-            return "Add a customer"
-        elif request.form.action == 'addPet':
+        if request.form['action'] == 'addCustomer':
+            # They want to insert a new Customer record into the database
+            
+            # Get customer data from form fields
+            first_name = request.form.get('first-name')
+            last_name = request.form.get('last-name')
+            email = request.form.get('email-address')
+            phone_number = request.form.get('phone-number')
+            address = request.form.get('street-address')
+            city = request.form.get('city')
+            state = request.form.get('state')
+            zip_code = request.form.get('zip')
+
+            # Do the insert
+            query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+            data = (first_name, last_name, email, phone_number, address, city, state, zip_code)
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                if result:
+                    return "Success"
+                else:
+                    return "Failure"
+            except:
+                return "Failure"
+            
+        elif request.form['action'] == 'addPet':
+            # They want to add a new Pet to an existing Customer
             return "Add a pet"
 
     return render_template('customers.html')

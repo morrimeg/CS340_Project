@@ -102,11 +102,18 @@
                     <div class="card">
                         <div class="card-header">Register (For New Customers)</div>
                         <div class="card-body">
-                            <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                            <form action="" method="post">
                                 <div class="form-group row">
-                                    <label for="full_name" class="col-md-4 col-form-label text-md-right">Full Name</label>
+                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="full_name" class="form-control" name="full-name">
+                                        <input type="text" id="first_name" class="form-control" name="first-name">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="last_name" class="form-control" name="last-name">
                                     </div>
                                 </div>
 
@@ -120,14 +127,14 @@
                                 <div class="form-group row">
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="phone_number" class="form-control" name="phone_number">
+                                        <input type="text" id="phone_number" class="form-control" name="phone-number">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="street address" class="col-md-4 col-form-label text-md-right">Street Address</label>
+                                    <label for="street_address" class="col-md-4 col-form-label text-md-right">Street Address</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="street_address" class="form-control" name="street_address">
+                                        <input type="text" id="street_address" class="form-control" name="street-address">
                                     </div>
                                 </div>
 
@@ -174,7 +181,7 @@
                     <div class="card">
                         <div class="card-header">Add a Pet (Existing Customers)</div>
                         <div class="card-body">
-                            <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                            <form action="" method="post">
                                 <div class="form-group row">
                                     <label for="customer_id" class="col-md-4 col-form-label text-md-right">Customer ID</label>
                                     <div class="col-md-6">

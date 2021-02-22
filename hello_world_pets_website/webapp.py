@@ -28,28 +28,43 @@ def customers():
             # They want to insert a new Customer record into the database
             
             # Get customer data from form fields
-            first_name = request.form.get('first-name')
-            last_name = request.form.get('last-name')
-            email = request.form.get('email-address')
-            phone_number = request.form.get('phone-number')
-            address = request.form.get('street-address')
-            city = request.form.get('city')
-            state = request.form.get('state')
-            zip_code = request.form.get('zip')
+            customer_data = {
+                    "First Name": request.form.get('first-name'),
+                    "Last Name": request.form.get('last-name'),
+                    "Email": request.form.get('email-address'),
+                    "Phone Number": request.form.get('phone-number'),
+                    "Street Address": request.form.get('street-address'),
+                    "City": request.form.get('city'),
+                    "State": request.form.get('state'),
+                    "Zip Code": request.form.get('zip')
+                    }
 
-            # Do the insert
+            # Check for any empty fields (all required in this form)
+            missing_fields = []
+            for field in customer_data.keys():
+                if customer_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback = f"Correct missing information: {missing_fields}"
+                return render_template('customers.html', customer_reg_result=feedback)
+
+            # If no fields missing, do the insert
             query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
             data = (first_name, last_name, email, phone_number, address, city, state, zip_code)
             
             try:
                 result = execute_query(db_connection, query, data)
                 if result:
-                    return "Success"
+                    feedback = f"Added Customer {first_name} {last_name}"
                 else:
-                    return "Failure"
+                    feedback = "Add Customer Failed."
             except:
-                return "Failure"
-            
+                feedback = "Add Customer Failed."
+           
+            # Render page with query execution feeback
+            return render_template('customers.html', customer_reg_result=feedback)
+
         elif request.form['action'] == 'addPet':
             # They want to add a new Pet to an existing Customer
             return "Add a pet"

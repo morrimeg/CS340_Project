@@ -167,6 +167,13 @@
                                 </div>
                             </form>
                         </div>
+                        {% if customer_reg_result is defined %}
+                        <div>
+                            <p class="text-center">
+                                {{customer_reg_result}}
+                            </p>
+                        </div>
+                        {% endif %}
                     </div>
             </div>
         </div>

@@ -122,7 +122,7 @@
 				<!--<td colspan="11">-->
 					<form>
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="text" id="cust_id" hidden></td>
+						<td><input type="number" id="cust_id" hidden></td>
 						<td><input type="text" id="firstName" placeholder="First Name"></td>
 						<td><input type="text" id="lastName" placeholder="Last Name"></td>
 						<td><input type="text" id="email" placeholder="Email"></td>
@@ -185,11 +185,11 @@
 					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
 					remove-table-rows-dynamically-using-jquery.php-->
 				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
-				also using JQUERY to make the Add Customer button reactive-->
+				also using JQUERY to make the Add Pet button reactive-->
 				<!--<td colspan="11">-->
 					<form>
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="text" id="pet_id" hidden></td>
+						<td><input type="number" id="pet_id" hidden></td>
 						<td><input type="text" id="name" placeholder="Pet Name"></td>
 						<td><input type="text" id="species" placeholder="Species"></td>
 						<td><input type="text" id="breed" placeholder="breed"></td>
@@ -199,8 +199,8 @@
 							<input type="radio" name="gender" id="female" value="female">
 							<br>
 							<label for="female">Female</label></td>
-						<td><input type="text" id="vet_id" hidden></td>
-						<td><input type="text" id="customer_id" hidden></td>
+						<td><input type="number" id="vet_id" hidden></td>
+						<td><input type="number" id="customer_id" hidden></td>
 					</form>
 					<td><button id="petButton" class="btn btn-secondary">Add Pet</button></td>
 				<!--</td>-->
@@ -252,9 +252,25 @@
 		{% endfor %}
 
 			<tr>
-				<td colspan="10">
-					<button class="btn btn-secondary">Add Class</button>
-				</td>
+				<!--<td colspan="10">-->
+					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+					remove-table-rows-dynamically-using-jquery.php-->
+				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
+				also using JQUERY to make the Add Pet button reactive-->
+				<!--<td colspan="11">-->
+					<form>
+						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
+						<td><input type="number" id="class_id" hidden></td>
+						<td><input type="text" id="className" placeholder="Class Name"></td>
+						<td><input type="text" id="description" placeholder="Class Description"></td>
+						<td><input type="date" id="day" placeholder="Day"></td>
+						<td><input type="datetime" id="time" placehoder="Time"></td>
+						<td><input type="number" id="price" value="Price"></td>
+						<td><input type="number" id="enrollments" value="Class Enrollments"></td>
+						<td><input type="number" id="seats" value="Class Seats"></td>
+					</form>
+					<td><button id="classButton" class="btn btn-secondary">Add Class</button></td>
+				<!--</td>-->
 			</tr>
 
 		</tbody>

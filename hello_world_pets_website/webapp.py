@@ -83,23 +83,51 @@ def vets():
 def admin():
     db_connection = connect_to_database()
     
+    # If the user is simply going to the admin page, display all info in all tables
     if request.method == 'GET':
+        # Display customer table
         customer_query = 'SELECT * from customers'
         customer_result = execute_query(db_connection, customer_query).fetchall()
     
+        # Display pets table
         pet_query = 'SELECT * from pets'
         pet_result = execute_query(db_connection, pet_query).fetchall()
-    
+
+        # Display classes table
         classes_query = 'SELECT * from classes'
         classes_result = execute_query(db_connection, classes_query).fetchall()
     
+        # display enrollments table
         enroll_query = 'SELECT * from enrollments'
         enroll_result = execute_query(db_connection, enroll_query).fetchall()
     
+        # Display vets table
         vet_query = 'SELECT * from vets'
         vet_result = execute_query(db_connection, vet_query).fetchall()
     
-    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
+        # Return info from all tables
+        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
+
+    # If users are inserting new information into the tables on the admin page
+    if request.method == 'POST':
+        # If they submitted a form to add a new customer
+        if request.form['addCustomer']:
+            customerFirstName = request.form.get('customerFirstName')
+            customerLastName = request.form.get('customerLastName')
+            customerEmail = request.form.get('customerEmail')
+            customerPhone = request.form.get('customerPhone')
+            customerAddress = request.form.get('customerAddress')
+            customerCity = request.form.get('customerCity')
+            customerState = request.form.get('customerState')
+            customerZip = request.form.get('customerZip')
+            query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+            data = (customerFirstName, customerLastName, customerEmail, customerPhone, customerAddress, customerCity, customerState, customerZip)
+            execute_query(db_connection, query, data)
+            customer_updated_table = 'SELECT * FROM customers'
+            customer_table = execute_query(db_connection, customer_updated_table).fetchall()
+            return render_template('admin.html', customers=customer_table)
+
+
 
 # Testing DB connection
 @webapp.route('/db-test')

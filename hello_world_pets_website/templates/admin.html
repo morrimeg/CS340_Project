@@ -216,7 +216,7 @@
   {% if classes is defined and classes|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Classes</h5>
-	<table class="table table-striped" style="width:100%">
+	<table id="classTable" class="table table-striped" style="width:100%">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -255,8 +255,8 @@
 				<!--<td colspan="10">-->
 					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
 					remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
-				also using JQUERY to make the Add Pet button reactive-->
+				<!-- We need to add a form attribute in order to add new classes to the DB. We are 
+				also using JQUERY to make the Add Class button reactive-->
 				<!--<td colspan="11">-->
 					<form>
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
@@ -283,7 +283,7 @@
   {% if enroll is defined and enroll|length %}
   <div class="contianer" style="width:90%">
 	<h5 class="card-title">Enrollments</h5>
-	<table class="table table-striped" style="width:100%">
+	<table id="enrollTable" class="table table-striped" style="width:100%">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -309,9 +309,20 @@
 			{% endfor %}
 
 			<tr>
-				<td colspan="7">
-					<button class="btn btn-secondary">Enroll Pet</button>
-				</td>
+				<!--<td colspan="7">-->
+									<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+					remove-table-rows-dynamically-using-jquery.php-->
+				<!-- We need to add a form attribute in order to add new enrollments to the DB. We are 
+				also using JQUERY to make the Enroll Pet button reactive-->
+				<!--<td colspan="11">-->
+					<form>
+						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
+						<td><input type="number" id="enroll_id" hidden></td>
+						<td><input type="number" id="pet_id" placeholder="Pet ID"></td>
+						<td><input type="number" id="class_id" placeholder="Class ID"></td>
+					</form>
+					<td><button id="enrollButton" class="btn btn-secondary">Enroll Pet</button></td>
+				<!--</td>-->
 			</tr>
 
 		</tbody>

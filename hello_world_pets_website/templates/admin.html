@@ -424,7 +424,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 	<script>
-
+		/* Add Customers Button*/
 		$("#customerButton").click(function () { 
 
 		$("#customerTable").each(function () {
@@ -442,6 +442,76 @@
 	});
 	});
 
+	/* Add Pets Button*/
+	$("#petButton").click(function () { 
+
+	$("#petTable").each(function () {
+
+	var tds = '<tr>';
+	jQuery.each($('tr:last td', this), function () {
+		tds += '<td>' + $(this).html() + '</td>';
+	});
+	tds += '</tr>';
+	if ($('tbody', this).length > 0) {
+		$('tbody', this).append(tds);
+	} else {
+		$(this).append(tds);
+	}
+	});
+	});
+	/*Add Classes Button*/
+	$("#classButton").click(function () { 
+
+	$("#classTable").each(function () {
+
+	var tds = '<tr>';
+	jQuery.each($('tr:last td', this), function () {
+		tds += '<td>' + $(this).html() + '</td>';
+	});
+	tds += '</tr>';
+	if ($('tbody', this).length > 0) {
+		$('tbody', this).append(tds);
+	} else {
+		$(this).append(tds);
+	}
+	});
+	});
+
+	/*Enroll Pets Button*/
+	$("#enrollButton").click(function () { 
+
+	$("#enrollTable").each(function () {
+
+	var tds = '<tr>';
+	jQuery.each($('tr:last td', this), function () {
+		tds += '<td>' + $(this).html() + '</td>';
+	});
+	tds += '</tr>';
+	if ($('tbody', this).length > 0) {
+		$('tbody', this).append(tds);
+	} else {
+	$(this).append(tds);
+}
+	});
+	});
+
+	/*Add Vets Button*/
+	$("#vetButton").click(function () { 
+
+	$("#vetTable").each(function () {
+
+	var tds = '<tr>';
+	jQuery.each($('tr:last td', this), function () {
+		tds += '<td>' + $(this).html() + '</td>';
+	});
+	tds += '</tr>';
+	if ($('tbody', this).length > 0) {
+		$('tbody', this).append(tds);
+	} else {
+		$(this).append(tds);
+	}
+	});
+	});
 	</script>
 
 

@@ -22,6 +22,12 @@ def home():
 @webapp.route('/customers.html', methods=['GET', 'POST'])
 def customers():
     db_connection = connect_to_database()
+    
+    # Query vet options to populate pet form drop-down menu
+    query = 'SELECT vet_id, first_name, last_name, specialty FROM vets'
+    vets_result = execute_query(db_connection, query)
+    
+    
     if request.method == 'POST':
         # They submitted a form
         if request.form['action'] == 'addCustomer':
@@ -47,29 +53,79 @@ def customers():
 
             if len(missing_fields) > 0:
                 feedback = f"Correct missing information: {missing_fields}"
-                return render_template('customers.html', customer_reg_result=feedback)
+                return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result)
 
             # If no fields missing, do the insert
             query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
-            data = (first_name, last_name, email, phone_number, address, city, state, zip_code)
+            data = (customer_data["First Name"],
+                    customer_data["Last Name"],
+                    customer_data["Email"],
+                    customer_data["Phone Number"],
+                    customer_data["Street Address"], 
+                    customer_data["City"], 
+                    customer_data["State"],
+                    customer_data["Zip Code"])
             
             try:
                 result = execute_query(db_connection, query, data)
                 if result:
-                    feedback = f"Added Customer {first_name} {last_name}"
+                    feedback = f"Added Customer {customer_data['First Name']} {customer_data['Last Name']}"
                 else:
                     feedback = "Add Customer Failed."
             except:
                 feedback = "Add Customer Failed."
            
             # Render page with query execution feeback
-            return render_template('customers.html', customer_reg_result=feedback)
+            return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result)
 
         elif request.form['action'] == 'addPet':
             # They want to add a new Pet to an existing Customer
-            return "Add a pet"
+            
+            # Get pet data from form fields
+            pet_data = {
+                    "Customer ID": request.form.get('customer-id'),
+                    "Pet Name": request.form.get('pet-name'),
+                    "Pet Species": request.form.get('pet-species'),
+                    "Pet Breed": request.form.get('pet-breed'),
+                    "Pet Age": request.form.get('pet-age'),
+                    "Pet Gender": request.form.get('pet-gender'),
+                    "Veterinarian Choice": request.form.get('vet'),
+                    }
 
-    return render_template('customers.html')
+            # Check for any empty fields (all required in this form)
+            missing_fields = []
+            for field in pet_data.keys():
+                if pet_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback = f"Correct missing information: {missing_fields}"
+                return render_template('customers.html', pet_reg_result=feedback, vet_options=vets_result)
+
+            # If no fields missing, do the insert
+            query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+            data = (pet_data["Pet Name"],
+                    pet_data["Pet Species"],
+                    pet_data["Pet Breed"],
+                    pet_data["Pet Age"],
+                    pet_data["Pet Gender"], 
+                    pet_data["Veterinarian Choice"], 
+                    pet_data["Customer ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                if result:
+                    feedback = f"Added Pet {pet_data['Pet Name']}"
+                else:
+                    feedback = "Add Pet Failed."
+            except:
+                feedback = "Add Pet Failed."
+           
+            # Render page with query execution feeback
+            return render_template('customers.html', pet_reg_result=feedback, vet_options=vets_result)
+    
+    # Just render the base webpage
+    return render_template('customers.html', vet_options=vets_result)
 
 @webapp.route('/pets.html')
 def pets():

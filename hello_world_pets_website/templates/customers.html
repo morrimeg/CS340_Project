@@ -164,7 +164,6 @@
                                     Register
                                   </button>
                                 </div>
-                                </div>
                             </form>
                         </div>
                         {% if customer_reg_result is defined %}
@@ -230,13 +229,13 @@
                                   </label>
                                   <div class="form-check form-check-inline">
 
-                                    <input class="form-check-input" type="radio" name="pet-gender" id="pet_gender1">
+                                    <input class="form-check-input" type="radio" name="pet-gender" id="pet_gender1" value="1">
                                     <label class="form-check-label" for="pet_gender1">
                                       Female 
                                     </label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pet-gender" id="pet_gender2" checked>
+                                    <input class="form-check-input" type="radio" name="pet-gender" id="pet_gender2" value="2" checked>
                                     <label class="form-check-label" for="pet_gender2">
                                       Male
                                     </label>
@@ -247,11 +246,11 @@
                                   <label class="col-md-4 form-check-label text-md-right" for="pet_gender2">
                                       Veterinarian
                                   </label>
-                                  <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select an option</option>
-                                    <option value="1">Samantha Perkins</option>
-                                    <option value="2">Aaron Wu</option>
-                                    <option value="3">No Vet</option>
+                                  <select class="form-select" aria-label="Choose a vet" name="vet">
+                                    <option value ="" selected>Select an option</option>
+                                    {% for v in vet_options %}
+                                    <option value={{v[0]}}>{{v[1]}} {{v[2]}} ({{v[3]}})</option>
+                                    {% endfor %}
                                   </select>
                                 </div>
 
@@ -263,6 +262,13 @@
                                 </div>
                             </form>
                         </div>
+                        {% if pet_reg_result is defined %}
+                        <div>
+                            <p class="text-center">
+                                {{pet_reg_result}}
+                            </p>
+                        </div>
+                        {% endif %}
                     </div>
             </div>
         </div>

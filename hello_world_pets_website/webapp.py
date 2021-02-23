@@ -294,6 +294,17 @@ def admin():
             query = "DELETE FROM classes WHERE class_id = '" + class_id + "'"
             execute_query(db_connection, query)
             return refresh_admin()
+     
+         # If they submitted to update an enrollment
+        elif request.form.get('enroll-update'):
+            return str(request.form.get('enroll-update'))            
+
+        # If they submitted to delete a class
+        elif request.form.get('enroll-delete'):
+            enrollment_id = request.form.get('class-delete')
+            query = "DELETE FROM enrollments WHERE enrollment_id = '" + enrollment_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
 
 
         # If they submitted to add a new customer

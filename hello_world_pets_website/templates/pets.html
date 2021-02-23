@@ -90,22 +90,22 @@
     <form action="" method="post">
     	<fieldset>
     		<div class="form-check form-check-inline">
-    			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
+    			<input class="form-check-input" type="radio" name="searchPets" value="customerName" checked>
   				<label class="form-check-label" for="className">Customer Name</label>
   			</div>
 
   			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
+  				<input class="form-check-input" type="radio" name="searchPets" value="petName">
   				<label class="form-check-label" for="day">Pet Name</label>
   			</div>
 
   			<div class="form-check form-check-inline">
-  				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
-  				<label class="form-check-label" for="time">Pet Type</label>
+  				<input class="form-check-input" type="radio" name="searchPets" value="petType">
+  				<label class="form-check-label" for="time">Pet Type (Species or Breed)</label>
   			</div>
 
   			<div>
-  				<input type="text" style="width: 400px;">
+  				<input type="text" style="width: 400px;" name="petSearchText">
   				<button type="submit" class="btn btn-primary">Find Pets</button>
   			</div>
     	</fieldset>
@@ -114,6 +114,7 @@
 </div>
 
 <!-- Adding a dummy table of what users will see after searching -->
+{% if rows is defined and rows|length %}
 <div class="contianer">
 	<h5 class="card-title">Pets</h5>
 	<table class="table table-striped">
@@ -121,24 +122,40 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Pet Name</th>
-				<th scope="col">Type</th>
+				<th scope="col">Species</th>
+				<th scope="col">Breed</th>
 				<th scope="col">Age</th>
+				<th scope="col">Gender</th>
+				<th scope="col">Vet</th>
 				<th scope="col">Customer</th>
 			</tr>
 		</thead>
 		<tbody>
-			<th scope="row">1</th>
-			<td> Jack</td>
-			<td>Bird</td>
-			<td>1</td>
-			<td>Peter</td>
+        {% for r in rows %}
+        <tr>
+            <th scope="row">{{r[0]}}</th>
+            <td>{{r[1]}}</td>
+            <td>{{r[2]}}</td>
+            <td>{{r[3]}}</td>
+            <td>{{r[4]}}</td>
+            <td>{{r[5]}}</td>
+            <td>{{r[6]}}</td>
+            <td>{{r[7]}}</td>
+        </tr>
+        {% endfor %}
 		</tbody>
-
-
 	</table>
-
 </div>
 
+{% else %}
+{% if rows is defined %}
+<div>
+    <p class="text-center">
+    No pets found.
+    </p>
+</div>
+{% endif %}
+{% endif %}
 
   <!-- Jquery -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

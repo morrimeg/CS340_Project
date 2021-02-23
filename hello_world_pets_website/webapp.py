@@ -127,9 +127,42 @@ def customers():
     # Just render the base webpage
     return render_template('customers.html', vet_options=vets_result)
 
-@webapp.route('/pets.html')
+@webapp.route('/pets.html', methods=['GET', 'POST'])
 def pets():
-    return render_template('pets.html')
+    db_connection = connect_to_database()
+   
+    if request.method == 'POST':
+        # They submitted the form
+        if request.form['searchPets'] == 'customerName':
+            customerName = request.form['petSearchText'].split()
+            
+            # One name provided - could be first or last
+            if len(customerName) == 1:
+                name = customerName[0]
+                query = "SELECT * FROM pets where customer_id = (SELECT customer_id FROM customers WHERE first_name = '" + name + "' OR last_name = '" + name + "')"
+            
+            # Two names provided - first and last
+            elif len(customerName) == 2:
+                first = customerName[0]
+                last = customerName[1]
+                query = "SELECT * FROM pets where customer_id = (SELECT customer_id FROM customers WHERE first_name = '" + first + "' AND last_name = '" + last + "')"
+
+            # Execute the query
+            result = execute_query(db_connection, query).fetchall()
+
+        elif request.form['searchPets'] == 'petName':
+            petName = request.form['petSearchText']
+            query = "SELECT * FROM pets where pet_name = '" + petName + "'"
+            result = execute_query(db_connection, query).fetchall()
+
+        elif request.form['searchPets'] == 'petType':
+            petType = request.form['petSearchText']
+            query = "SELECT * FROM pets WHERE species = '" + petType + "' OR breed = '" + petType + "'"
+            result = execute_query(db_connection, query).fetchall()
+
+        return render_template('pets.html', rows=result)
+    else:
+        return render_template('pets.html')
 
 @webapp.route('/classes.html', methods=['GET', 'POST'])
 def classes():

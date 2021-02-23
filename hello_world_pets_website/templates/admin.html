@@ -295,7 +295,7 @@
 				<!-- We need to add a form attribute in order to add new classes to the DB. We are 
 				also using JQUERY to make the Add Class button reactive-->
 				<!--<td colspan="11">-->
-					<form action="", method="post">
+					<form action="" method="post">
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
 						<td><input type="number" name="class_id" hidden></td>
 						<td><input type="text" name="class_name" placeholder="Class Name"></td>
@@ -371,7 +371,7 @@
 				<!-- We need to add a form attribute in order to add new enrollments to the DB. We are 
 				also using JQUERY to make the Enroll Pet button reactive-->
 				<!--<td colspan="11">-->
-					<form action="", method="post">
+					<form action="" method="post">
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
 						<td><input type="number" name="enroll_id" hidden></td>
 						<td><input type="number" name="pet_id" placeholder="Pet ID"></td>
@@ -429,10 +429,14 @@
 				<td>{{v[4]}}</td>
 				<td>{{v[5]}}</td>
 				<td>
-					<button class="btn btn-info">Update</button>
+					<form action="" method="post">
+					<button class="btn btn-info" name="vet-update" value="{{v[0]}}">Update</button>
+					</form>
 				</td>
 				<td>
-					<button class="btn btn-danger">Delete</button>
+					<form action="" method="post">
+					<button class="btn btn-danger" name="vet-delete" value="{{v[0]}}">Delete</button>
+					</form>
 				</td>
 			</tr>
 			{% endfor %}
@@ -444,21 +448,36 @@
 				<!-- We need to add a form attribute in order to add new vets to the DB. We are 
 				also using JQUERY to make the Add Vet button reactive-->
 				<!--<td colspan="11">-->
-					<form>
+					<form action="" method="post">
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number" id="class_id" hidden></td>
-						<td><input type="text" id="vetFirsName" placeholder="First Name"></td>
-						<td><input type="text" id="vetLastName" placeholder="Last Name"></td>
-						<td><input type="text" id="vetEmail" placeholder="Email"></td>
-						<td><input type="text" id="vetPhone" placehoder="Phone"></td>
-						<td><input type="text" id="vetSpecialty" placeholder="Specialty"></td>
+						<td><input type="number" name="vet_id" hidden></td>
+						<td><input type="text" name="vet_first_name" placeholder="First Name"></td>
+						<td><input type="text" name="vet_last_name" placeholder="Last Name"></td>
+						<td><input type="text" name="vet_email" placeholder="Email"></td>
+						<td><input type="text" name="vet_phone" placehoder="Phone"></td>
+						<td><input type="text" name="vet_specialty" placeholder="Specialty"></td>
+						<td><button id="vetButton" class="btn btn-secondary" name="vet-insert" value="0">Add Vet</button></td>
 					</form>
-					<td><button id="vetButton" class="btn btn-secondary">Add Vet</button></td>
 				<!--</td>-->
 			</tr>
 		</tbody>
 	</table>
+	{% if feedback is defined and feedback|length %}
+    <div>
+        <p class="text-center">
+        {{feedback["Vets"]}}
+        </p>
+    </div>
+    {% endif %}
 </div>
+
+{% if vet_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{vet_admin_result}}
+    </p>
+</div>
+{% endif %}
 {% endif %}
 
 	<!-- Jquery -->

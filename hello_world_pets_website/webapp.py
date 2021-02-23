@@ -443,6 +443,42 @@ def admin():
            
             return refresh_admin(feedback)
 
+        # If they submitted a new enrollment
+        elif request.form.get('enroll-insert'):
+            
+            # Get class data from form fields
+            enroll_data = {
+                    "Pet ID": request.form.get('pet_id'),
+                    "Class ID": request.form.get('class_id')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = [] 
+            for field in enroll_data.keys():
+                if enroll_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Enrollments"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO enrollments (pet_id, class_id) values ((SELECT pet_id from pets where pet_id = %s),(SELECT class_id from classes where class_id = %s))'
+                data = (enroll_data["Pet ID"],
+                        enroll_data["Class ID"])
+                
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Enrollments"] = f"Added Enrollment {enroll_data['Enrollment ID']}"
+                    else:
+                        feedback["Enrollments"] = "Add Enrollment Failed."
+                except:
+                    feedback["Enrollments"] = "Add Enrollment Failed."
+           
+            return refresh_admin(feedback)
+
+
 
 # Testing DB connection
 @webapp.route('/db-test')

@@ -186,10 +186,14 @@
 			<td>{{p[6]}}</td>
 			<td>{{p[7]}}</td>
 			<td>
+				<form action="" method="post">
 				<button class="btn btn-info" name="pet-update" value="{{p[0]}}">Update</button>
+				</form>
 			</td>
 			<td>
+				<form action="" method="post">
 				<button class="btn btn-danger" name="pet-delete" value="{{p[0]}}">Delete</button>
+				</form>
 			</td>
 		</tr>
 		{% endfor %}

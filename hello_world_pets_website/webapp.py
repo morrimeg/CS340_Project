@@ -374,7 +374,7 @@ def admin():
                 except:
                     feedback["Pets"] = "Add Pet Failed."
            
-                return refresh_admin(feedback)
+            return refresh_admin(feedback)
 
 
 # Testing DB connection

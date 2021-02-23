@@ -299,10 +299,21 @@ def admin():
         elif request.form.get('enroll-update'):
             return str(request.form.get('enroll-update'))            
 
-        # If they submitted to delete a class
+        # If they submitted to delete an enrollment
         elif request.form.get('enroll-delete'):
             enrollment_id = request.form.get('class-delete')
             query = "DELETE FROM enrollments WHERE enrollment_id = '" + enrollment_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
+
+        # If they submitted to update a vet
+        elif request.form.get('vet-update'):
+            return str(request.form.get('vet-update'))            
+
+        # If they submitted to delete a vet
+        elif request.form.get('vet-delete'):
+            vet_id = request.form.get('class-delete')
+            query = "DELETE FROM vets WHERE vet_id = '" + vet_id + "'"
             execute_query(db_connection, query)
             return refresh_admin()
 

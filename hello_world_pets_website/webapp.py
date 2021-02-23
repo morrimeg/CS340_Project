@@ -261,17 +261,32 @@ def admin():
                     "Vets": ""}
 
         db_connection = connect_to_database()
-        # If they submitted a form to add a new customer
+        
+        # If they submitted to update a customer
         if request.form.get('customer-update'):
             return str(request.form.get('customer-update'))            
 
-        if request.form.get('customer-delete'):
+        # If they submitted to delete a customer
+        elif request.form.get('customer-delete'):
             customer_id = request.form.get('customer-delete')
             query = "DELETE FROM customers WHERE customer_id = '" + customer_id + "'"
             execute_query(db_connection, query)
             return refresh_admin()
+    
+        # If they submitted to update a pet
+        elif request.form.get('pet-update'):
+            return str(request.form.get('pet-update'))            
 
-        if request.form.get('customer-insert'):
+        # If they submitted to delete a pet
+        elif request.form.get('pet-delete'):
+            pet_id = request.form.get('pet-delete')
+            query = "DELETE FROM pets WHERE pet_id = '" + pet_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
+
+
+        # If they submitted to add a new customer
+        elif request.form.get('customer-insert'):
             # Get customer data from form fields
             customer_data = {
                     "First Name": request.form.get('customer_first_name'),
@@ -313,8 +328,53 @@ def admin():
                         feedback["Customers"] = "Add Customer Failed."
                 except:
                     feedback["Customers"] = "Add Customer Failed."
+                
+            return refresh_admin(feedback)
+        
+        # If they submitted a new pet
+        elif request.form.get('pet-insert'):
+            
+            # Get pet data from form fields
+            pet_data = {
+                    "Pet Name": request.form.get('pet_name'),
+                    "Species": request.form.get('pet_species'),
+                    "Breed": request.form.get('pet_breed'),
+                    "Age": request.form.get('pet_age'),
+                    "Gender": request.form.get('pet_gender'),
+                    "Vet ID": request.form.get('vet_id'),
+                    "Customer ID": request.form.get('customer_id')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = [] 
+            for field in pet_data.keys():
+                if pet_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Pets"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+                data = (pet_data["Pet Name"],
+                        pet_data["Species"],
+                        pet_data["Breed"],
+                        pet_data["Age"],
+                        pet_data["Gender"], 
+                        pet_data["Vet ID"], 
+                        pet_data["Customer ID"])
+                
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Pets"] = f"Added Pet {pet_data['Pet Name']}"
+                    else:
+                        feedback["Pets"] = "Add Pet Failed."
+                except:
+                    feedback["Pets"] = "Add Pet Failed."
            
-        return refresh_admin(feedback)
+                return refresh_admin(feedback)
 
 
 # Testing DB connection

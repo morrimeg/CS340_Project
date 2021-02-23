@@ -186,10 +186,10 @@
 			<td>{{p[6]}}</td>
 			<td>{{p[7]}}</td>
 			<td>
-				<button class="btn btn-info">Update</button>
+				<button class="btn btn-info" name="pet-update" value="{{p[0]}}">Update</button>
 			</td>
 			<td>
-				<button class="btn btn-danger">Delete</button>
+				<button class="btn btn-danger" name="pet-delete" value="{{p[0]}}">Delete</button>
 			</td>
 		</tr>
 		{% endfor %}
@@ -201,28 +201,43 @@
 				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
 				also using JQUERY to make the Add Pet button reactive-->
 				<!--<td colspan="11">-->
-					<form>
+					<form action="" method="post">
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number" id="pet_id" hidden></td>
-						<td><input type="text" id="name" placeholder="Pet Name"></td>
-						<td><input type="text" id="species" placeholder="Species"></td>
-						<td><input type="text" id="breed" placeholder="breed"></td>
-						<td><input type="text" id="age" placehoder="Age"></td>
-						<td><input type="radio" name ="gender" id="male" value="male">
-							<label for="male">Male</label>
-							<input type="radio" name="gender" id="female" value="female">
+						<td><input type="number" name="pet_id" hidden></td>
+						<td><input type="text" name="pet_name" placeholder="Pet Name"></td>
+						<td><input type="text" name="pet_species" placeholder="Species"></td>
+						<td><input type="text" name="pet_breed" placeholder="Breed"></td>
+						<td><input type="text" name="pet_age" placehoder="Age"></td>
+						<td><input type="radio" name ="pet_gender" id="pet_gender1" value="1">
+							<label for="pet_gender1">Female</label>
+							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<br>
-							<label for="female">Female</label></td>
-						<td><input type="number" id="vet_id" hidden></td>
-						<td><input type="number" id="customer_id" hidden></td>
-						<td><input type="submit" id="petButton" class="btn btn-secondary">Add Pet</button></td>
+							<label for="pet_gender2">Male</label></td>
+						<td><input type="number" name="vet_id" placeholder="Vet ID"></td>
+						<td><input type="number" name="customer_id" placeholder="Customer ID"></td>
+						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add Pet</button></td>					
 					</form>
 				<!--</td>-->
 			</tr>
 
 		</tbody>
 	</table>
+	{% if feedback is defined and feedback|length %}
+    <div>
+        <p class="text-center">
+        {{feedback["Pets"]}}
+        </p>
+    </div>
+    {% endif %}
 </div>
+
+{% if pet_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{pet_admin_result}}
+    </p>
+</div>
+{% endif %}
 {% endif %}
 
 

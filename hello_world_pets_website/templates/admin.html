@@ -131,13 +131,22 @@
 						<td><input type="text" name="addCustomer" id="customerCity" placehodler="City"></td>
 						<td><input type="text" name="addCustomer" id="customerState" placeholder="State"></td>
 						<td><input type="text" name="addCustomer" id="customerZip" placeholder="Zip Code"></td>
+						<td><button type="submit" id="customerButton" class="btn btn-secondary" name="action" value="addCustomer_Admin">Add Customer</button></td>
 					</form>
-					<td><button id="customerButton" class="btn btn-secondary">Add Customer</button></td>
+					
 				<!--</td>-->
 			</tr>
 		</tbody>
 	</table>
 </div>
+
+{% if customer_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{customer_admin_result}}
+    </p>
+</div>
+{% endif %}
 {% endif %}
 
 
@@ -201,8 +210,8 @@
 							<label for="female">Female</label></td>
 						<td><input type="number" id="vet_id" hidden></td>
 						<td><input type="number" id="customer_id" hidden></td>
+						<td><input type="submit" id="petButton" class="btn btn-secondary">Add Pet</button></td>
 					</form>
-					<td><button id="petButton" class="btn btn-secondary">Add Pet</button></td>
 				<!--</td>-->
 			</tr>
 
@@ -424,23 +433,6 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 	<script>
-		/* Add Customers Button*/
-		$("#customerButton").click(function () { 
-
-		$("#customerTable").each(function () {
-   
-		var tds = '<tr>';
-		jQuery.each($('tr:last td', this), function () {
-			tds += '<td>' + $(this).html() + '</td>';
-		});
-		tds += '</tr>';
-		if ($('tbody', this).length > 0) {
-			$('tbody', this).append(tds);
-		} else {
-			$(this).append(tds);
-		}
-	});
-	});
 
 	/* Add Pets Button*/
 	$("#petButton").click(function () { 

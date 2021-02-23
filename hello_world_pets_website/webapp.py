@@ -215,21 +215,56 @@ def admin():
     # If users are inserting new information into the tables on the admin page
     if request.method == 'POST':
         # If they submitted a form to add a new customer
-        if request.form['addCustomer']:
-            customerFirstName = request.form.get('customerFirstName')
-            customerLastName = request.form.get('customerLastName')
-            customerEmail = request.form.get('customerEmail')
-            customerPhone = request.form.get('customerPhone')
-            customerAddress = request.form.get('customerAddress')
-            customerCity = request.form.get('customerCity')
-            customerState = request.form.get('customerState')
-            customerZip = request.form.get('customerZip')
-            query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
-            data = (customerFirstName, customerLastName, customerEmail, customerPhone, customerAddress, customerCity, customerState, customerZip)
-            execute_query(db_connection, query, data)
-            customer_updated_table = 'SELECT * FROM customers'
-            customer_table = execute_query(db_connection, customer_updated_table).fetchall()
-            return render_template('admin.html', customers=customer_table)
+        if request.form['action'] == 'addCustomer_Admin':
+            
+            # Get customer data from form fields
+            customer_data = {
+                    "First Name": request.form.get('customerFirstName'),
+                    "Last Name": request.form.get('customerLastName'),
+                    "Email": request.form.get('customerEmail'),
+                    "Phone Number": request.form.get('customerPhone'),
+                    "Street Address": request.form.get('customerAddress'),
+                    "City": request.form.get('customerCity'),
+                    "State": request.form.get('customerState'),
+                    "Zip Code": request.form.get('customerZip')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = []
+            for field in customer_data.keys():
+                if customer_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback = f"Correct missing information: {missing_fields}"
+                return render_template('admin.html', customer_admin_result=feedback)
+
+            # If no fields missing, do the insert
+            customer_insert_query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+            data = (customer_data["First Name"],
+                    customer_data["Last Name"],
+                    customer_data["Email"],
+                    customer_data["Phone Number"],
+                    customer_data["Street Address"], 
+                    customer_data["City"], 
+                    customer_data["State"],
+                    customer_data["Zip Code"])
+            
+            try:
+                result = execute_query(db_connection, customer_insert_query, data)
+                if result:
+                    feedback = f"Added Customer {customer_data['First Name']} {customer_data['Last Name']}"
+                else:
+                    feedback = "Add Customer Failed."
+            except:
+                feedback = "Add Customer Failed."
+           
+            # Render page with query execution feeback
+            # Display customer table
+            customer_query = 'SELECT * from customers'
+            customer_result = execute_query(db_connection, customer_query).fetchall()
+            
+            return render_template('admin.html', customer_admin_result=feedback, rows=customer_result)
 
 
 

@@ -266,7 +266,10 @@ def admin():
             return str(request.form.get('customer-update'))            
 
         if request.form.get('customer-delete'):
-            return str(request.form.get('customer-delete'))
+            customer_id = request.form.get('customer-delete')
+            query = "DELETE FROM customers WHERE customer_id = '" + customer_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
 
         if request.form.get('customer-insert'):
             # Get customer data from form fields

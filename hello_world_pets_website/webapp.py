@@ -478,6 +478,46 @@ def admin():
            
             return refresh_admin(feedback)
 
+        # If they submitted a new vet
+        elif request.form.get('vet-insert'):
+            
+            # Get class data from form fields
+            vet_data = {
+                    "Vet First Name": request.form.get('vet_first_name'),
+                    "Vet Last Name": request.form.get('vet_last_name'),
+                    "Vet Email": request.form.get('vet_email'),
+                    "Vet Phone": request.form.get('vet_phone'),
+                    "Vet Specialty": request.form.get('vet_specialty')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = [] 
+            for field in vet_data.keys():
+                if vet_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Vets"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (%s, %s, %s, %s, %s)'
+                data = (vet_data["Vet First Name"],
+                        vet_data["Vet Last Name"],
+                        vet_data["Vet Email"],
+                        vet_data["Vet Phone"],
+                        vet_data["Vet Specialty"])
+              
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Vets"] = f"Added Vet {vet_data['Vet First Name']} {vet_data['Vet Last Name']}"
+                    else:
+                        feedback["Vets"] = "Add Vet Failed."
+                except:
+                    feedback["Vets"] = "Add Vet Failed."
+           
+            return refresh_admin(feedback)
 
 
 # Testing DB connection

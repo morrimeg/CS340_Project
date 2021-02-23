@@ -387,6 +387,51 @@ def admin():
            
             return refresh_admin(feedback)
 
+        # If they submitted a new class
+        elif request.form.get('class-insert'):
+            
+            # Get class data from form fields
+            class_data = {
+                    "Class Name": request.form.get('class_name'),
+                    "Class Description": request.form.get('class_description'),
+                    "Class Day": request.form.get('class_day'),
+                    "Class Time": request.form.get('class_time'),
+                    "Class Price": request.form.get('class_price'),
+                    "Class Enrollments": request.form.get('class_enrollments'),
+                    "Class Seats": request.form.get('class_seats')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = [] 
+            for field in class_data.keys():
+                if class_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Classes"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) VALUES (%s, %s, %s, %s, %s,%s, %s)'
+                data = (class_data["Class Name"],
+                        class_data["Class Description"],
+                        class_data["Class Day"],
+                        class_data["Class Time"],
+                        class_data["Class Price"], 
+                        class_data["Class Enrollments"], 
+                        class_data["Class Seats"])
+                
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Classes"] = f"Added Class {class_data['Class Name']}"
+                    else:
+                        feedback["Classes"] = "Add Class Failed."
+                except:
+                    feedback["Classes"] = "Add Class Failed."
+           
+            return refresh_admin(feedback)
+
 
 # Testing DB connection
 @webapp.route('/db-test')

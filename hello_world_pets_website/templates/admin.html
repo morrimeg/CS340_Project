@@ -295,24 +295,39 @@
 				<!-- We need to add a form attribute in order to add new classes to the DB. We are 
 				also using JQUERY to make the Add Class button reactive-->
 				<!--<td colspan="11">-->
-					<form>
+					<form action="", method="post">
 						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number" id="class_id" hidden></td>
-						<td><input type="text" id="className" placeholder="Class Name"></td>
-						<td><input type="text" id="description" placeholder="Class Description"></td>
-						<td><input type="date" id="day" placeholder="Day"></td>
-						<td><input type="datetime-local" id="time" placehoder="Time"></td>
-						<td><input type="number" id="price" value="Price"></td>
-						<td><input type="number" id="enrollments" value="Class Enrollments"></td>
-						<td><input type="number" id="seats" value="Class Seats"></td>
+						<td><input type="number" name="class_id" hidden></td>
+						<td><input type="text" name="class_name" placeholder="Class Name"></td>
+						<td><input type="text" name="class_description" placeholder="Class Description"></td>
+						<td><input type="date" name="class_day" placeholder="Day"></td>
+						<td><input type="datetime-local" name="class_time" placehoder="Time"></td>
+						<td><input type="number" name="class_price" value="Price"></td>
+						<td><input type="number" name="class_enrollments" value="Class Enrollments"></td>
+						<td><input type="number" name="class_seats" value="Class Seats"></td>
+						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add Class</button></td>					
 					</form>
-					<td><button id="classButton" class="btn btn-secondary">Add Class</button></td>
 				<!--</td>-->
 			</tr>
 
 		</tbody>
 	</table>
+	{% if feedback is defined and feedback|length %}
+    <div>
+        <p class="text-center">
+        {{feedback["Classes"]}}
+        </p>
+    </div>
+    {% endif %}
 </div>
+
+{% if class_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{class_admin_result}}
+    </p>
+</div>
+{% endif %}
 {% endif %}
 
 

@@ -276,10 +276,14 @@
 			<td>{{c[6]}}</td>
 			<td>{{c[7]}}</td>
 			<td>
-				<button class="btn btn-info">Update</button>
+				<form action="" method="post">
+					<button class="btn btn-info" name="class-update" value="{{c[0]}}">Update</button>
+				</form>
 			</td>
 			<td>
-				<button class="btn btn-danger">Delete</button>
+				<form action="" method="post">
+					<button class="btn btn-info" name="class-delete" value="{{c[0]}}">Delete</button>
+				</form>			
 			</td>
 		</tr>
 		{% endfor %}

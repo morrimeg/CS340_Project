@@ -284,6 +284,17 @@ def admin():
             execute_query(db_connection, query)
             return refresh_admin()
 
+         # If they submitted to update a class
+        elif request.form.get('class-update'):
+            return str(request.form.get('class-update'))            
+
+        # If they submitted to delete a class
+        elif request.form.get('class-delete'):
+            class_id = request.form.get('class-delete')
+            query = "DELETE FROM classes WHERE class_id = '" + class_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
+
 
         # If they submitted to add a new customer
         elif request.form.get('customer-insert'):

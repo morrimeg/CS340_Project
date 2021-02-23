@@ -106,37 +106,43 @@
 				<td>{{r[7]}}</td>
 				<td>{{r[8]}}</td>
 				<td>
-					<button class="btn btn-info">Update</button>
+                    <form action="" method="post">
+					<button class="btn btn-info" name="customer-update" value="{{r[0]}}">Update</button>
+                    </form>
 				</td>
 				<td>
-					<button class="btn btn-danger">Delete</button>
+                    <form action="" method="post">
+                    <button class="btn btn-danger" name="customer-delete" value="{{r[0]}}">Delete</button>
+                    </form>
 				</td>
 			</tr>
 			{% endfor %}
 
 			<tr>
-				<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
-					remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
-				also using JQUERY to make the Add Customer button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number"  name="addCustomer" id="cust_id" hidden></td>
-						<td><input type="text" name="addCustomer" id="customerFirstName" placeholder="First Name"></td>
-						<td><input type="text" name="addCustomer" id="customerLastName" placeholder="Last Name"></td>
-						<td><input type="text" name="addCustomer" id="customerEmail" placeholder="Email"></td>
-						<td><input type="text" name="addCustomer" id="customerPhone" placehoder="Phone"></td>
-						<td><input type="text" name="addCustomer" id="customerAddress" placeholder="Address"></td>
-						<td><input type="text" name="addCustomer" id="customerCity" placehodler="City"></td>
-						<td><input type="text" name="addCustomer" id="customerState" placeholder="State"></td>
-						<td><input type="text" name="addCustomer" id="customerZip" placeholder="Zip Code"></td>
+						<td><input type="number"  name="customer_id" id="cust_id" hidden></td>
+						<td><input type="text" name="customer_first_name" id="customerFirstName" placeholder="First Name"></td>
+						<td><input type="text" name="customer_last_name" id="customerLastName" placeholder="Last Name"></td>
+						<td><input type="text" name="customer_email" id="customerEmail" placeholder="Email"></td>
+						<td><input type="text" name="customer_phone" id="customerPhone" placehoder="Phone"></td>
+						<td><input type="text" name="customer_address" id="customerAddress" placeholder="Address"></td>
+						<td><input type="text" name="customer_city" id="customerCity" placehodler="City"></td>
+						<td><input type="text" name="customer_state" id="customerState" placeholder="State"></td>
+						<td><input type="text" name="customer_zip" id="customerZip" placeholder="Zip Code"></td>
+					<td><button id="customerButton" class="btn btn-secondary" name="customer-insert" value="0">Add Customer</button></td>
 					</form>
-					<td><button id="customerButton" class="btn btn-secondary">Add Customer</button></td>
 				<!--</td>-->
 			</tr>
 		</tbody>
 	</table>
+    {% if feedback is defined and feedback|length %}
+    <div>
+        <p class="text-center">
+        {{feedback["Customers"]}}
+        </p>
+    </div>
+    {% endif %}
 </div>
 {% endif %}
 
@@ -415,105 +421,6 @@
   			</div>
 		</div>
 	</div>
-
-	<!-- Code for adding customers with the click of Add Customer Button
-	From: https://stackoverflow.com/questions/19092894/adding-new-rows-to-table-on-clicking-button-in-jquery
-	Here we are itereating through the row and appending a new row when the Add Customer 
-	button is clicked.
-	-->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-	<script>
-		/* Add Customers Button*/
-		$("#customerButton").click(function () { 
-
-		$("#customerTable").each(function () {
-   
-		var tds = '<tr>';
-		jQuery.each($('tr:last td', this), function () {
-			tds += '<td>' + $(this).html() + '</td>';
-		});
-		tds += '</tr>';
-		if ($('tbody', this).length > 0) {
-			$('tbody', this).append(tds);
-		} else {
-			$(this).append(tds);
-		}
-	});
-	});
-
-	/* Add Pets Button*/
-	$("#petButton").click(function () { 
-
-	$("#petTable").each(function () {
-
-	var tds = '<tr>';
-	jQuery.each($('tr:last td', this), function () {
-		tds += '<td>' + $(this).html() + '</td>';
-	});
-	tds += '</tr>';
-	if ($('tbody', this).length > 0) {
-		$('tbody', this).append(tds);
-	} else {
-		$(this).append(tds);
-	}
-	});
-	});
-	/*Add Classes Button*/
-	$("#classButton").click(function () { 
-
-	$("#classTable").each(function () {
-
-	var tds = '<tr>';
-	jQuery.each($('tr:last td', this), function () {
-		tds += '<td>' + $(this).html() + '</td>';
-	});
-	tds += '</tr>';
-	if ($('tbody', this).length > 0) {
-		$('tbody', this).append(tds);
-	} else {
-		$(this).append(tds);
-	}
-	});
-	});
-
-	/*Enroll Pets Button*/
-	$("#enrollButton").click(function () { 
-
-	$("#enrollTable").each(function () {
-
-	var tds = '<tr>';
-	jQuery.each($('tr:last td', this), function () {
-		tds += '<td>' + $(this).html() + '</td>';
-	});
-	tds += '</tr>';
-	if ($('tbody', this).length > 0) {
-		$('tbody', this).append(tds);
-	} else {
-	$(this).append(tds);
-}
-	});
-	});
-
-	/*Add Vets Button*/
-	$("#vetButton").click(function () { 
-
-	$("#vetTable").each(function () {
-
-	var tds = '<tr>';
-	jQuery.each($('tr:last td', this), function () {
-		tds += '<td>' + $(this).html() + '</td>';
-	});
-	tds += '</tr>';
-	if ($('tbody', this).length > 0) {
-		$('tbody', this).append(tds);
-	} else {
-		$(this).append(tds);
-	}
-	});
-	});
-	</script>
-
 
 </body>
 

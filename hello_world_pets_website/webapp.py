@@ -216,54 +216,102 @@ def vets():
         # They're just visiting the page for the first time
         return render_template('vets.html')
 
+def refresh_admin(feedback=None):
+    db_connection = connect_to_database()
+    # Display customer table
+    customer_query = 'SELECT * from customers'
+    customer_result = execute_query(db_connection, customer_query).fetchall()
+
+    # Display pets table
+    pet_query = 'SELECT * from pets'
+    pet_result = execute_query(db_connection, pet_query).fetchall()
+
+    # Display classes table
+    classes_query = 'SELECT * from classes'
+    classes_result = execute_query(db_connection, classes_query).fetchall()
+
+    # display enrollments table
+    enroll_query = 'SELECT * from enrollments'
+    enroll_result = execute_query(db_connection, enroll_query).fetchall()
+
+    # Display vets table
+    vet_query = 'SELECT * from vets'
+    vet_result = execute_query(db_connection, vet_query).fetchall()
+
+    # Return info from all tables
+    if feedback:
+        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, feedback=feedback)
+    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
+
+
 @webapp.route('/admin.html', methods=['GET', 'POST'])
 def admin():
-    db_connection = connect_to_database()
-    
     # If the user is simply going to the admin page, display all info in all tables
     if request.method == 'GET':
-        # Display customer table
-        customer_query = 'SELECT * from customers'
-        customer_result = execute_query(db_connection, customer_query).fetchall()
-    
-        # Display pets table
-        pet_query = 'SELECT * from pets'
-        pet_result = execute_query(db_connection, pet_query).fetchall()
-
-        # Display classes table
-        classes_query = 'SELECT * from classes'
-        classes_result = execute_query(db_connection, classes_query).fetchall()
-    
-        # display enrollments table
-        enroll_query = 'SELECT * from enrollments'
-        enroll_result = execute_query(db_connection, enroll_query).fetchall()
-    
-        # Display vets table
-        vet_query = 'SELECT * from vets'
-        vet_result = execute_query(db_connection, vet_query).fetchall()
-    
-        # Return info from all tables
-        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
+        return refresh_admin()
 
     # If users are inserting new information into the tables on the admin page
     if request.method == 'POST':
-        # If they submitted a form to add a new customer
-        if request.form['addCustomer']:
-            customerFirstName = request.form.get('customerFirstName')
-            customerLastName = request.form.get('customerLastName')
-            customerEmail = request.form.get('customerEmail')
-            customerPhone = request.form.get('customerPhone')
-            customerAddress = request.form.get('customerAddress')
-            customerCity = request.form.get('customerCity')
-            customerState = request.form.get('customerState')
-            customerZip = request.form.get('customerZip')
-            query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
-            data = (customerFirstName, customerLastName, customerEmail, customerPhone, customerAddress, customerCity, customerState, customerZip)
-            execute_query(db_connection, query, data)
-            customer_updated_table = 'SELECT * FROM customers'
-            customer_table = execute_query(db_connection, customer_updated_table).fetchall()
-            return render_template('admin.html', customers=customer_table)
+        
+        # Set up feedback
+        feedback = {"Customers": "",
+                    "Pets": "",
+                    "Classes": "",
+                    "Enrollments": "",
+                    "Vets": ""}
 
+        db_connection = connect_to_database()
+        # If they submitted a form to add a new customer
+        if request.form.get('customer-update'):
+            return str(request.form.get('customer-update'))            
+
+        if request.form.get('customer-delete'):
+            return str(request.form.get('customer-delete'))
+
+        if request.form.get('customer-insert'):
+            # Get customer data from form fields
+            customer_data = {
+                    "First Name": request.form.get('customer_first_name'),
+                    "Last Name": request.form.get('customer_last_name'),
+                    "Email": request.form.get('customer_email'),
+                    "Phone Number": request.form.get('customer_phone'),
+                    "Street Address": request.form.get('customer_address'),
+                    "City": request.form.get('customer_city'),
+                    "State": request.form.get('customer_state'),
+                    "Zip Code": request.form.get('customer_zip')
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = []
+            for field in customer_data.keys():
+                if customer_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Customers"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+                data = (customer_data["First Name"],
+                        customer_data["Last Name"],
+                        customer_data["Email"],
+                        customer_data["Phone Number"],
+                        customer_data["Street Address"], 
+                        customer_data["City"], 
+                        customer_data["State"],
+                        customer_data["Zip Code"])
+                
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Customers"] = f"Added Customer {customer_data['First Name']} {customer_data['Last Name']}"
+                    else:
+                        feedback["Customers"] = "Add Customer Failed."
+                except:
+                    feedback["Customers"] = "Add Customer Failed."
+           
+        return refresh_admin(feedback)
 
 
 # Testing DB connection

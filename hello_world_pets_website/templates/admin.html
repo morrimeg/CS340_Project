@@ -144,6 +144,14 @@
     </div>
     {% endif %}
 </div>
+
+{% if customer_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{customer_admin_result}}
+    </p>
+</div>
+{% endif %}
 {% endif %}
 
 
@@ -207,8 +215,8 @@
 							<label for="female">Female</label></td>
 						<td><input type="number" id="vet_id" hidden></td>
 						<td><input type="number" id="customer_id" hidden></td>
+						<td><input type="submit" id="petButton" class="btn btn-secondary">Add Pet</button></td>
 					</form>
-					<td><button id="petButton" class="btn btn-secondary">Add Pet</button></td>
 				<!--</td>-->
 			</tr>
 

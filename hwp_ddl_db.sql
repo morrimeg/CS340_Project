@@ -124,18 +124,18 @@ LOCK TABLES `pets` WRITE, `vets` READ, `customers` READ;
 /*!40000 ALTER TABLE `pets` DISABLE KEYS */;
 
 INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Kirby', 'Canine', 'Cavalier King Charles Spaniel', 1, 0,
-  (SELECT vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt'),
-  (SELECT customer_id from customers where first_name = 'Mbali' and last_name = 'Octavius')
+  (SELECT vet_id FROM vets WHERE first_name = 'Elise' and last_name = 'Noalhyt'),
+  (SELECT customer_id FROM customers WHERE first_name = 'Mbali' and last_name = 'Octavius')
 );
 
 INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Scout', 'Canine', 'Springer Spaniel', 11, 0,
-  (SELECT vet_id from vets where first_name = 'Elise' and last_name = 'Noalhyt'),
-  (SELECT customer_id from customers where first_name = 'Mira' and last_name = 'Magee')
+  (SELECT vet_id FROM vets WHERE first_name = 'Elise' and last_name = 'Noalhyt'),
+  (SELECT customer_id FROM customers WHERE first_name = 'Mira' and last_name = 'Magee')
 );
 
 INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Chairman Meow', 'Feline', 'Persian', 14, 0,
-  (SELECT vet_id from vets where first_name = 'Samantha' and last_name = 'Sukej'),
-  (SELECT customer_id from customers where first_name = 'Sundar' and last_name = 'Pichai')
+  (SELECT vet_id FROM vets WHERE first_name = 'Samantha' and last_name = 'Sukej'),
+  (SELECT customer_id FROM customers WHERE first_name = 'Sundar' and last_name = 'Pichai')
 );
 /*!40000 ALTER TABLE `pets` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -157,7 +157,12 @@ CREATE TABLE IF NOT EXISTS `classes`(
   `class_price` decimal NOT NULL,
   `class_enrollments` int(11) NOT NULL,
   `class_seats` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
   PRIMARY KEY(`class_id`),
+  CONSTRAINT
+    foreign key(`teacher_id`) references teachers(teacher_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `class_name` UNIQUE(`class_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -172,6 +177,39 @@ INSERT INTO `classes` (class_name, class_description, class_day, class_time, cla
 INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Cat Walking', 'Train your cat to walk on a leash just like dogs!', '2021-03-01', '2021-03-01 10:00:00', 150.00, 10, 15);
 INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Young Dog Training', 'For dogs aged 1-4. Learn basic commands and behavioral tips and tricks.', '2021-02-27', '2021-02-27 14:00:00', 80.00, 4, 8);
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teachers`
+--
+
+DROP TABLE IF EXISTS `teachers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `teachers` (
+
+  `teacher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  PRIMARY KEY(`teacher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Insert into `teachers` table
+--
+LOCK TABLES `teachers` WRITE;
+/*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
+INSERT INTO `teachers` (first_name, last_name, email, phone)
+  VALUES
+  ('Camille', 'Massoneau', 'cmass@hwp.org', '6501392347'),
+  ('Harrison', 'Hemsworth', 'hhems@hwp.org', '650983243'),
+  ('Sonia', 'Nordstrom', 'snord@hwp.org', '6509761632'),
+  ('Claire', 'Pond', 'cpond@hwp.org', '6502120820')
+;
+/*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -204,20 +242,20 @@ CREATE TABLE IF NOT EXISTS `enrollments` (
 LOCK TABLES `enrollments` WRITE, `pets` READ, `classes` READ;
 /*!40000 ALTER TABLE `enrollments` DISABLE KEYS */;
 INSERT INTO `enrollments` (pet_id, class_id) values (
-  (SELECT pet_id from pets where pet_name = "Kirby"),
-  (SELECT class_id from classes where class_name = 'Puppy Training')
+  (SELECT pet_id FROM pets WHERE pet_name = "Kirby"),
+  (SELECT class_id FROM classes WHERE class_name = 'Puppy Training')
 );
 
 INSERT INTO `enrollments` (pet_id, class_id) values (
-  (SELECT pet_id from pets where pet_name = 'Chairman Meow'),
-  (SELECT class_id from classes where class_name = 'Cat Walking')
+  (SELECT pet_id FROM pets WHERE pet_name = 'Chairman Meow'),
+  (SELECT class_id FROM classes WHERE class_name = 'Cat Walking')
 
 );
 
 
 INSERT INTO `enrollments` (pet_id, class_id) values (
-  (SELECT pet_id from pets where pet_name = 'Kirby'),
-  (SELECT class_id from classes where class_name = 'Young Dog Training')
+  (SELECT pet_id FROM pets WHERE pet_name = 'Kirby'),
+  (SELECT class_id FROM classes WHERE class_name = 'Young Dog Training')
 
 );
 /*!40000 ALTER TABLE `enrollments` ENABLE KEYS */;

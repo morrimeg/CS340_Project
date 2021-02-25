@@ -157,7 +157,7 @@
 
   <!-- Table for Pets Data -->
    {% if pets is defined and pets|length %}
-  <div class="contianer" style="width:90%">
+  <div class="contianer" style="width:100%">
 	<h5 class="card-title">Pets</h5>
 	<table id="petTable" class="table table-striped" style="width:100%">
 		<thead>
@@ -206,18 +206,18 @@
 				also using JQUERY to make the Add Pet button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<td><input type="number" name="pet_id" hidden></td>
-						<td><input type="text" name="pet_name" placeholder="Pet Name"></td>
-						<td><input type="text" name="pet_species" placeholder="Species"></td>
-						<td><input type="text" name="pet_breed" placeholder="Breed"></td>
+						<td><input style="width:4px" type="number" name="pet_id" hidden></td>
+						<td><input style="width:100px" type="text" name="pet_name" placeholder="Pet Name"></td>
+						<td><input style="width:100px" type="text" name="pet_species" placeholder="Species"></td>
+						<td><input style="width:200px" type="text" name="pet_breed" placeholder="Breed"></td>
 						<td><input type="text" name="pet_age" placehoder="Age"></td>
 						<td><input type="radio" name ="pet_gender" id="pet_gender1" value="1">
 							<label for="pet_gender1">Female</label>
-							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<br>
+							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<label for="pet_gender2">Male</label></td>
-						<td><input type="number" name="vet_id" placeholder="Vet ID"></td>
-						<td><input type="number" name="customer_id" placeholder="Customer ID"></td>
+						<td><input style="width:70px" type="number" name="vet_id" placeholder="Vet ID"></td>
+						<td><input style="width:70px" type="number" name="customer_id" placeholder="Customer ID"></td>
 						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add Pet</button></td>					
 					</form>
 				<!--</td>-->

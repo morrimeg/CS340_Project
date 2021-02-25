@@ -237,6 +237,10 @@ def refresh_admin(feedback=None):
     # display enrollments table
     enroll_query = 'SELECT * from enrollments'
     enroll_result = execute_query(db_connection, enroll_query).fetchall()
+    
+    # Display teachers table
+    teacher_query = 'SELECT * from teachers'
+    teacher_result = execute_query(db_connection, teacher_query).fetchall()
 
     # Display vets table
     vet_query = 'SELECT * from vets'
@@ -244,8 +248,8 @@ def refresh_admin(feedback=None):
 
     # Return info from all tables
     if feedback:
-        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, feedback=feedback)
-    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result)
+        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, teacher=teacher_result, feedback=feedback)
+    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, teacher=teacher_result)
 
 
 @webapp.route('/admin.html', methods=['GET', 'POST'])
@@ -262,6 +266,7 @@ def admin():
                     "Pets": "",
                     "Classes": "",
                     "Enrollments": "",
+                    "Teachers": "",
                     "Vets": ""}
 
         db_connection = connect_to_database()
@@ -305,8 +310,19 @@ def admin():
 
         # If they submitted to delete an enrollment
         elif request.form.get('enroll-delete'):
-            enrollment_id = request.form.get('class-delete')
+            enrollment_id = request.form.get('enroll-delete')
             query = "DELETE FROM enrollments WHERE enrollment_id = '" + enrollment_id + "'"
+            execute_query(db_connection, query)
+            return refresh_admin()
+
+        # If they submitted to update a teacher
+        elif request.form.get('teacher-update'):
+            return str(request.form.get('teacher-update'))            
+
+        # If they submitted to delete a teacher
+        elif request.form.get('teacher-delete'):
+            teacher_id = request.form.get('teacher-delete')
+            query = "DELETE FROM teachers WHERE teacher_id = '" + teacher_id + "'"
             execute_query(db_connection, query)
             return refresh_admin()
 
@@ -316,11 +332,10 @@ def admin():
 
         # If they submitted to delete a vet
         elif request.form.get('vet-delete'):
-            vet_id = request.form.get('class-delete')
+            vet_id = request.form.get('vet-delete')
             query = "DELETE FROM vets WHERE vet_id = '" + vet_id + "'"
             execute_query(db_connection, query)
             return refresh_admin()
-
 
         # If they submitted to add a new customer
         elif request.form.get('customer-insert'):
@@ -496,6 +511,46 @@ def admin():
                     feedback["Enrollments"] = "Add Enrollment Failed."
            
             return refresh_admin(feedback)
+        
+        # If they submitted a new teacher
+        elif request.form.get('teacher-insert'):
+            
+            # Get class data from form fields
+            teacher_data = {
+                    "Teacher First Name": request.form.get('teacher_first_name'),
+                    "Teacher Last Name": request.form.get('teacher_last_name'),
+                    "Teacher Email": request.form.get('teacher_email'),
+                    "Teacher Phone": request.form.get('teacher_phone'),
+                    }
+
+            # Check for any empty fields (all required in this form)
+            missing_fields = [] 
+            for field in teacher_data.keys():
+                if teacher_data[field] == "":
+                    missing_fields.append(field)
+
+            if len(missing_fields) > 0:
+                feedback["Teachers"] = f"Correct missing information: {missing_fields}"
+
+            # If no fields missing, do the insert
+            else:
+                query = 'INSERT INTO teachers (first_name, last_name, email, phone) VALUES (%s, %s, %s, %s)'
+                data = (teacher_data["Teacher First Name"],
+                        teacher_data["Teacher Last Name"],
+                        teacher_data["Teacher Email"],
+                        teacher_data["Teacher Phone"])
+              
+                try:
+                    result = execute_query(db_connection, query, data)
+                    if result:
+                        feedback["Teachers"] = f"Added Teacher {teacher_data['Teacher First Name']} {teacher_data['Teacher Last Name']}"
+                    else:
+                        feedback["Teachers"] = "Add Teacher Failed."
+                except:
+                    feedback["Teachers"] = "Add Teacher Failed."
+           
+            return refresh_admin(feedback)
+
 
         # If they submitted a new vet
         elif request.form.get('vet-insert'):

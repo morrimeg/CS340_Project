@@ -400,6 +400,81 @@
 {% endif %}
 {% endif %}
 
+<!-- Table for Teachers -->
+  {% if teacher is defined and teacher|length %}
+  <div class="contianer" style="width:90%">
+	<h5 class="card-title">Teachers</h5>
+	<table id="teacherTable" class="table table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Phone</th>
+				<th scope="col">Update</th>
+				<th scope="col">Delete</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				{% for t in teacher %}
+				<th scope="row">{{t[0]}}</th>
+				<td>{{t[1]}}</td>
+				<td>{{t[2]}}</td>
+				<td>{{t[3]}}</td>
+				<td>{{t[4]}}</td>
+				<td>
+					<form action="" method="post">
+					<button class="btn btn-info" name="teacher-update" value="{{t[0]}}">Update</button>
+					</form>
+				</td>
+				<td>
+					<form action="" method="post">
+					<button class="btn btn-danger" name="teacher-delete" value="{{t[0]}}">Delete</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+
+			<tr>
+				<!--<td colspan="8">-->
+				<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+				remove-table-rows-dynamically-using-jquery.php-->
+				<!-- We need to add a form attribute in order to add new vets to the DB. We are 
+				also using JQUERY to make the Add Vet button reactive-->
+				<!--<td colspan="11">-->
+					<form action="" method="post">
+						<td><input type="number" name="teacher_id" hidden></td>
+						<td><input type="text" name="teacher_first_name" placeholder="First Name"></td>
+						<td><input type="text" name="teacher_last_name" placeholder="Last Name"></td>
+						<td><input type="text" name="teacher_email" placeholder="Email"></td>
+						<td><input type="text" name="teacher_phone" placehoder="Phone"></td>
+						<td><button id="teacherButton" class="btn btn-secondary" name="teacher-insert" value="0">Add Teacher</button></td>
+					</form>
+				<!--</td>-->
+			</tr>
+		</tbody>
+	</table>
+	{% if feedback is defined and feedback|length %}
+    <div>
+        <p class="text-center">
+        {{feedback["Teachers"]}}
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+{% if teacher_admin_result is defined %}
+<div>
+	<p class="text-center">
+        {{teacher_admin_result}}
+    </p>
+</div>
+{% endif %}
+{% endif %}
+
 <!-- Table for Vets -->
   {% if vet is defined and vet|length %}
   <div class="contianer" style="width:90%">

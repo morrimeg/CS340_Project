@@ -374,8 +374,10 @@ def admin():
                     "Breed": request.form.get('pet_breed'),
                     "Age": request.form.get('pet_age'),
                     "Gender": request.form.get('pet_gender'),
-                    "Vet ID": request.form.get('vet_id'),
-                    "Customer ID": request.form.get('customer_id')
+                    "Vet First Name": request.form.get('vet_first_name'),
+                    "Vet Last Name": request.form.get('vet_last_name'),
+                    "Customer First Name": request.form.get('customer_first_name'),
+                    "Customer Last Name": request.form.get('customer_last_name')
                     }
 
             # Check for any empty fields (all required in this form)
@@ -389,14 +391,16 @@ def admin():
 
             # If no fields missing, do the insert
             else:
-                query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+                query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s, (SELECT vet_id from vets where first_name = %s and last_name = %s),(SELECT customer_id from customers where first_name = %s and last_name = %s))'
                 data = (pet_data["Pet Name"],
                         pet_data["Species"],
                         pet_data["Breed"],
                         pet_data["Age"],
                         pet_data["Gender"], 
-                        pet_data["Vet ID"], 
-                        pet_data["Customer ID"])
+                        pet_data["Vet First Name"],
+                        pet_data["Vet Last Name"],
+                        pet_data["Customer First Name"],
+                        pet_data["Customer Last Name"])
                 
                 try:
                     result = execute_query(db_connection, query, data)

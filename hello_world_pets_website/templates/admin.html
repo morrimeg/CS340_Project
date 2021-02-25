@@ -37,7 +37,7 @@
 		https://getbootstrap.com/docs/4.5/components/navbar/?
 	-->
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+	<nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="width: 2000px">
   		<a class="navbar-brand" href="#"><i class="fas fa-paw"></i>  HWP</sup></a>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
@@ -75,9 +75,9 @@
 
   <!-- Table for Customers Data -->
   {% if rows is defined and rows|length %}
-  <div class="contianer" style="width:90%">
+  <div class="contianer" style="width: 100%">
 	<h5 class="card-title">Customers</h5>
-	<table id="customerTable" class="table table-striped" style="width:100%">
+	<table id="customerTable" class="table table-striped" style="width: 100%">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -121,15 +121,15 @@
 			<tr>
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<td><input type="number"  name="customer_id" id="cust_id" hidden></td>
-						<td><input type="text" name="customer_first_name" id="customerFirstName" placeholder="First Name"></td>
-						<td><input type="text" name="customer_last_name" id="customerLastName" placeholder="Last Name"></td>
-						<td><input type="text" name="customer_email" id="customerEmail" placeholder="Email"></td>
-						<td><input type="text" name="customer_phone" id="customerPhone" placehoder="Phone"></td>
-						<td><input type="text" name="customer_address" id="customerAddress" placeholder="Address"></td>
-						<td><input type="text" name="customer_city" id="customerCity" placehodler="City"></td>
-						<td><input type="text" name="customer_state" id="customerState" placeholder="State"></td>
-						<td><input type="text" name="customer_zip" id="customerZip" placeholder="Zip Code"></td>
+						<td><input style="width: 4px" type="number"  name="customer_id" id="cust_id" hidden></td>
+						<td><input style="width: 100px" type="text" name="customer_first_name" id="customerFirstName" placeholder="First Name"></td>
+						<td><input style="width: 100px" type="text" name="customer_last_name" id="customerLastName" placeholder="Last Name"></td>
+						<td><input style="width: 150px" type="text" name="customer_email" id="customerEmail" placeholder="Email"></td>
+						<td><input style="width: 100px" type="text" name="customer_phone" id="customerPhone" placehoder="Phone"></td>
+						<td><input style="width: 200px" type="text" name="customer_address" id="customerAddress" placeholder="Address"></td>
+						<td><input style="width: 80px" type="text" name="customer_city" id="customerCity" placehodler="City"></td>
+						<td><input style="width: 50px" type="text" name="customer_state" id="customerState" placeholder="State"></td>
+						<td><input style="width: 80px" type="text" name="customer_zip" id="customerZip" placeholder="Zip Code"></td>
 					<td><button id="customerButton" class="btn btn-secondary" name="customer-insert" value="0">Add Customer</button></td>
 					</form>
 				<!--</td>-->
@@ -157,7 +157,7 @@
 
   <!-- Table for Pets Data -->
    {% if pets is defined and pets|length %}
-  <div class="contianer" style="width:90%">
+  <div class="contianer" style="width:100%">
 	<h5 class="card-title">Pets</h5>
 	<table id="petTable" class="table table-striped" style="width:100%">
 		<thead>
@@ -206,19 +206,20 @@
 				also using JQUERY to make the Add Pet button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number" name="pet_id" hidden></td>
-						<td><input type="text" name="pet_name" placeholder="Pet Name"></td>
-						<td><input type="text" name="pet_species" placeholder="Species"></td>
-						<td><input type="text" name="pet_breed" placeholder="Breed"></td>
-						<td><input type="text" name="pet_age" placehoder="Age"></td>
+						<td><input style="width:4px" type="number" name="pet_id" hidden></td>
+						<td><input style="width:100px" type="text" name="pet_name" placeholder="Pet Name"></td>
+						<td><input style="width:100px" type="text" name="pet_species" placeholder="Species"></td>
+						<td><input style="width:200px" type="text" name="pet_breed" placeholder="Breed"></td>
+						<td><input style="width:50px" type="number" name="pet_age" placehoder="Age"></td>
 						<td><input type="radio" name ="pet_gender" id="pet_gender1" value="1">
 							<label for="pet_gender1">Female</label>
-							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<br>
+							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<label for="pet_gender2">Male</label></td>
-						<td><input type="number" name="vet_id" placeholder="Vet ID"></td>
-						<td><input type="number" name="customer_id" placeholder="Customer ID"></td>
+						<td><input style="width:180px" type="text" name="customer_first_name" placeholder="Customer First Name"></td>
+						<td><input style="width:180px" type="text" name="customer_last_name" placeholder="Customer Last Name"></td>
+						<td><input style="width:120px" type="text" name="vet_first_name" placeholder="Vet First Name"></td>
+						<td><input style="width:120px" type="text" name="vet_last_name" placeholder="Vet Last Name"></td>
 						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add Pet</button></td>					
 					</form>
 				<!--</td>-->
@@ -247,7 +248,7 @@
 
   <!-- Table for Classes -->
   {% if classes is defined and classes|length %}
-  <div class="contianer" style="width:90%">
+  <div class="contianer" style="width:100%">
 	<h5 class="card-title">Classes</h5>
 	<table id="classTable" class="table table-striped" style="width:100%">
 		<thead>
@@ -282,7 +283,7 @@
 			</td>
 			<td>
 				<form action="" method="post">
-					<button class="btn btn-info" name="class-delete" value="{{c[0]}}">Delete</button>
+					<button class="btn btn-danger" name="class-delete" value="{{c[0]}}">Delete</button>
 				</form>			
 			</td>
 		</tr>
@@ -296,15 +297,14 @@
 				also using JQUERY to make the Add Class button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
-						<td><input type="number" name="class_id" hidden></td>
-						<td><input type="text" name="class_name" placeholder="Class Name"></td>
-						<td><input type="text" name="class_description" placeholder="Class Description"></td>
-						<td><input type="date" name="class_day" placeholder="Day"></td>
-						<td><input type="datetime-local" name="class_time" placehoder="Time"></td>
-						<td><input type="number" name="class_price" value="Price"></td>
-						<td><input type="number" name="class_enrollments" value="Class Enrollments"></td>
-						<td><input type="number" name="class_seats" value="Class Seats"></td>
+						<td><input style="width:4px" type="number" name="class_id" hidden></td>
+						<td><input style="width:180px" type="text" name="class_name" placeholder="Class Name"></td>
+						<td><input style="width:300px" type="text" name="class_description" placeholder="Class Description"></td>
+						<td><input style="width:180px" type="date" name="class_day" placeholder="Day"></td>
+						<td><input style="width:180px" type="datetime-local" name="class_time" placehoder="Time"></td>
+						<td><input style="width:50px" type="number" name="class_price" value="Price"></td>
+						<td><input style="width:50px" type="number" name="class_enrollments" value="Class Enrollments"></td>
+						<td><input style="width:50px" type="number" name="class_seats" value="Class Seats"></td>
 						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add Class</button></td>					
 					</form>
 				<!--</td>-->
@@ -372,10 +372,9 @@
 				also using JQUERY to make the Enroll Pet button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
 						<td><input type="number" name="enroll_id" hidden></td>
-						<td><input type="number" name="pet_id" placeholder="Pet ID"></td>
-						<td><input type="number" name="class_id" placeholder="Class ID"></td>
+						<td><input type="text" name="pet_name" placeholder="Pet Name"></td>
+						<td><input type="text" name="class_name" placeholder="Class Name"></td>
 						<td><button id="enrollButton" class="btn btn-secondary" name='enroll-insert' value="0">Enroll Pet</button></td>
 					</form>
 				<!--</td>-->
@@ -449,7 +448,6 @@
 				also using JQUERY to make the Add Vet button reactive-->
 				<!--<td colspan="11">-->
 					<form action="" method="post">
-						<!-- ADD IN ROW FOR HIDDEN ID!!!-->
 						<td><input type="number" name="vet_id" hidden></td>
 						<td><input type="text" name="vet_first_name" placeholder="First Name"></td>
 						<td><input type="text" name="vet_last_name" placeholder="Last Name"></td>

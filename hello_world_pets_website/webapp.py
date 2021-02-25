@@ -378,8 +378,10 @@ def admin():
                     "Breed": request.form.get('pet_breed'),
                     "Age": request.form.get('pet_age'),
                     "Gender": request.form.get('pet_gender'),
-                    "Vet ID": request.form.get('vet_id'),
-                    "Customer ID": request.form.get('customer_id')
+                    "Vet First Name": request.form.get('vet_first_name'),
+                    "Vet Last Name": request.form.get('vet_last_name'),
+                    "Customer First Name": request.form.get('customer_first_name'),
+                    "Customer Last Name": request.form.get('customer_last_name')
                     }
 
             # Check for any empty fields (all required in this form)
@@ -393,14 +395,16 @@ def admin():
 
             # If no fields missing, do the insert
             else:
-                query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+                query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s, (SELECT vet_id from vets where first_name = %s and last_name = %s),(SELECT customer_id from customers where first_name = %s and last_name = %s))'
                 data = (pet_data["Pet Name"],
                         pet_data["Species"],
                         pet_data["Breed"],
                         pet_data["Age"],
                         pet_data["Gender"], 
-                        pet_data["Vet ID"], 
-                        pet_data["Customer ID"])
+                        pet_data["Vet First Name"],
+                        pet_data["Vet Last Name"],
+                        pet_data["Customer First Name"],
+                        pet_data["Customer Last Name"])
                 
                 try:
                     result = execute_query(db_connection, query, data)
@@ -463,8 +467,8 @@ def admin():
             
             # Get class data from form fields
             enroll_data = {
-                    "Pet ID": request.form.get('pet_id'),
-                    "Class ID": request.form.get('class_id')
+                    "Pet Name": request.form.get('pet_name'),
+                    "Class Name": request.form.get('class_name')
                     }
 
             # Check for any empty fields (all required in this form)
@@ -478,14 +482,14 @@ def admin():
 
             # If no fields missing, do the insert
             else:
-                query = 'INSERT INTO enrollments (pet_id, class_id) values ((SELECT pet_id from pets where pet_id = %s),(SELECT class_id from classes where class_id = %s))'
-                data = (enroll_data["Pet ID"],
-                        enroll_data["Class ID"])
+                query = 'INSERT INTO enrollments (pet_id, class_id) VALUES ((SELECT pet_id FROM pets WHERE pet_name = %s), (SELECT class_id FROM classes WHERE class_name = %s))'
+                data = (enroll_data["Pet Name"],
+                        enroll_data["Class Name"])
                 
                 try:
                     result = execute_query(db_connection, query, data)
                     if result:
-                        feedback["Enrollments"] = f"Added Enrollment {enroll_data['Enrollment ID']}"
+                        feedback["Enrollments"] = f"Added Enrollment {enroll_data['Pet Name']} {enroll_data['Class Name']}"
                     else:
                         feedback["Enrollments"] = "Add Enrollment Failed."
                 except:

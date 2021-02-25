@@ -27,6 +27,10 @@ def customers():
     query = 'SELECT vet_id, first_name, last_name, specialty FROM vets'
     vets_result = execute_query(db_connection, query)
     
+    # Query customer options to populate pet form drop-down menu
+    query = 'SELECT customer_id, first_name, last_name FROM customers'
+    customers_result = execute_query(db_connection, query)
+    
     
     if request.method == 'POST':
         # They submitted a form
@@ -53,7 +57,7 @@ def customers():
 
             if len(missing_fields) > 0:
                 feedback = f"Correct missing information: {missing_fields}"
-                return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result)
+                return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result, customer_options=customers_result)
 
             # If no fields missing, do the insert
             query = 'INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
@@ -76,14 +80,14 @@ def customers():
                 feedback = "Add Customer Failed."
            
             # Render page with query execution feeback
-            return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result)
+            return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result, customer_options=customers_result)
 
         elif request.form['action'] == 'addPet':
             # They want to add a new Pet to an existing Customer
             
             # Get pet data from form fields
             pet_data = {
-                    "Customer ID": request.form.get('customer-id'),
+                    "Customer ID": request.form.get('customer-select'),
                     "Pet Name": request.form.get('pet-name'),
                     "Pet Species": request.form.get('pet-species'),
                     "Pet Breed": request.form.get('pet-breed'),
@@ -100,7 +104,7 @@ def customers():
 
             if len(missing_fields) > 0:
                 feedback = f"Correct missing information: {missing_fields}"
-                return render_template('customers.html', pet_reg_result=feedback, vet_options=vets_result)
+                return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result, customer_options=customers_result)
 
             # If no fields missing, do the insert
             query = 'INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (%s,%s,%s,%s,%s,%s,%s)'
@@ -122,10 +126,10 @@ def customers():
                 feedback = "Add Pet Failed."
            
             # Render page with query execution feeback
-            return render_template('customers.html', pet_reg_result=feedback, vet_options=vets_result)
+            return render_template('customers.html', customer_reg_result=feedback, vet_options=vets_result, customer_options=customers_result)
     
     # Just render the base webpage
-    return render_template('customers.html', vet_options=vets_result)
+    return render_template('customers.html', vet_options=vets_result, customer_options=customers_result)
 
 @webapp.route('/pets.html', methods=['GET', 'POST'])
 def pets():

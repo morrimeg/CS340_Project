@@ -189,10 +189,15 @@
                         <div class="card-body">
                             <form action="" method="post">
                                 <div class="form-group row">
-                                    <label for="customer_id" class="col-md-4 col-form-label text-md-right">Customer ID</label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="customer_id" class="form-control" name="customer-id">
-                                    </div>
+                                  <label class="col-md-4 form-check-label text-md-right" for="customer-select">
+                                      Customer
+                                  </label>
+                                  <select class="form-select" aria-label="Choose a Customer" name="customer-select">
+                                    <option value ="" selected>Select an option</option>
+                                    {% for c in customer_options %}
+                                    <option value={{c[0]}}>{{c[1]}} {{c[2]}}</option>
+                                    {% endfor %}
+                                  </select>
                                 </div>
 
                                 <div class="form-group row">
@@ -243,7 +248,7 @@
                                 </div>
                                 
                                 <div class="form-group row">
-                                  <label class="col-md-4 form-check-label text-md-right" for="pet_gender2">
+                                  <label class="col-md-4 form-check-label text-md-right" for="vet">
                                       Veterinarian
                                   </label>
                                   <select class="form-select" aria-label="Choose a vet" name="vet">

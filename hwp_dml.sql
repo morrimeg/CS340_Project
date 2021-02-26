@@ -12,9 +12,9 @@ SELECT * FROM pets WHERE species = :species;
 -- Classes page: search for a class by class name, class day, class time or class price
 SELECT * FROM classes WHERE class_name = :className;
 -- This query is from: https://stackoverflow.com/questions/20740696/mysql-converting-date-to-days-of-week
-SELECT class_id, class_name, class_description, DAYNAME(class_day), HOUR(class_time), class_price, class_enrollments, class_seats 
+SELECT class_id, class_name, class_description, DAYNAME(class_day), HOUR(class_time), class_price, class_seats, teacher_id 
 FROM classes WHERE DAYNAME(class_day) = :classDay;
-SELECT class_id, class_name, class_description, DAYNAME(class_day), HOUR(class_time), class_price, class_enrollments, class_seats 
+SELECT class_id, class_name, class_description, DAYNAME(class_day), HOUR(class_time), class_price, class_seats, teacher_id
 FROM classes WHERE DAYNAME(class_day) = :classTime;
 SELECT * FROM classes WHERE class_price = :classPrice;
 
@@ -65,8 +65,8 @@ INSERT INTO customers (first_name, last_name, email, phone, address, city, state
 INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (:petName, :petSpecies, :petBreed, :petAge, :vetId, :customerId);
 
 -- Admin page: add Class
-INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats, teacher_id)
-VALUES (:className, :classDescription, :classDay, :classTime, :classPrice, :classEnrollments, :classSeats,
+INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_seats, teacher_id)
+VALUES (:className, :classDescription, :classDay, :classTime, :classPrice, :classSeats,
         (SELECT teacher_id FROM teachers WHERE first_name = :teacherFirstName AND last_name = :teacherLastName)
 );
 
@@ -91,7 +91,7 @@ WHERE customer_id = :customerId;
 UPDATE pets SET pet_name = :petName, species= :petSpecies, breed = :petBreed, age = :petAge, age= :ageInput , gender = :petGender WHERE pet_id = :petId;
 
 -- Admin page: update Class
-UPDATE classes SET class_name = :className, class_description = :classDescription, class_day = :classDay, class_time = :classTime, class_price = :classPrice, class_enrollments = :classEnrollments, class_seats = :classSeats
+UPDATE classes SET class_name = :className, class_description = :classDescription, class_day = :classDay, class_time = :classTime, class_price = :classPrice, class_seats = :classSeats, teacher_id = :teacherID
 WHERE class_id = :classId;
 
 -- Admin page: update Enrollment

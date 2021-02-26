@@ -141,45 +141,6 @@ INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) 
 UNLOCK TABLES;
 
 --
--- Table structure for table `classes`
---
-
-DROP TABLE IF EXISTS `classes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `classes`(
-
-  `class_id` int(11) NOT NULL AUTO_INCREMENT,
-  `class_name` varchar(255) NOT NULL,
-  `class_description` varchar(255) NOT NULL,
-  `class_day` date NOT NULL,
-  `class_time` datetime NOT NULL,
-  `class_price` decimal NOT NULL,
-  `class_enrollments` int(11) NOT NULL,
-  `class_seats` int(11) NOT NULL,
-  `teacher_id` int(11) NOT NULL,
-  PRIMARY KEY(`class_id`),
-  CONSTRAINT
-    foreign key(`teacher_id`) references teachers(teacher_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `class_name` UNIQUE(`class_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
--- 
--- Insert into `classes`
---
-LOCK TABLES `classes` WRITE;
-/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-
-INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Puppy Training', 'For puppies age 5-8 weeks. Learn basic commands and get socialized', '2021-02-15', '2021-02-15 13:00:00', 100.00, 5, 10);
-INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Cat Walking', 'Train your cat to walk on a leash just like dogs!', '2021-03-01', '2021-03-01 10:00:00', 150.00, 10, 15);
-INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) values ('Young Dog Training', 'For dogs aged 1-4. Learn basic commands and behavioral tips and tricks.', '2021-02-27', '2021-02-27 14:00:00', 80.00, 4, 8);
-/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `teachers`
 --
 
@@ -210,6 +171,44 @@ INSERT INTO `teachers` (first_name, last_name, email, phone)
   ('Claire', 'Pond', 'cpond@hwp.org', '6502120820')
 ;
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `classes`
+--
+
+DROP TABLE IF EXISTS `classes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS `classes`(
+
+  `class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `class_name` varchar(255) NOT NULL,
+  `class_description` varchar(255) NOT NULL,
+  `class_day` date NOT NULL,
+  `class_time` datetime NOT NULL,
+  `class_price` decimal NOT NULL,
+  `class_seats` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  PRIMARY KEY(`class_id`),
+  CONSTRAINT
+    foreign key(`teacher_id`) references teachers(teacher_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `class_name` UNIQUE(`class_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- 
+-- Insert into `classes`
+--
+LOCK TABLES `classes` WRITE, `teachers` READ;
+/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
+
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_seats, teacher_id) values ('Puppy Training', 'For puppies age 5-8 weeks. Learn basic commands and get socialized', '2021-02-15', '2021-02-15 13:00:00', 100.00, 10, (SELECT teacher_id FROM teachers WHERE first_name = 'Camille' AND last_name = 'Massoneau'));
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_seats, teacher_id) values ('Cat Walking', 'Train your cat to walk on a leash just like dogs!', '2021-03-01', '2021-03-01 10:00:00', 150.00, 15, (SELECT teacher_id FROM teachers WHERE first_name = 'Harrison' AND last_name = 'Hemsworth'));
+INSERT INTO `classes` (class_name, class_description, class_day, class_time, class_price, class_seats, teacher_id) values ('Young Dog Training', 'For dogs aged 1-4. Learn basic commands and behavioral tips and tricks.', '2021-02-27', '2021-02-27 14:00:00', 80.00, 8, (SELECT teacher_id FROM teachers WHERE first_name = 'Claire' AND last_name = 'Pond'));
+/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

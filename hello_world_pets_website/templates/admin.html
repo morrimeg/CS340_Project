@@ -109,6 +109,8 @@
                     <!--<form action="" method="post">
 					<button class="btn btn-info" name="customer-update" value="{{r[0]}}">Update</button>
 					</form>-->
+					<!-- Got the pop up form code from bootstrap
+					https://getbootstrap.com/docs/4.0/components/modal/-->
 					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Update</button>
 
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,9 +123,9 @@
         							</button>
       							</div>
       							<div class="modal-body">
-        							<form>
+        							<form action="" method="post">
           								<div class="form-group">
-											<input style="width: 4px" type="number"  name="customer_id" id="cust_id" hidden>
+											<input style="width: 4px" type="number"  name="customer-id" id="cust_id" hidden>
             								<label for="customer-first-name" class="col-form-label">First Name:</label>
 											<input type="text" class="form-control" name="customer-first-name">
 											<label for="customer-last-name" class="col-form-label">Last Name:</label>
@@ -144,16 +146,17 @@
         							</form>
       							</div>
       						<div class="modal-footer">
-        						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        						<button type="button" class="btn btn-primary" name="customer-update" value="{{r[0]}}"">Update Customer</button>
-      						</div>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<form action="" method="post">
+									<button type="submit" class="btn btn-primary" name="customer-update" value="updateCustomer">Update Customer</button>
+							    </form>
+							</div>
    						</div>
   					</div>
-				</div>
 				</td>
 				<td>
                     <form action="" method="post">
-                    <button class="btn btn-danger" name="customer-delete" value="{{r[0]}}">Delete</button>
+                    	<button class="btn btn-danger" name="customer-delete" value="{{r[0]}}">Delete</button>
                     </form>
 				</td>
 			</tr>

@@ -270,10 +270,53 @@ def admin():
                     "Vets": ""}
 
         db_connection = connect_to_database()
-        
+
+        # They submitted a form to update a customer
+        if request.form.get('customer-update'): # == 'updateCustomer':
+            
+            # Get customer data from form fields
+            customer_data = {
+                    "First Name": request.form.get('customer-first-name'),
+                    "Last Name": request.form.get('customer-last-name'),
+                    "Email": request.form.get('customer-email'),
+                    "Phone Number": request.form.get('customer-phone'),
+                    "Street Address": request.form.get('customer-address'),
+                    "City": request.form.get('customer-city'),
+                    "State": request.form.get('customer-state'),
+                    "Zip Code": request.form.get('customer-zip-code'),
+                    "Customer ID": request.form.get('customer-id')
+                    }
+
+            print(customer_data) #TAKE OUT
+            
+            # If no fields missing, do the insert
+            query = 'UPDATE customers SET first_name = %s, last_name = %s, email = %s, phone = %s, address = %s, city = %s, state = %s, zip_code = %s WHERE customer_id = %s'
+            data = (customer_data["First Name"],
+                    customer_data["Last Name"],
+                    customer_data["Email"],
+                    customer_data["Phone Number"],
+                    customer_data["Street Address"], 
+                    customer_data["City"], 
+                    customer_data["State"],
+                    customer_data["Zip Code"],
+                    customer_data["Customer ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Customer {customer_data['First Name']} {customer_data['Last Name']}"
+                else:
+                    feedback = "Update Customer Failed."
+            except:
+                feedback = "Update Customer Failed."
+            
+            return refresh_admin(feedback)
+
+
         # If they submitted to update a customer
-        if request.form.get('customer-update'):
-            return str(request.form.get('customer-update'))            
+        #if request.form.get('customer-update'):
+        #    return str(request.form.get('customer-update'))            
 
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):

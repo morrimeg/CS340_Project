@@ -76,6 +76,9 @@ INSERT INTO enrollments (pet_id, class_id) values (
   (SELECT class_id FROM classes WHERE class_name = :className)
 );
 
+-- Admin page: add Teacher
+
+
 -- Admin page: add Vet
 INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:firstName, :lastName, :email, :phone, :specialty);
 
@@ -96,6 +99,8 @@ WHERE class_id = :classId;
 
 -- Admin page: update Enrollment
 UPDATE enrollments SET pet_id = :petId, class_id = :classId WHERE enrollment_id = :enrollmentID;
+
+-- Admin page: update Teachers
 
 -- Admin page: update Vet
 UPDATE vets SET first_name = :firstName, last_name = :lastName, email = :email, phone = :phone, specialty = :specialty

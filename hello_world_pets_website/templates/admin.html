@@ -260,9 +260,9 @@
 											<label class="form-check-label" for="pet_gender2"> Male </label>
 											<br>
 											<label for="customer-first-name" class="col-form-label">Customer First Name:</label>
-											<input type="text" class="form-control cust-first-name" name="customer-first-name">
+											<input type="text" class="form-control cust-first-name" name="customer-first-name" required>
 											<label for="customer-last-name" class="col-form-label">Customer Last Name:</label>
-											<input type="text" class="form-control cust-last-name" name="customer-last-name">
+											<input type="text" class="form-control cust-last-name" name="customer-last-name" required>
 											<label for="vet-first-name" class="col-form-label">Vet First Name:</label>
 											<input type="text" class="form-control vet-first-name" name="vet-first-name">
 											<label for="vet-last-name" class="col-form-label">Vet Last Name:</label>
@@ -394,6 +394,10 @@
 											<input type="number" class="form-control class-price" name="class-price" value="{{c[5]}}">
 											<label for="class-seats" class="col-form-label">Seats Available:</label>
 											<input type="text" class="form-control class-seats" name="class-seats" value="{{c[6]}}">
+											<label for="teacher-first-name" class="col-form-label">Teacher First Name:</label>
+											<input type="text" class="form-control teacher-first-name" name="teacher-first-name" required>
+											<label for="teacher-last-name" class="col-form-label">Teacher Last Name:</label>
+											<input type="text" class="form-control teacher-last-name" name="teacher-last-name" required>
 											<br>
 											<button type="submit" class="btn btn-primary" name="class-update" value="{{c[0]}}">Update Class</button>
           								</div>
@@ -473,7 +477,7 @@
 		<tbody>
 			<tr>
 				{% for e in enroll %}
-				<th scope="row">{{e[0]}}</th>
+				<th scope="row" class="enroll-id">{{e[0]}}</th>
 				<td>{{e[1]}}</td>
 				<td>{{e[2]}}</td>
 				<td>
@@ -784,7 +788,8 @@
 			var _classTime = _row.find(".class-time").text();
 			var _classPrice = _row.find(".class-price").text();
 			var _classSeats = _row.find(".class-seats").text();
-			var _classTeacherId = _row.find(".class-teacher-id").text()
+			var _classTeacherFirstName = _row.find(".teacher-first-name").text();
+			var _classTeacherLastName = _row.find(".teacher-last-name").text();
 
 			$(this).find(".class-id").val(_classId);
 			$(this).find(".class-name").val(_className);
@@ -793,7 +798,25 @@
 			$(this).find(".class-time").val(_classTime);
 			$(this).find(".class-price").val(_classPrice);
 			$(this).find(".class-seats").val(_classSeats);
-			$(this).find(".class-teacher-id").val(_classTeacherId);
+			$(this).find(".teacher-first-name").val(_classTeacherFirstName);
+			$(this).find(".teacher-last-name").val(_classTeacherLastName);
+
+
+		});
+
+		// Fill the Update Enrollments form
+		$('#enrollModal').on('show.bs.modal', function (e) {
+  
+  			var _button = $(e.relatedTarget); // Button that triggered the modal
+
+			var _row = _button.parents("tr");
+			var _enrollId = _row.find(".enroll-id").text();
+			var _petName = _row.find(".pet-name").text();
+  			var _className = _row.find(".class-name").text();
+
+			$(this).find(".enroll-id").val(_enrollId);
+			$(this).find(".pet-name").val(_petName);
+			$(this).find(".class-name").val(_className);
 
 		});
 

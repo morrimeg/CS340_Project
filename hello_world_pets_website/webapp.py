@@ -358,9 +358,46 @@ def admin():
             return refresh_admin(feedback)
 
 
-
         # If they submitted to update a Class
+        elif request.form.get('class-update'):
+            
+            # Get customer data from form fields
+            class_data = {
+                    "Class Name": request.form.get('class-name'),
+                    "Class Description": request.form.get('class-description'),
+                    "Class Day": request.form.get('class-day'),
+                    "Class Time": request.form.get('class-time'),
+                    "Class Price": request.form.get('class-price'),
+                    "Class Seats": request.form.get('class-seats'),
+                    "Teacher First Name": request.form.get('teacher-first-name'),
+                    "Teacher Last Name": request.form.get('teacher-last-name'),
+                    "Class ID": request.form.get('class-id')
+                    }
+            
 
+            # Do the update
+            query = 'UPDATE classes SET class_name = %s, class_description = %s, class_day = %s, class_time = %s, class_price = %s, class_seats = %s, teacher_id = (SELECT teacher_id from teachers where first_name = %s and last_name = %s) WHERE class_id = %s'
+            data = (class_data["Class Name"],
+                    class_data["Class Description"],
+                    class_data["Class Day"],
+                    class_data["Class Time"],
+                    class_data["Class Price"],
+                    class_data["Class Seats"],
+                    class_data["Teacher First Name"], 
+                    class_data["Teacher Last Name"],
+                    class_data["Class ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Class {class_data['Class Name']}"
+                else:
+                    feedback = "Update Class Failed."
+            except:
+                feedback = "Update Class Failed."
+            
+            return refresh_admin(feedback)
 
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):

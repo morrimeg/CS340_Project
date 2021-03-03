@@ -106,14 +106,11 @@
 				<td class="cust-state">{{r[7]}}</td>
 				<td class="cust-zip">{{r[8]}}</td>
 				<td>
-                    <!--<form action="" method="post">
-					<button class="btn btn-info" name="customer-update" value="{{r[0]}}">Update</button>
-					</form>-->
-					<!-- Got the pop up form code from bootstrap
+					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" name='customer-update-row' value="{{r[0]}}">Update</button>
+					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#customerModal" name='customer-update-row' value="{{r[0]}}">Update</button>
 
-					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   						<div class="modal-dialog" role="document">
     						<div class="modal-content">
       							<div class="modal-header">
@@ -220,18 +217,57 @@
 		<tbody>
 			{% for p in pets %}
 		<tr>
-			<th scope="row">{{p[0]}}</th>
-			<td>{{p[1]}}</td>
-			<td>{{p[2]}}</td>
-			<td>{{p[3]}}</td>
-			<td>{{p[4]}}</td>
-			<td>{{p[5]}}</td>
+			<th scope="row" class="pet-id">{{p[0]}}</th>
+			<td class="pet-name">{{p[1]}}</td>
+			<td class="pet-species">{{p[2]}}</td>
+			<td class="pet-breed">{{p[3]}}</td>
+			<td class="pet-age">{{p[4]}}</td>
+			<td class="pet-gender">{{p[5]}}</td>
 			<td>{{p[6]}}</td>
 			<td>{{p[7]}}</td>
 			<td>
-				<form action="" method="post">
-				<button class="btn btn-info" name="pet-update" value="{{p[0]}}">Update</button>
-				</form>
+				<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+					https://getbootstrap.com/docs/4.0/components/modal/-->
+					<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#petModal" value="{{p[0]}}">Update</button>
+
+					<div class="modal fade" id="petModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Update Pet</h5>
+       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          								<span aria-hidden="true">&times;</span>
+        							</button>
+								  </div>
+      							<div class="modal-body">
+        							<form action="" method="post">
+          								<div class="form-group">
+											<input type="hidden" class="pet-id" name="pet-id" value="{{p[0]}}">
+            								<label for="pet-name" class="col-form-label">Name:</label>
+											<input type="text" class="form-control pet-name" name="pet-name" value="{{p[1]}}">
+											<label for="pet-species" class="col-form-label">Species:</label>
+											<input type="text" class="form-control pet-species" name="pet-species" value="{{p[2]}}">
+											<label for="pet-breed" class="col-form-label">Breed:</label>
+											<input type="text" class="form-control pet-breed" name="pet-breed" value="{{p[3]}}">
+											<label for="pet-age" class="col-form-label">Age:</label>
+											<input type="text" class="form-control pet-age" name="pet-age" value="{{p[4]}}">
+											<label for="pet-gender" class="col-form-label">Gender:</label>
+											<br>
+											<input class="form-check-input pet-gender" type="radio" name="pet-gender" id="pet_gender1" value="{{p[5]}}">
+											<label class="form-check-label" for="pet_gender1"> Female </label>
+											<br>
+											<input class="form-check-input pet-gender" type="radio" name="pet-gender" id="pet_gender2" value="{{p[5]}}">
+											<label class="form-check-label" for="pet_gender2"> Male </label>
+											<br>
+											<button type="submit" class="btn btn-primary" name="pet-update" value="{{p[0]}}">Update Pet</button>
+          								</div>
+        							</form>
+								  </div>
+      						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+   						</div>
+  					</div>
 			</td>
 			<td>
 				<form action="" method="post">
@@ -631,11 +667,11 @@
 <script>
 	$(document).ready(function() {
 
-		$('#exampleModal').on('show.bs.modal', function (e) {
+		// Fill the Update Customer form
+		$('#customerModal').on('show.bs.modal', function (e) {
   
 			var _button = $(e.relatedTarget); // Button that triggered the modal
   
-  			// console.log(_button, _button.parents("tr"));
   			var _row = _button.parents("tr");
   			var _custId = _row.find(".cust-id").text();
   			var _custFirstName = _row.find(".cust-first-name").text();
@@ -646,22 +682,52 @@
   			var _custCity = _row.find(".cust-city").text();
 			var _custState = _row.find(".cust-state").text();
 			var _custZip = _row.find(".cust-zip").text();
-
-  			// console.log(_invoiceAmt, _chequeAmt);
   
   			$(this).find(".cust-id").val(_custId);
   			$(this).find(".cust-first-name").val(_custFirstName);
-			  $(this).find(".cust-last-name").val(_custLastName);
-			  $(this).find(".cust-email").val(_custEmail);
-			  $(this).find(".cust-phone").val(_custPhone);
-			  $(this).find(".cust-address").val(_custAddress);
-			  $(this).find(".cust-city").val(_custCity);
-			  $(this).find(".cust-state").val(_custState);
-			  $(this).find(".cust-zip").val(_custZip);
+			$(this).find(".cust-last-name").val(_custLastName);
+			$(this).find(".cust-email").val(_custEmail);
+			$(this).find(".cust-phone").val(_custPhone);
+			$(this).find(".cust-address").val(_custAddress);
+			$(this).find(".cust-city").val(_custCity);
+			$(this).find(".cust-state").val(_custState);
+			$(this).find(".cust-zip").val(_custZip);
 
 		});
 
-	});
+		// Fill the Update Pets form
+		$('#petModal').on('show.bs.modal', function (e) {
+  
+  			var _button = $(e.relatedTarget); // Button that triggered the modal
+
+			var _row = _button.parents("tr");
+			var _petId = _row.find(".pet-id").text();
+			var _petName = _row.find(".pet-name").text();
+  			var _petSpecies = _row.find(".pet-species").text();
+			var _petBreed = _row.find(".pet-breed").text();
+			var _petAge = _row.find(".pet-age").text();
+			var _petGender = _row.find(".pet-gender").text();
+			//var _custFistName = _row.find(".cust-first-name").text();
+  			//var _custLastName = _row.find(".cust-last-name").text();
+  			//var _vetFirstName = _row.find(".vet-first-name").text();
+			//var _vetLastName = _row.find(".vet-last-name").text();
+
+
+			$(this).find(".pet-id").val(_petId);
+			$(this).find(".pet-name").val(_petName);
+			$(this).find(".pet-species").val(_petSpecies);
+			$(this).find(".pet-breed").val(_petBreed);
+			$(this).find(".pet-age").val(_petAge);
+			$(this).find(".pet-gender").val(_petGender);
+			//$(this).find(".cust-first-name").val(_custFistName);
+			//$(this).find(".cust-last-name").val(_custLastName);
+			//$(this).find(".vet-first-name").val(_vetFirstName);
+			//$(this).find(".vet-last-name").val(_vetLastName);
+
+		});
+
+
+});
 </script>
 
 </body>

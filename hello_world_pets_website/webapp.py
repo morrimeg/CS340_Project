@@ -428,6 +428,39 @@ def admin():
             
             return refresh_admin(feedback)
 
+
+        # If they submitted to update a teacher
+        elif request.form.get('teacher-update'):
+            
+            # Get teacher data from form fields
+            teacher_data = {
+                    "Teacher First Name": request.form.get('teacher-first-name'),
+                    "Teacher Last Name": request.form.get('teacher-last-name'),
+                    "Teacher Email": request.form.get('teacher-email'),
+                    "Teacher Phone": request.form.get('teacher-phone'),
+                    "Teacher ID": request.form.get('teacher-id')
+                    }
+            
+            # Do the update
+            query = 'UPDATE teachers SET first_name = %s, last_name = %s, email = %s, phone = %s WHERE teacher_id = %s'
+            data = (teacher_data["Teacher First Name"],
+                    teacher_data["Teacher Last Name"],
+                    teacher_data["Teacher Email"],
+                    teacher_data["Teacher Phone"],
+                    teacher_data["Teacher ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Teacher {teacher_data['Teacher First Name']} {teacher_data['Teacher Last Name']}"
+                else:
+                    feedback = "Update Teacher Failed."
+            except:
+                feedback = "Update Teacher Failed."
+            
+            return refresh_admin(feedback)
+
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):
             customer_id = request.form.get('customer-delete')
@@ -447,33 +480,21 @@ def admin():
             class_id = request.form.get('class-delete')
             query = "DELETE FROM classes WHERE class_id = '" + class_id + "'"
             execute_query(db_connection, query)
-            return refresh_admin()
-     
-         # If they submitted to update an enrollment
-        elif request.form.get('enroll-update'):
-            return str(request.form.get('enroll-update'))            
+            return refresh_admin()      
 
         # If they submitted to delete an enrollment
         elif request.form.get('enroll-delete'):
             enrollment_id = request.form.get('enroll-delete')
             query = "DELETE FROM enrollments WHERE enrollment_id = '" + enrollment_id + "'"
             execute_query(db_connection, query)
-            return refresh_admin()
-
-        # If they submitted to update a teacher
-        elif request.form.get('teacher-update'):
-            return str(request.form.get('teacher-update'))            
+            return refresh_admin()         
 
         # If they submitted to delete a teacher
         elif request.form.get('teacher-delete'):
             teacher_id = request.form.get('teacher-delete')
             query = "DELETE FROM teachers WHERE teacher_id = '" + teacher_id + "'"
             execute_query(db_connection, query)
-            return refresh_admin()
-
-        # If they submitted to update a vet
-        elif request.form.get('vet-update'):
-            return str(request.form.get('vet-update'))            
+            return refresh_admin()           
 
         # If they submitted to delete a vet
         elif request.form.get('vet-delete'):

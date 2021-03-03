@@ -577,15 +577,47 @@
 		<tbody>
 			<tr>
 				{% for t in teacher %}
-				<th scope="row">{{t[0]}}</th>
-				<td>{{t[1]}}</td>
-				<td>{{t[2]}}</td>
-				<td>{{t[3]}}</td>
-				<td>{{t[4]}}</td>
+				<th scope="row" class="teacher-id">{{t[0]}}</th>
+				<td class="teacher-first-name">{{t[1]}}</td>
+				<td class="teacher-last-name">{{t[2]}}</td>
+				<td class="teacher-email">{{t[3]}}</td>
+				<td class="teacher-phone">{{t[4]}}</td>
 				<td>
-					<form action="" method="post">
-					<button class="btn btn-info" name="teacher-update" value="{{t[0]}}">Update</button>
-					</form>
+					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+					https://getbootstrap.com/docs/4.0/components/modal/-->
+					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#teacherModal" value="{{t[0]}}">Update</button>
+
+					<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Update Teacher</h5>
+       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          								<span aria-hidden="true">&times;</span>
+        							</button>
+								  </div>
+      							<div class="modal-body">
+        							<form action="" method="post">
+          								<div class="form-group">
+											<input type="hidden" class="teacher-id" name="teacher-id" value="{{t[0]}}">
+            								<label for="teacher-first-name" class="col-form-label">First Name:</label>
+											<input type="text" class="form-control teacher-first-name" name="teacher-first-name" value="{{t[1]}}">
+											<label for="teacher-last-name" class="col-form-label">Last Name:</label>
+											<input type="text" class="form-control teacher-last-name" name="teacher-last-name" value="{{t[2]}}">
+											<label for="teacher-email" class="col-form-label">Email:</label>
+											<input type="text" class="form-control teacher-email" name="teacher-email" value="{{t[3]}}">
+											<label for="teacher-phone" class="col-form-label">Phone Number:</label>
+											<input type="text" class="form-control teacher-phone" name="teacher-phone" value="{{t[4]}}">
+											<br>
+											<button type="submit" class="btn btn-primary" name="teacher-update" value="{{t[0]}}">Update Teacher</button>
+          								</div>
+        							</form>
+								  </div>
+      						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+   						</div>
+  					</div>
 				</td>
 				<td>
 					<form action="" method="post">
@@ -845,6 +877,26 @@
 			$(this).find(".enroll-id").val(_enrollId);
 			$(this).find(".pet-name").val(_petName);
 			$(this).find(".class-name").val(_className);
+
+		});
+
+		// Fill the Update Teacher form
+		$('#teacherModal').on('show.bs.modal', function (e) {
+  
+  			var _button = $(e.relatedTarget); // Button that triggered the modal
+
+			var _row = _button.parents("tr");
+			var _techerId = _row.find(".teacher-id").text();
+			var _teacherFirstName = _row.find(".teacher-first-name").text();
+  			var _teacherLastName = _row.find(".teacher-last-name").text();
+			var _teacherEmail = _row.find(".teacher-email").text();
+			var _teacherPhone = _row.find(".teacher-phone").text();
+
+			$(this).find(".teacher-id").val(_techerId);
+			$(this).find(".teacher-first-name").val(_teacherFirstName);
+			$(this).find(".teacher-last-name").val(_teacherLastName);
+			$(this).find(".teacher-email").val(_teacherEmail);
+			$(this).find(".teacher-phone").val(_teacherPhone);
 
 		});
 

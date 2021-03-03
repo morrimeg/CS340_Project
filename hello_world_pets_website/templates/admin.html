@@ -259,6 +259,15 @@
 											<input class="form-check-input pet-gender" type="radio" name="pet-gender" id="pet_gender2" value="{{p[5]}}">
 											<label class="form-check-label" for="pet_gender2"> Male </label>
 											<br>
+											<label for="customer-first-name" class="col-form-label">Customer First Name:</label>
+											<input type="text" class="form-control cust-first-name" name="customer-first-name">
+											<label for="customer-last-name" class="col-form-label">Customer Last Name:</label>
+											<input type="text" class="form-control cust-last-name" name="customer-last-name">
+											<label for="vet-first-name" class="col-form-label">Vet First Name:</label>
+											<input type="text" class="form-control vet-first-name" name="vet-first-name">
+											<label for="vet-last-name" class="col-form-label">Vet Last Name:</label>
+											<input type="text" class="form-control vet-last-name" name="vet-last-name">
+											<br>
 											<button type="submit" class="btn btn-primary" name="pet-update" value="{{p[0]}}">Update Pet</button>
           								</div>
         							</form>
@@ -347,18 +356,54 @@
 		<tbody>
 			<tr>
 				{% for c in classes %}
-			<th scope="row">{{c[0]}}</th>
-			<td>{{c[1]}}</td>
-			<td>{{c[2]}}</td>
-			<td>{{c[3]}}</td>
-			<td>{{c[4]}}</td>
-			<td>{{c[5]}}</td>
-			<td>{{c[6]}}</td>
+			<th scope="row" class="class-id">{{c[0]}}</th>
+			<td class="class-name">{{c[1]}}</td>
+			<td class="class-description">{{c[2]}}</td>
+			<td class="class-day">{{c[3]}}</td>
+			<td class="class-time">{{c[4]}}</td>
+			<td class="class-price">{{c[5]}}</td>
+			<td class="class-seats">{{c[6]}}</td>
 			<td>{{c[7]}}</td>
 			<td>
-				<form action="" method="post">
-					<button class="btn btn-info" name="class-update" value="{{c[0]}}">Update</button>
-				</form>
+				<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+					https://getbootstrap.com/docs/4.0/components/modal/-->
+					<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#classModal" value="{{c[0]}}">Update</button>
+
+					<div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Update Class</h5>
+       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          								<span aria-hidden="true">&times;</span>
+        							</button>
+								  </div>
+      							<div class="modal-body">
+        							<form action="" method="post">
+          								<div class="form-group">
+											<input type="hidden" class="class-id" name="class-id" value="{{c[0]}}">
+            								<label for="class-name" class="col-form-label">Class Name:</label>
+											<input type="text" class="form-control class-name" name="class-name" value="{{c[1]}}">
+											<label for="class-description" class="col-form-label">Class Description:</label>
+											<textarea rows="2" cols="5" type="text" class="form-control class-description" name="class-description" value="{{c[2]}}"></textarea>
+											<label for="class-day" class="col-form-label">Day:</label>
+											<input type="date" class="form-control class-day" name="class-day" value="{{c[3]}}">
+											<label for="class-time" class="col-form-label">Time:</label>
+											<input type="datetime-local" class="form-control class-time" name="class-time" value="{{c[4]}}">
+											<label for="class-price" class="col-form-label">Price:</label>
+											<input type="number" class="form-control class-price" name="class-price" value="{{c[5]}}">
+											<label for="class-seats" class="col-form-label">Seats Available:</label>
+											<input type="text" class="form-control class-seats" name="class-seats" value="{{c[6]}}">
+											<br>
+											<button type="submit" class="btn btn-primary" name="class-update" value="{{c[0]}}">Update Class</button>
+          								</div>
+        							</form>
+								  </div>
+      						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+   						</div>
+  					</div>
 			</td>
 			<td>
 				<form action="" method="post">
@@ -707,10 +752,10 @@
 			var _petBreed = _row.find(".pet-breed").text();
 			var _petAge = _row.find(".pet-age").text();
 			var _petGender = _row.find(".pet-gender").text();
-			//var _custFistName = _row.find(".cust-first-name").text();
-  			//var _custLastName = _row.find(".cust-last-name").text();
-  			//var _vetFirstName = _row.find(".vet-first-name").text();
-			//var _vetLastName = _row.find(".vet-last-name").text();
+			var _custFistName = _row.find(".cust-first-name").text();
+  			var _custLastName = _row.find(".cust-last-name").text();
+  			var _vetFirstName = _row.find(".vet-first-name").text();
+			var _vetLastName = _row.find(".vet-last-name").text();
 
 
 			$(this).find(".pet-id").val(_petId);
@@ -719,10 +764,36 @@
 			$(this).find(".pet-breed").val(_petBreed);
 			$(this).find(".pet-age").val(_petAge);
 			$(this).find(".pet-gender").val(_petGender);
-			//$(this).find(".cust-first-name").val(_custFistName);
-			//$(this).find(".cust-last-name").val(_custLastName);
-			//$(this).find(".vet-first-name").val(_vetFirstName);
-			//$(this).find(".vet-last-name").val(_vetLastName);
+			$(this).find(".cust-first-name").val(_custFistName);
+			$(this).find(".cust-last-name").val(_custLastName);
+			$(this).find(".vet-first-name").val(_vetFirstName);
+			$(this).find(".vet-last-name").val(_vetLastName);
+
+		});
+
+		// Fill the Update Classes form
+		$('#classModal').on('show.bs.modal', function (e) {
+  
+  			var _button = $(e.relatedTarget); // Button that triggered the modal
+
+			var _row = _button.parents("tr");
+			var _classId = _row.find(".class-id").text();
+			var _className = _row.find(".class-name").text();
+  			var _classDescription = _row.find(".class-description").text();
+			var _classDay = _row.find(".class-day").text();
+			var _classTime = _row.find(".class-time").text();
+			var _classPrice = _row.find(".class-price").text();
+			var _classSeats = _row.find(".class-seats").text();
+			var _classTeacherId = _row.find(".class-teacher-id").text()
+
+			$(this).find(".class-id").val(_classId);
+			$(this).find(".class-name").val(_className);
+			$(this).find(".class-description").val(_classDescription);
+			$(this).find(".class-day").val(_classDay);
+			$(this).find(".class-time").val(_classTime);
+			$(this).find(".class-price").val(_classPrice);
+			$(this).find(".class-seats").val(_classSeats);
+			$(this).find(".class-teacher-id").val(_classTeacherId);
 
 		});
 

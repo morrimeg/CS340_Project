@@ -314,10 +314,53 @@ def admin():
             
             return refresh_admin(feedback)
 
+        # If they request to update a Pet
+        elif request.form.get('pet-update'):
+            
+            # Get customer data from form fields
+            pet_data = {
+                    "Pet Name": request.form.get('pet-name'),
+                    "Pet Species": request.form.get('pet-species'),
+                    "Pet Breed": request.form.get('pet-breed'),
+                    "Pet Age": request.form.get('pet-age'),
+                    "Pet Gender": request.form.get('pet-gender'),
+                    "Vet First Name": request.form.get('vet-first-name'),
+                    "Vet Last Name": request.form.get('vet-last-name'),
+                    "Customer First Name": request.form.get('customer-first-name'),
+                    "Customer Last Name": request.form.get('customer-last-name'),
+                    "Pet ID": request.form.get('pet-id')
+                    }
+            
 
-        # If they submitted to update a customer
-        #if request.form.get('customer-update'):
-        #    return str(request.form.get('customer-update'))            
+            # Do the update
+            query = 'UPDATE pets SET pet_name = %s, species = %s, breed = %s, age = %s, gender = %s, vet_id = (SELECT vet_id from vets where first_name = %s and last_name = %s), customer_id = (SELECT customer_id from customers where first_name = %s and last_name = %s) WHERE pet_id = %s'
+            data = (pet_data["Pet Name"],
+                    pet_data["Pet Species"],
+                    pet_data["Pet Breed"],
+                    pet_data["Pet Age"],
+                    pet_data["Pet Gender"],
+                    pet_data["Vet First Name"],
+                    pet_data["Vet Last Name"], 
+                    pet_data["Customer First Name"], 
+                    pet_data["Customer Last Name"],
+                    pet_data["Pet ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Pet {pet_data['Pet Name']}"
+                else:
+                    feedback = "Update Pets Failed."
+            except:
+                feedback = "Update Pets Failed."
+            
+            return refresh_admin(feedback)
+
+
+
+        # If they submitted to update a Class
+
 
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):

@@ -317,7 +317,7 @@ def admin():
         # If they request to update a Pet
         elif request.form.get('pet-update'):
             
-            # Get customer data from form fields
+            # Get pet data from form fields
             pet_data = {
                     "Pet Name": request.form.get('pet-name'),
                     "Pet Species": request.form.get('pet-species'),
@@ -361,7 +361,7 @@ def admin():
         # If they submitted to update a Class
         elif request.form.get('class-update'):
             
-            # Get customer data from form fields
+            # Get class data from form fields
             class_data = {
                     "Class Name": request.form.get('class-name'),
                     "Class Description": request.form.get('class-description'),
@@ -399,27 +399,48 @@ def admin():
             
             return refresh_admin(feedback)
 
+        # If they requested to upate an enrollment
+        elif request.form.get('enrollment-update'):
+            
+            # Get enrollment data from form fields
+            enrollment_data = {
+                    "Pet Name": request.form.get('pet-name'),
+                    "Class Name": request.form.get('class-name'),
+                    "Enrollment ID": request.form.get('enroll-id')
+                    }
+            
+
+            # Do the update
+            query = 'UPDATE enrollments SET pet_id = (SELECT pet_id from pets where pet_name = %s), class_id = (SELECT class_id from classes where class_name = %s) WHERE enrollment_id = %s'
+            data = (enrollment_data["Pet Name"],
+                    enrollment_data["Class Name"],
+                    enrollment_data["Enrollment ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Enrollment {class_data['Enrollment Name']}"
+                else:
+                    feedback = "Update Enrollment Failed."
+            except:
+                feedback = "Update Enrollment Failed."
+            
+            return refresh_admin(feedback)
+
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):
             customer_id = request.form.get('customer-delete')
             query = "DELETE FROM customers WHERE customer_id = '" + customer_id + "'"
             execute_query(db_connection, query)
-            return refresh_admin()
-    
-        # If they submitted to update a pet
-        elif request.form.get('pet-update'):
-            return str(request.form.get('pet-update'))            
+            return refresh_admin()          
 
         # If they submitted to delete a pet
         elif request.form.get('pet-delete'):
             pet_id = request.form.get('pet-delete')
             query = "DELETE FROM pets WHERE pet_id = '" + pet_id + "'"
             execute_query(db_connection, query)
-            return refresh_admin()
-
-         # If they submitted to update a class
-        elif request.form.get('class-update'):
-            return str(request.form.get('class-update'))            
+            return refresh_admin()        
 
         # If they submitted to delete a class
         elif request.form.get('class-delete'):

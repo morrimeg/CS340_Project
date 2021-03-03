@@ -461,6 +461,40 @@ def admin():
             
             return refresh_admin(feedback)
 
+        # If they submitted to update a vet
+        elif request.form.get('vet-update'):
+            
+            # Get vet data from form fields
+            vet_data = {
+                    "Vet First Name": request.form.get('vet-first-name'),
+                    "Vet Last Name": request.form.get('vet-last-name'),
+                    "Vet Email": request.form.get('vet-email'),
+                    "Vet Phone": request.form.get('vet-phone'),
+                    "Vet Specialty": request.form.get('vet-specialty'),
+                    "Vet ID": request.form.get('vet-id')
+                    }
+            
+            # Do the update
+            query = 'UPDATE vets SET first_name = %s, last_name = %s, email = %s, phone = %s, specialty = %s WHERE vet_id = %s'
+            data = (vet_data["Vet First Name"],
+                    vet_data["Vet Last Name"],
+                    vet_data["Vet Email"],
+                    vet_data["Vet Phone"],
+                    vet_data["Vet Specialty"],
+                    vet_data["Vet ID"])
+            
+            try:
+                result = execute_query(db_connection, query, data)
+                
+                if result:
+                    feedback = f"Updated Vet {vet_data['Vet First Name']} {vet_data['Vet Last Name']}"
+                else:
+                    feedback = "Update Vet Failed."
+            except:
+                feedback = "Update Vet Failed."
+            
+            return refresh_admin(feedback)
+
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):
             customer_id = request.form.get('customer-delete')

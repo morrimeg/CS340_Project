@@ -685,16 +685,50 @@
 		<tbody>
 			<tr>
 				{% for v in vet %}
-				<th scope="row">{{v[0]}}</th>
-				<td>{{v[1]}}</td>
-				<td>{{v[2]}}</td>
-				<td>{{v[3]}}</td>
-				<td>{{v[4]}}</td>
-				<td>{{v[5]}}</td>
+				<th scope="row" class="vet-id">{{v[0]}}</th>
+				<td class="vet-first-name">{{v[1]}}</td>
+				<td class="vet-last-name">{{v[2]}}</td>
+				<td class="vet-email">{{v[3]}}</td>
+				<td class="vet-phone">{{v[4]}}</td>
+				<td class="vet-specialty">{{v[5]}}</td>
 				<td>
-					<form action="" method="post">
-					<button class="btn btn-info" name="vet-update" value="{{v[0]}}">Update</button>
-					</form>
+					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+					https://getbootstrap.com/docs/4.0/components/modal/-->
+					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#vetModal" value="{{v[0]}}">Update</button>
+
+					<div class="modal fade" id="vetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  						<div class="modal-dialog" role="document">
+    						<div class="modal-content">
+      							<div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Update Vet</h5>
+       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          								<span aria-hidden="true">&times;</span>
+        							</button>
+								  </div>
+      							<div class="modal-body">
+        							<form action="" method="post">
+          								<div class="form-group">
+											<input type="hidden" class="vet-id" name="vet-id" value="{{v[0]}}">
+            								<label for="vet-first-name" class="col-form-label">First Name:</label>
+											<input type="text" class="form-control vet-first-name" name="vet-first-name" value="{{v[1]}}">
+											<label for="vet-last-name" class="col-form-label">Last Name:</label>
+											<input type="text" class="form-control vet-last-name" name="vet-last-name" value="{{v[2]}}">
+											<label for="vet-email" class="col-form-label">Email:</label>
+											<input type="text" class="form-control vet-email" name="vet-email" value="{{v[3]}}">
+											<label for="vet-phone" class="col-form-label">Phone Number:</label>
+											<input type="text" class="form-control vet-phone" name="vet-phone" value="{{v[4]}}">
+											<label for="vet-specialty" class="col-form-label">Specialty:</label>
+											<input type="text" class="form-control vet-specialty" name="vet-specialty" value="{{v[5]}}">
+											<br>
+											<button type="submit" class="btn btn-primary" name="vet-update" value="{{v[0]}}">Update Vet</button>
+          								</div>
+        							</form>
+								  </div>
+      						<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+   						</div>
+  					</div>
 				</td>
 				<td>
 					<form action="" method="post">
@@ -897,6 +931,28 @@
 			$(this).find(".teacher-last-name").val(_teacherLastName);
 			$(this).find(".teacher-email").val(_teacherEmail);
 			$(this).find(".teacher-phone").val(_teacherPhone);
+
+		});
+
+		// Fill the Update Vet form
+		$('#vetModal').on('show.bs.modal', function (e) {
+  
+  			var _button = $(e.relatedTarget); // Button that triggered the modal
+
+			var _row = _button.parents("tr");
+			var _vetId = _row.find(".vet-id").text();
+			var _vetFirstName = _row.find(".vet-first-name").text();
+  			var _vetLastName = _row.find(".vet-last-name").text();
+			var _vetEmail = _row.find(".vet-email").text();
+			var _vetPhone = _row.find(".vet-phone").text();
+			var _vetSpec = _row.find(".vet-specialty").text();
+
+			$(this).find(".vet-id").val(_vetId);
+			$(this).find(".vet-first-name").val(_vetFirstName);
+			$(this).find(".vet-last-name").val(_vetLastName);
+			$(this).find(".vet-email").val(_vetEmail);
+			$(this).find(".vet-phone").val(_vetPhone);
+			$(this).find(".vet-specialty").val(_vetSpec);
 
 		});
 

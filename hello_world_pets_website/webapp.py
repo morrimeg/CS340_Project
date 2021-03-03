@@ -286,7 +286,8 @@ def admin():
                     "Zip Code": request.form.get('customer-zip-code'),
                     "Customer ID": request.form.get('customer-id')
                     }
-
+            print(request.form.get('customer-update'))
+            print()
             print(customer_data) #TAKE OUT
             
             # If no fields missing, do the insert

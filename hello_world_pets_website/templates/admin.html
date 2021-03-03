@@ -96,22 +96,22 @@
 		<tbody>
 			{% for r in rows %}
 			<tr>
-				<th scope="row">{{r[0]}}</th>
-				<td>{{r[1]}}</td>
-				<td>{{r[2]}}</td>
-				<td>{{r[3]}}</td>
-				<td>{{r[4]}}</td>
-				<td>{{r[5]}}</td>
-				<td>{{r[6]}}</td>
-				<td>{{r[7]}}</td>
-				<td>{{r[8]}}</td>
+				<th scope="row" class="cust-id">{{r[0]}}</th>
+				<td class="cust-first-name">{{r[1]}}</td>
+				<td class="cust-last-name">{{r[2]}}</td>
+				<td class="cust-email">{{r[3]}}</td>
+				<td class="cust-phone">{{r[4]}}</td>
+				<td class="cust-address">{{r[5]}}</td>
+				<td class="cust-city">{{r[6]}}</td>
+				<td class="cust-state">{{r[7]}}</td>
+				<td class="cust-zip">{{r[8]}}</td>
 				<td>
                     <!--<form action="" method="post">
 					<button class="btn btn-info" name="customer-update" value="{{r[0]}}">Update</button>
 					</form>-->
 					<!-- Got the pop up form code from bootstrap
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" value="{{r[0]}}">Update</button>
+					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" name='customer-update-row' value="{{r[0]}}">Update</button>
 
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   						<div class="modal-dialog" role="document">
@@ -121,32 +121,32 @@
        								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           								<span aria-hidden="true">&times;</span>
         							</button>
-      							</div>
+								  </div>
       							<div class="modal-body">
         							<form action="" method="post">
           								<div class="form-group">
-											<input type="number"  name="customer-id" id="cust_id" value="{{r[0]}}">
-            								<label for="customer-first-name" class="col-form-label">First Name:</label>
-											<input type="text" class="form-control" name="customer-first-name" value="{{r[1]}}">
+											<input type="hidden" class="cust-id" name="customer-id" value="{{r[0]}}">
+            								<label for="customer-first-name" id="cust_first_name" class="col-form-label">First Name:</label>
+											<input type="text" class="form-control cust-first-name" name="customer-first-name" value="{{r[1]}}">
 											<label for="customer-last-name" class="col-form-label">Last Name:</label>
-											<input type="text" class="form-control" name="customer-last-name" value="{{r[2]}}">
+											<input type="text" class="form-control cust-last-name" name="customer-last-name" value="{{r[2]}}">
 											<label for="customer-email" class="col-form-label">Email:</label>
-											<input type="text" class="form-control" name="customer-email" value="{{r[3]}}">
-											<label for="customer-phone" class="col-form-label">Phone number/label>
-											<input type="text" class="form-control" name="customer-phone" value="{{r[4]}}">
+											<input type="text" class="form-control cust-email" name="customer-email" value="{{r[3]}}">
+											<label for="customer-phone" class="col-form-label">Phone Number:</label>
+											<input type="text" class="form-control cust-phone" name="customer-phone" value="{{r[4]}}">
 											<label for="customer-address" class="col-form-label">Street Address:</label>
-											<input type="text" class="form-control" name="customer-address" value="{{r[5]}}">
+											<input type="text" class="form-control cust-address" name="customer-address" value="{{r[5]}}">
 											<label for="customer-city" class="col-form-label">City:</label>
-											<input type="text" class="form-control" name="customer-city" value="{{r[6]}}">
+											<input type="text" class="form-control cust-city" name="customer-city" value="{{r[6]}}">
 											<label for="customer-state" class="col-form-label">State:</label>
-											<input type="text" class="form-control" name="customer-state" value="{{r[7]}}">
+											<input type="text" class="form-control cust-state" name="customer-state" value="{{r[7]}}">
 											<label for="customer-zip-code" class="col-form-label">Zip Code:</label>
-											<input type="text" class="form-control" name="customer-zip-code" value="{{r[8]}}">
+											<input type="text" class="form-control cust-zip" name="customer-zip-code" value="{{r[8]}}">
 											<br>
-											<button type="submit" class="btn btn-primary" name="customer-update" value="updateCustButton">Update Customer</button>
+											<button type="submit" class="btn btn-primary" name="customer-update" value="{{r[0]}}">Update Customer</button>
           								</div>
         							</form>
-      							</div>
+								  </div>
       						<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							</div>
@@ -622,6 +622,47 @@
   			</div>
 		</div>
 	</div>
+
+<!--In order to get the update form to populate (that way users won't have to type everything in
+	again, I needed to figure out how to populate the modal form. I used this SO and Fiddle page
+	to figure it out and write the following jquery functions
+	Fiddle: https://jsfiddle.net/sudarpochong/nxL8jezp/
+	SO: https://stackoverflow.com/questions/47449392/data-into-bootstrap-modal-from-table-row-using-javascript-->
+<script>
+	$(document).ready(function() {
+
+		$('#exampleModal').on('show.bs.modal', function (e) {
+  
+			var _button = $(e.relatedTarget); // Button that triggered the modal
+  
+  			// console.log(_button, _button.parents("tr"));
+  			var _row = _button.parents("tr");
+  			var _custId = _row.find(".cust-id").text();
+  			var _custFirstName = _row.find(".cust-first-name").text();
+			var _custLastName = _row.find(".cust-last-name").text();
+  			var _custEmail = _row.find(".cust-email").text();
+  			var _custPhone = _row.find(".cust-phone").text();
+  			var _custAddress = _row.find(".cust-address").text();
+  			var _custCity = _row.find(".cust-city").text();
+			var _custState = _row.find(".cust-state").text();
+			var _custZip = _row.find(".cust-zip").text();
+
+  			// console.log(_invoiceAmt, _chequeAmt);
+  
+  			$(this).find(".cust-id").val(_custId);
+  			$(this).find(".cust-first-name").val(_custFirstName);
+			  $(this).find(".cust-last-name").val(_custLastName);
+			  $(this).find(".cust-email").val(_custEmail);
+			  $(this).find(".cust-phone").val(_custPhone);
+			  $(this).find(".cust-address").val(_custAddress);
+			  $(this).find(".cust-city").val(_custCity);
+			  $(this).find(".cust-state").val(_custState);
+			  $(this).find(".cust-zip").val(_custZip);
+
+		});
+
+	});
+</script>
 
 </body>
 

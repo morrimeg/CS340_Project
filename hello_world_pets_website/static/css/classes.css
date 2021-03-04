@@ -14,16 +14,15 @@ body{
 }
 
 body::before {
-  background: url(https://www.vecteezy.com/vector-art/464264-dog-seamless-pattern-theme-bone-paw-foot-print-for-use-as-wallpaper-or-background);
+  background: url('background.jpg');
   content: "";
-  opacity: 0.5;
+  opacity: 0.75;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   z-index: -1;
-  opacity: 0.4;
   /*color: rgba(225, 225, 225, 0.63);   */
 }
 

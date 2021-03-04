@@ -86,6 +86,13 @@ the 'logo' in the navbar
   background-color: rgba(255, 255, 255, 0.8)
 }
 
+.no-display {display: none;}
+
+/*input[type="radio"]:checked ~ .reaveal-if-active{
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}*/
 
 .footer{
   margin-top: 20%;

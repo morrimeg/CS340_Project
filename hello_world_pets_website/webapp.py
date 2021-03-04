@@ -171,28 +171,61 @@ def pets():
 @webapp.route('/classes.html', methods=['GET', 'POST'])
 def classes():
     db_connection = connect_to_database()
+
+    #if request.method == 'GET':
+    # get data for selecting by class name
+    class_name_query = "SELECT class_name FROM classes"
+    class_tuple = execute_query(db_connection, class_name_query).fetchall()
+    # turn class_day_list into a list instead of a tuple
+    # https://www.geeksforgeeks.org/python-convert-list-of-tuples-into-list/
+    class_list = [item for x in class_tuple for item in x]
+
+    class_day_query = "SELECT DISTINCT DAYNAME(class_day) FROM classes"
+    class_day_tuple = execute_query(db_connection, class_day_query).fetchall()
+    # turn class_day_list into a list instead of a tuple
+    # https://www.geeksforgeeks.org/python-convert-list-of-tuples-into-list/
+    class_day_list = [item for t in class_day_tuple for item in t] 
+
+    class_time_query = "SELECT DISTINCT HOUR(class_time) as time FROM classes ORDER BY time ASC"
+    class_time_tuple = execute_query(db_connection, class_time_query).fetchall()
+    class_time_list = [item for t in class_time_tuple for item in t]
+
+    #return render_template("classes.html", class_list=class_list, class_day=class_day_list, class_time=class_time_list)
+
+
     if request.method == 'POST':
+
         # They submitted the form
         if request.form['searchClasses'] == 'className':
-            className = request.form['classSearchText']
-            query = "SELECT * from classes where class_name = '" + className + "'"
+            className = request.form.get('select-class-name')
+            query = "SELECT * FROM classes WHERE class_name = '" + className + "'"
             result = execute_query(db_connection, query).fetchall()
+        
         elif request.form['searchClasses'] == 'day':
-            day = request.form['classSearchText']
-            query = "SELECT * from classes where class_day = '" + day + "'"
+            day = request.form.get('select-class-day')
+            print("class day: ", day)
+            query = "SELECT * FROM classes WHERE DAYNAME(class_day) = '" + day + "'"
             result = execute_query(db_connection, query).fetchall()
+        
         elif request.form['searchClasses'] == 'time':
-            time = request.form['classSearchText']
-            query = "SELECT * from vets class_time = '" + time + "'"
+            time = request.form.get('select-class-time')
+            query = "SELECT * FROM classes WHERE HOUR(class_time) = '" + time + "'"
             result = execute_query(db_connection, query).fetchall()
+        
         elif request.form['searchClasses'] == 'price':
-            price = request.form['classSearchText']
-            query = "SELECT * from classes where class_price = " + str(price)
+            price = request.form.get('price-range') #['classSearchText']
+            query = "SELECT * FROM classes WHERE class_price <= " + str(price)
             result = execute_query(db_connection, query).fetchall()
-        return render_template('classes.html', rows=result)
+            
+        return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, class_time=class_time_list)
+    
     else:
         # They're just visiting the page for the first time
-        return render_template('classes.html')
+        #return render_template('classes.html')
+        return render_template("classes.html", class_list=class_list, class_day=class_day_list, class_time=class_time_list)
+
+
+    
 
 @webapp.route('/vets.html', methods=['GET','POST'])
 def vets():

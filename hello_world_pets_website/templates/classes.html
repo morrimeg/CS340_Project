@@ -93,32 +93,53 @@
     <h5 class="card-title">Search By: </h5>
     <form action="" method="post">
     	<fieldset style="width:100%">
-    		<div class="form-check form-check-inline">
-    			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className" checked>
-  				<label class="form-check-label" for="className">Class Name</label>
+			
+			<div class="form-check form-check-inline">
+    			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className">
+				 <label class="form-check-label" for="className">Class Name</label>
+				 <SELECT id="listClasses" name="select-class-name">
+				  {% for c in class_list %}
+				  <option value="{{c}}">{{c}}</option>
+				  {% endfor %}
+				</SELECT>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
-  				<label class="form-check-label" for="day">Day</label>
+				  <label class="form-check-label" for="day">Day of Week: </label>
+				  <SELECT id="listClassDays" name="select-class-day">
+					{% for day in class_day %}
+					<option value="{{day}}">{{day}}</option>
+					{% endfor %}
+				  </SELECT>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
-  				<label class="form-check-label" for="time">Time</label>
+				  <label class="form-check-label" for="time">Time (in 24 hr Time)</label>
+				  <SELECT id="listClassTimes" name='select-class-time'>
+					{% for time in class_time %}
+					<option value="{{time}}">{{time}}</option>
+					{% endfor %}
+				  </SELECT>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="price" value="price">
-  				<label class="form-check-label" for="price">Price</label>
+				  <label class="form-check-label" for="price">Price</label>
+				  <!--Needed a way to show selected price
+					https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value
+					-->
+				  <input type="range" id="priceInput" name="price-range" value="price-selected" min="0" max="300" oninput="priceOutput.value = priceInput.value">
+				  <output name="price-output" id="priceOutput">0</output>
   			</div>
-
+			<br>
   			<div>
-  				<input type="text" style="width:40%" name="classSearchText">
+  				<!--<input type="text" style="width:40%" name="classSearchText">-->
   				<button type="submit" class="btn btn-primary">Search Classes</button>
   			</div>
     	</fieldset>
-  	
+		</form>
   	</div>
 </div>
 
@@ -200,6 +221,64 @@
   			</div>
 		</div>
 	</div>
+
+	<!--I wanted to find a way to show a dropdown menu based off of
+	what radio button was selected in the search form. I found this solution
+	on SO using JQuery
+	https://stackoverflow.com/questions/31320161/how-do-i-display-a-dropdown-list-on-clicking-a-radio-button-->
+	<script>
+		/*$(document).ready(function(){
+                  
+				  $('select').hide();
+			 
+				  $('input').on('change', function(){
+					   $('select').show();
+				  })
+			 });*/
+
+		// Grab group of radio buttons to determine which one is selected
+		var radio_buttons = document.getElementsByName("searchClasses");
+
+		for (var i = 0; i < radio_buttons.length; i++) {
+    		radio_buttons[i].addEventListener("change", setDropDown);
+		}
+
+		// Display dropdown menu depending on what radio button is selected
+		function setDropDown() {
+    		setDropDownsForNoDisplay();
+    		if (this.checked) {
+       		 	setDropDownForDisplay(this.value);        
+    		}
+		}
+
+		// Helper functions to select dropdowns 
+		var dropdowns = document.getElementsByTagName("select");
+		
+		function setDropDownsForNoDisplay() {
+    		for (var i = 0; i < dropdowns.length; i++) {
+        		dropdowns[i].classList.add("no-display");
+    		}
+		}
+
+		function setDropDownForDisplay(x) {
+    		if (x === "className") {
+        		document.getElementById("listClasses").classList.remove("no-display");
+    		
+			} else if (x === "day") {
+        		document.getElementById("listClassDays").classList.remove("no-display");
+    		
+			} else if (x === "time") {
+        		document.getElementById("listClassTimes").classList.remove("no-display");
+    		}
+
+			else if (x === "price") {
+        		document.getElementById("priceInput").classList.remove("no-display");
+    		}
+		}
+
+
+
+	</script>
 
 </body>
 

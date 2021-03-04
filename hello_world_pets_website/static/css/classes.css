@@ -1,15 +1,32 @@
 /* Homepage CSS*/
 
-/* background photo is from https://www.pexels.com/photo/blue-wallpaper-2680270/
-   Photo by: Mudassir Ali
+/* background photo is from https://www.vecteezy.com/vector-art/464264-dog-seamless-pattern-theme-bone-paw-foot-print-for-use-as-wallpaper-or-background
+   Photo by: Unknown
 
    Found coding info here: https://developer.mozilla.org/en-US/docs/Web/CSS/background-image
 
 */
 body{
-  background-image: url('background.jpg');
+  /*background-image: url('background.jpg');*/
   background-size: 150px;
+  /*color: rgba(225, 225, 225, 0.63); */
+  /* Background image opacity: https://coder-coder.com/background-image-opacity/*/
 }
+
+body::before {
+  background: url(https://www.vecteezy.com/vector-art/464264-dog-seamless-pattern-theme-bone-paw-foot-print-for-use-as-wallpaper-or-background);
+  content: "";
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.4;
+  /*color: rgba(225, 225, 225, 0.63);   */
+}
+
 
 /* Found this on stack overflow:
 https://www.w3schools.com/jsref/event_onclick.asp
@@ -87,12 +104,6 @@ the 'logo' in the navbar
 }
 
 .no-display {display: none;}
-
-/*input[type="radio"]:checked ~ .reaveal-if-active{
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-}*/
 
 .footer{
   margin-top: 20%;

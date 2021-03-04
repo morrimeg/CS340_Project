@@ -225,31 +225,35 @@ def classes():
         return render_template("classes.html", class_list=class_list, class_day=class_day_list, class_time=class_time_list)
 
 
-    
 
 @webapp.route('/vets.html', methods=['GET','POST'])
 def vets():
     db_connection = connect_to_database()
     if request.method == 'POST':
+        
         # They submitted the form
         if request.form['vetSearchType'] == 'vetFirstName':
             firstName = request.form['vetSearchText']
             query = "SELECT * from vets where first_name = '" + firstName + "'"
             result = execute_query(db_connection, query).fetchall()
+
         elif request.form['vetSearchType'] == 'vetLastName':
             lastName = request.form['vetSearchText']
             query = "SELECT * from vets where last_name = '" + lastName + "'"
             result = execute_query(db_connection, query).fetchall()
+
         elif request.form['vetSearchType'] == 'vetSpecialty':
             specialty = request.form['vetSearchText']
             query = "SELECT * FROM vets WHERE specialty LIKE '%%" + specialty + "%%'"
-            print("query", query)
             result = execute_query(db_connection, query).fetchall()
+
         elif request.form['vetSearchType'] == 'petName':
             petName = request.form['vetSearchText']
             query = "SELECT * FROM vets WHERE vet_id = (SELECT vet_id FROM pets WHERE pet_name = '" + petName + "')"
             result = execute_query(db_connection, query).fetchall()
+
         return render_template('vets.html', rows=result)
+   
     else:
         # They're just visiting the page for the first time
         return render_template('vets.html')

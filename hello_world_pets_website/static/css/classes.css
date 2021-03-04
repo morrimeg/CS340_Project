@@ -7,13 +7,14 @@
 
 */
 body{
-  /*background-image: url('background.jpg');*/
+  background-image: url('background.jpg');
   background-size: 150px;
+  opacity: 0.75;
   /*color: rgba(225, 225, 225, 0.63); */
   /* Background image opacity: https://coder-coder.com/background-image-opacity/*/
 }
 
-body::before {
+/*body::before {
   background: url('background.jpg');
   content: "";
   opacity: 0.75;
@@ -23,8 +24,8 @@ body::before {
   right: 0;
   left: 0;
   z-index: -1;
-  /*color: rgba(225, 225, 225, 0.63);   */
-}
+  /*color: rgba(225, 225, 225, 0.63); 
+}*/
 
 
 /* Found this on stack overflow:

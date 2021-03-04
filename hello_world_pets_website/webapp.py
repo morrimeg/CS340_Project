@@ -173,6 +173,9 @@ def classes():
     db_connection = connect_to_database()
 
     # Get all existing data from Classes table for dropdowns
+    # I found out how to do this from the following site:
+    # https://stackoverflow.com/questions/50593981/populate-html-drop-down
+    # -using-data-from-postgresql-database-using-python-flask
     # get data for selecting by class name
     class_name_query = "SELECT class_name FROM classes"
     class_tuple = execute_query(db_connection, class_name_query).fetchall()

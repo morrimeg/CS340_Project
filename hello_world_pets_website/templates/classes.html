@@ -97,7 +97,7 @@
 			<div class="form-check form-check-inline">
     			<input class="form-check-input" type="radio" name="searchClasses" id="className" value="className">
 				 <label class="form-check-label" for="className">Class Name</label>
-				 <SELECT id="listClasses" name="select-class-name">
+				 <SELECT id="listClasses" name="select-class-name" class="no-display">
 				  {% for c in class_list %}
 				  <option value="{{c}}">{{c}}</option>
 				  {% endfor %}
@@ -107,7 +107,7 @@
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="day" value="day">
 				  <label class="form-check-label" for="day">Day of Week: </label>
-				  <SELECT id="listClassDays" name="select-class-day">
+				  <SELECT id="listClassDays" name="select-class-day" class="no-display">
 					{% for day in class_day %}
 					<option value="{{day}}">{{day}}</option>
 					{% endfor %}
@@ -117,7 +117,7 @@
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="searchClasses" id="time" value="time">
 				  <label class="form-check-label" for="time">Time (in 24 hr Time)</label>
-				  <SELECT id="listClassTimes" name='select-class-time'>
+				  <SELECT id="listClassTimes" name="select-class-time">
 					{% for time in class_time %}
 					<option value="{{time}}">{{time}}</option>
 					{% endfor %}
@@ -130,7 +130,7 @@
 				  <!--Needed a way to show selected price
 					https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value
 					-->
-				  <input type="range" id="priceInput" name="price-range" value="price-selected" min="0" max="300" oninput="priceOutput.value = priceInput.value">
+				  <input type="range" class="no-display" id="priceInput" name="price-range" value="price-selected" min="0" max="300" oninput="priceOutput.value = priceInput.value">
 				  <output name="price-output" id="priceOutput">0</output>
   			</div>
 			<br>

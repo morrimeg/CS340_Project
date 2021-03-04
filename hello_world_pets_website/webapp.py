@@ -172,7 +172,7 @@ def pets():
 def classes():
     db_connection = connect_to_database()
 
-    #if request.method == 'GET':
+    # Get all existing data from Classes table for dropdowns
     # get data for selecting by class name
     class_name_query = "SELECT class_name FROM classes"
     class_tuple = execute_query(db_connection, class_name_query).fetchall()
@@ -190,9 +190,7 @@ def classes():
     class_time_tuple = execute_query(db_connection, class_time_query).fetchall()
     class_time_list = [item for t in class_time_tuple for item in t]
 
-    #return render_template("classes.html", class_list=class_list, class_day=class_day_list, class_time=class_time_list)
-
-
+    # If the user does a search on the classes table...
     if request.method == 'POST':
 
         # They submitted the form
@@ -203,7 +201,6 @@ def classes():
         
         elif request.form['searchClasses'] == 'day':
             day = request.form.get('select-class-day')
-            print("class day: ", day)
             query = "SELECT * FROM classes WHERE DAYNAME(class_day) = '" + day + "'"
             result = execute_query(db_connection, query).fetchall()
         
@@ -216,6 +213,9 @@ def classes():
             price = request.form.get('price-range') #['classSearchText']
             query = "SELECT * FROM classes WHERE class_price <= " + str(price)
             result = execute_query(db_connection, query).fetchall()
+
+            if result is None:
+                result = "No prices at or bwlow" + str(price)
             
         return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, class_time=class_time_list)
     
@@ -242,11 +242,12 @@ def vets():
             result = execute_query(db_connection, query).fetchall()
         elif request.form['vetSearchType'] == 'vetSpecialty':
             specialty = request.form['vetSearchText']
-            query = "SELECT * from vets where specialty = '" + specialty + "'"
+            query = "SELECT * FROM vets WHERE specialty LIKE '%%" + specialty + "%%'"
+            print("query", query)
             result = execute_query(db_connection, query).fetchall()
         elif request.form['vetSearchType'] == 'petName':
             petName = request.form['vetSearchText']
-            query = "SELECT * from vets where vet_id = (SELECT vet_id from pets where pet_name = '" + petName + "')"
+            query = "SELECT * FROM vets WHERE vet_id = (SELECT vet_id FROM pets WHERE pet_name = '" + petName + "')"
             result = execute_query(db_connection, query).fetchall()
         return render_template('vets.html', rows=result)
     else:

@@ -150,7 +150,7 @@ def pets():
                 first = customerName[0]
                 last = customerName[1]
                 query = "SELECT * FROM pets where customer_id = (SELECT customer_id FROM customers WHERE first_name = '" + first + "' AND last_name = '" + last + "')"
-
+ 
             # Execute the query
             result = execute_query(db_connection, query).fetchall()
 

@@ -168,6 +168,7 @@ def pets():
     else:
         return render_template('pets.html')
 
+
 @webapp.route('/classes.html', methods=['GET', 'POST'])
 def classes():
     db_connection = connect_to_database()
@@ -218,9 +219,14 @@ def classes():
             result = execute_query(db_connection, query).fetchall()
 
             if result is None:
-                result = "No prices at or bwlow" + str(price)
+                result = "No prices at or below" + str(price)
+
+        # Get pet naems for enrollment
+        pet_name_query = "SELECT pet_name FROM pets"
+        pet_tuple = execute_query(db_connection, pet_name_query).fetchall()
+        pet_list = [item for x in pet_tuple for item in x]
             
-        return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, class_time=class_time_list)
+        return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, class_time=class_time_list, pet_name=pet_list)
     
     else:
         # They're just visiting the page for the first time

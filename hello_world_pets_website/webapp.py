@@ -683,9 +683,10 @@ def admin():
                     "Class Day": request.form.get('class_day'),
                     "Class Time": request.form.get('class_time'),
                     "Class Price": request.form.get('class_price'),
-                    "Class Enrollments": request.form.get('class_enrollments'),
-                    "Class Seats": request.form.get('class_seats')
-                    }
+                    "Class Seats": request.form.get('class_seats'),
+                    "Teacher First Name": request.form.get('teacher_first_name'),
+                    "Teacher Last Name": request.form.get('teacher_last_name') 
+                }
 
             # Check for any empty fields (all required in this form)
             missing_fields = [] 
@@ -698,14 +699,15 @@ def admin():
 
             # If no fields missing, do the insert
             else:
-                query = 'INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_enrollments, class_seats) VALUES (%s, %s, %s, %s, %s,%s, %s)'
+                query = 'INSERT INTO classes (class_name, class_description, class_day, class_time, class_price, class_seats, teacher_id) VALUES (%s, %s, %s, %s, %s,%s, (SELECT teacher_id from teachers where first_name = %s and last_name = %s))'
                 data = (class_data["Class Name"],
                         class_data["Class Description"],
                         class_data["Class Day"],
                         class_data["Class Time"],
                         class_data["Class Price"], 
-                        class_data["Class Enrollments"], 
-                        class_data["Class Seats"])
+                        class_data["Class Seats"],
+                        class_data["Teacher First Name"],
+                        class_data["Teacher Last Name"])
                 
                 try:
                     result = execute_query(db_connection, query, data)

@@ -293,10 +293,103 @@ def refresh_admin(feedback=None):
     vet_query = 'SELECT * from vets'
     vet_result = execute_query(db_connection, vet_query).fetchall()
 
+     # Get data for dropdowns
+    # Get customer first name
+    customer_first_name_query = "SELECT first_name FROM customers"
+    customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
+    customer_fname_list = [item for x in customer_fname_tuple for item in x]
+
+    # Get customer last name
+    customer_last_name_query = "SELECT last_name FROM customers"
+    customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
+    customer_lname_list = [item for x in customer_lname_tuple for item in x]
+
+    # Get vet first name
+    vet_first_name_query = "SELECT first_name FROM vets"
+    vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
+    vet_fname_list = [item for x in vet_fname_tuple for item in x]
+
+    # Get vet last name
+    vet_last_name_query = "SELECT last_name FROM vets"
+    vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
+    vet_lname_list = [item for x in vet_lname_tuple for item in x]
+
+    # Get class name
+    class_name_query = "SELECT class_name FROM classes"
+    class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
+    class_name_list = [item for x in class_name_tuple for item in x]
+
+    # Teacher first name
+    teacher_fname_query = "SELECT first_name FROM teachers"
+    teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
+    teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
+
+    # Teacher last name
+    teacher_lname_query = "SELECT last_name FROM teachers"
+    teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
+    teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
+        
+    # Pet name
+    pet_name_query = "SELECT pet_name FROM pets"
+    pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
+    pet_name_list = [item for x in pet_name_tuple for item in x]
+
     # Return info from all tables
     if feedback:
-        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, teacher=teacher_result, feedback=feedback)
-    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, teacher=teacher_result)
+        return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, 
+                                enroll=enroll_result, vet=vet_result, teacher=teacher_result, feedback=feedback,
+                                customerFirstNames=customer_fname_list, customerLastNames=customer_lname_list, 
+                                vetFirstNames=vet_fname_list, vetLastNames=vet_lname_list, 
+                                classNames=class_name_list, teacherFirstNames=teacher_fname_list,
+                                teacherLastNames=teacher_lname_list, petNames=pet_name_list)
+
+
+    # # Get data for dropdowns
+    # # Get customer first name
+    # customer_first_name_query = "SELECT first_name FROM customers"
+    # customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
+    # customer_fname_list = [item for x in customer_fname_tuple for item in x]
+
+    # # Get customer last name
+    # customer_last_name_query = "SELECT last_name FROM customers"
+    # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
+    # customer_lname_list = [item for x in customer_lname_tuple for item in x]
+
+    # # Get vet first name
+    # vet_first_name_query = "SELECT first_name FROM vets"
+    # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
+    # vet_fname_list = [item for x in vet_fname_tuple for item in x]
+
+    # # Get vet last name
+    # vet_last_name_query = "SELECT last_name FROM vets"
+    # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
+    # vet_lname_list = [item for x in vet_lname_tuple for item in x]
+
+    # # Get class name
+    # class_name_query = "SELECT class_name FROM classes"
+    # class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
+    # class_name_list = [item for x in class_name_tuple for item in x]
+
+    # # Teacher first name
+    # teacher_fname_query = "SELECT first_name FROM teachers"
+    # teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
+    # teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
+
+    # # Teacher last name
+    # teacher_lname_query = "SELECT last_name FROM teachers"
+    # teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
+    # teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
+        
+    # # Pet name
+    # pet_name_query = "SELECT pet_name FROM pets"
+    # pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
+    # pet_name_list = [item for x in pet_name_tuple for item in x]
+
+    return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, 
+                            teacher=teacher_result, customerFirstNames=customer_fname_list, customerLastNames=customer_lname_list, 
+                            vetFirstNames=vet_fname_list, vetLastNames=vet_lname_list, 
+                            classNames=class_name_list, teacherFirstNames=teacher_fname_list,
+                            teacherLastNames=teacher_lname_list, petNames=pet_name_list)
 
 
 @webapp.route('/admin.html', methods=['GET', 'POST'])
@@ -317,6 +410,46 @@ def admin():
                     "Vets": ""}
 
         db_connection = connect_to_database()
+
+        # Get customer first name
+        customer_first_name_query = "SELECT first_name FROM customers"
+        customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
+        customer_fname_list = [item for x in customer_fname_tuple for item in x]
+
+        # Get customer last name
+        customer_last_name_query = "SELECT last_name FROM customers"
+        customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
+        customer_lname_list = [item for x in customer_lname_tuple for item in x]
+
+        # Get vet first name
+        vet_first_name_query = "SELECT first_name FROM vets"
+        vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
+        vet_fname_list = [item for x in vet_fname_tuple for item in x]
+
+        # Get vet last name
+        vet_last_name_query = "SELECT last_name FROM vets"
+        vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
+        vet_lname_list = [item for x in vet_lname_tuple for item in x]
+
+        # Get class name
+        class_name_query = "SELECT class_name FROM classes"
+        class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
+        class_name_list = [item for x in class_name_tuple for item in x]
+
+        # Teacher first name
+        teacher_fname_query = "SELECT first_name FROM teachers"
+        teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
+        teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
+
+        # Teacher last name
+        teacher_lname_query = "SELECT last_name FROM teachers"
+        teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
+        teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
+        
+        # Pet name
+        pet_name_query = "SELECT pet_name FROM pets"
+        pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
+        pet_name_list = [item for x in pet_name_tuple for item in x]
 
         # They submitted a form to update a customer
         if request.form.get('customer-update'): # == 'updateCustomer':
@@ -677,7 +810,7 @@ def admin():
                 except:
                     feedback["Pets"] = "Add Pet Failed."
            
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
         # If they submitted a new class
         elif request.form.get('class-insert'):
@@ -724,7 +857,7 @@ def admin():
                 except:
                     feedback["Classes"] = "Add Class Failed."
            
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
         # If they submitted a new enrollment
         elif request.form.get('enroll-insert'):
@@ -759,7 +892,7 @@ def admin():
                 except:
                     feedback["Enrollments"] = "Add Enrollment Failed."
            
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
         
         # If they submitted a new teacher
         elif request.form.get('teacher-insert'):
@@ -798,7 +931,7 @@ def admin():
                 except:
                     feedback["Teachers"] = "Add Teacher Failed."
            
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
 
         # If they submitted a new vet
@@ -840,8 +973,8 @@ def admin():
                 except:
                     feedback["Vets"] = "Add Vet Failed."
            
-            return refresh_admin(feedback)
-
+            return refresh_admin(feedback), refresh_admin()
+            
 
 # Testing DB connection
 @webapp.route('/db-test')

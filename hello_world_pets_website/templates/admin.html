@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
 
-<!-- This code allows the website to be responsive (e.g. any size can be used.). Bootstrap
+<head>
+	<meta charset="utf-8">
+
+	<!-- This code allows the website to be responsive (e.g. any size can be used.). Bootstrap
 	is built for mobile websites first, so we need to make sure that my website will scale
 	no matter what type of device is being used. I found this code here:
 	https://getbootstrap.com/docs/4.5/getting-started/introduction/
 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- I will be using Bootstrap to style my website. This chunck of link code
 		 is pulling in the bootstrap styling, which I plan on using.
 	 -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 	<!-- Using Font Awesome for Icons. I also learned this from Colt Steel's Udemy course
        You need to include their CDN in order to use their icons. The icons I will be 
@@ -24,12 +26,12 @@
 	<!-- Including my own CSS-->
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin.css')}}">
 
-		<title>Hello World Pets! - Admin</title>
+	<title>Hello World Pets! - Admin</title>
 
 </head>
 
 <body style="width:100%">
-	
+
 	<!-- This code below came from Bootstrap. It's what they call external content. it
 		allows me to create a navbar at the top of my webpage with an icon. This navbar will
     have 4 links to direct users to each of the pages on my website.
@@ -38,714 +40,843 @@
 	-->
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-secondary" style="width: 2000px">
-  		<a class="navbar-brand" href="#"><i class="fas fa-paw"></i>  HWP</sup></a>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    		<span class="navbar-toggler-icon"></span>
-  		</button>
+		<a class="navbar-brand" href="#"><i class="fas fa-paw"></i> HWP</sup></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-  		<div class="navbar-collapse offset collapse" id="navbarNav">
-    		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      			<li class="nav-item active">
-        			<a id="home" class="nav-link" href="index.html">Home</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="customers" class="nav-link" href="customers.html">Customers</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="pets" class="nav-link" href="pets.html">Pets</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="classes" class="nav-link" href="classes.html">Classes</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="vets" class="nav-link" href="vets.html">Vets</a>
-      			</li>
-      			<li class="nav-item">
-        			<a id="admin" class="nav-link" href="admin.html"><span class="sr-only">(current)</span>Admin</a>
-      			</li>
-    		</ul>
-  		</div>
+		<div class="navbar-collapse offset collapse" id="navbarNav">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item active">
+					<a id="home" class="nav-link" href="index.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a id="customers" class="nav-link" href="customers.html">Customers</a>
+				</li>
+				<li class="nav-item">
+					<a id="pets" class="nav-link" href="pets.html">Pets</a>
+				</li>
+				<li class="nav-item">
+					<a id="classes" class="nav-link" href="classes.html">Classes</a>
+				</li>
+				<li class="nav-item">
+					<a id="vets" class="nav-link" href="vets.html">Vets</a>
+				</li>
+				<li class="nav-item">
+					<a id="admin" class="nav-link" href="admin.html"><span class="sr-only">(current)</span>Admin</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
 
-  <!-- Header -->
-  <div class="adminHeader">
-    <h1 id="adminH1" style="width:100%">Make Changes Here</h1>
-  </div>
+	<!-- Header -->
+	<div class="adminHeader">
+		<h1 id="adminH1" style="width:100%">Make Changes Here</h1>
+	</div>
 
 
-  <!-- Table for Customers Data -->
-  {% if rows is defined and rows|length %}
-  <div class="contianer" style="width: 100%">
-	<h5 class="card-title">Customers</h5>
-	<table id="customerTable" class="table table-striped" style="width: 100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First Name</th>
-				<th scope="col">Last Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Phone</th>
-				<th scope="col">Address</th>
-				<th scope="col">City</th>
-				<th scope="col">State</th>
-				<th scope="col">Zip Code</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for r in rows %}
-			<tr>
-				<th scope="row" class="cust-id">{{r[0]}}</th>
-				<td class="cust-first-name">{{r[1]}}</td>
-				<td class="cust-last-name">{{r[2]}}</td>
-				<td class="cust-email">{{r[3]}}</td>
-				<td class="cust-phone">{{r[4]}}</td>
-				<td class="cust-address">{{r[5]}}</td>
-				<td class="cust-city">{{r[6]}}</td>
-				<td class="cust-state">{{r[7]}}</td>
-				<td class="cust-zip">{{r[8]}}</td>
-				<td>
-					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+	<!-- Table for Customers Data -->
+	{% if rows is defined and rows|length %}
+	<div class="contianer" style="width: 100%">
+		<h5 class="card-title">Customers</h5>
+		<table id="customerTable" class="table table-striped" style="width: 100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Address</th>
+					<th scope="col">City</th>
+					<th scope="col">State</th>
+					<th scope="col">Zip Code</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for r in rows %}
+				<tr>
+					<th scope="row" class="cust-id">{{r[0]}}</th>
+					<td class="cust-first-name">{{r[1]}}</td>
+					<td class="cust-last-name">{{r[2]}}</td>
+					<td class="cust-email">{{r[3]}}</td>
+					<td class="cust-phone">{{r[4]}}</td>
+					<td class="cust-address">{{r[5]}}</td>
+					<td class="cust-city">{{r[6]}}</td>
+					<td class="cust-state">{{r[7]}}</td>
+					<td class="cust-zip">{{r[8]}}</td>
+					<td>
+						<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#customerModal" name='customer-update-row' value="{{r[0]}}">Update</button>
+						<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#customerModal" name='customer-update-row' value="{{r[0]}}">Update</button>
 
-					<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="cust-id" name="customer-id" value="{{r[0]}}">
-            								<label for="customer-first-name" id="cust_first_name" class="col-form-label">First Name:</label>
-											<input type="text" class="form-control cust-first-name" name="customer-first-name" value="{{r[1]}}">
-											<label for="customer-last-name" class="col-form-label">Last Name:</label>
-											<input type="text" class="form-control cust-last-name" name="customer-last-name" value="{{r[2]}}">
-											<label for="customer-email" class="col-form-label">Email:</label>
-											<input type="text" class="form-control cust-email" name="customer-email" value="{{r[3]}}">
-											<label for="customer-phone" class="col-form-label">Phone Number:</label>
-											<input type="text" class="form-control cust-phone" name="customer-phone" value="{{r[4]}}">
-											<label for="customer-address" class="col-form-label">Street Address:</label>
-											<input type="text" class="form-control cust-address" name="customer-address" value="{{r[5]}}">
-											<label for="customer-city" class="col-form-label">City:</label>
-											<input type="text" class="form-control cust-city" name="customer-city" value="{{r[6]}}">
-											<label for="customer-state" class="col-form-label">State:</label>
-											<input type="text" class="form-control cust-state" name="customer-state" value="{{r[7]}}">
-											<label for="customer-zip-code" class="col-form-label">Zip Code:</label>
-											<input type="text" class="form-control cust-zip" name="customer-zip-code" value="{{r[8]}}">
-											<br>
-											<button type="submit" class="btn btn-primary" name="customer-update" value="{{r[0]}}">Update Customer</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="customerModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="cust-id" name="customer-id"
+													value="{{r[0]}}">
+												<label for="customer-first-name" id="cust_first_name"
+													class="col-form-label">First Name:</label>
+												<input type="text" class="form-control cust-first-name"
+													name="customer-first-name" value="{{r[1]}}">
+												<label for="customer-last-name" class="col-form-label">Last
+													Name:</label>
+												<input type="text" class="form-control cust-last-name"
+													name="customer-last-name" value="{{r[2]}}">
+												<label for="customer-email" class="col-form-label">Email:</label>
+												<input type="text" class="form-control cust-email" name="customer-email"
+													value="{{r[3]}}">
+												<label for="customer-phone" class="col-form-label">Phone Number:</label>
+												<input type="text" class="form-control cust-phone" name="customer-phone"
+													value="{{r[4]}}">
+												<label for="customer-address" class="col-form-label">Street
+													Address:</label>
+												<input type="text" class="form-control cust-address"
+													name="customer-address" value="{{r[5]}}">
+												<label for="customer-city" class="col-form-label">City:</label>
+												<input type="text" class="form-control cust-city" name="customer-city"
+													value="{{r[6]}}">
+												<label for="customer-state" class="col-form-label">State:</label>
+												<input type="text" class="form-control cust-state" name="customer-state"
+													value="{{r[7]}}">
+												<label for="customer-zip-code" class="col-form-label">Zip Code:</label>
+												<input type="text" class="form-control cust-zip"
+													name="customer-zip-code" value="{{r[8]}}">
+												<br>
+												<button type="submit" class="btn btn-primary" name="customer-update"
+													value="{{r[0]}}">Update Customer</button>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
-   						</div>
-  					</div>
-				</td>
-				<td>
-                    <form action="" method="post">
-                    	<button class="btn btn-danger" name="customer-delete" value="{{r[0]}}">Delete</button>
-                    </form>
-				</td>
-			</tr>
-			{% endfor %}
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name="customer-delete" value="{{r[0]}}">Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="11">-->
+				<tr>
+					<!--<td colspan="11">-->
 					<form action="" method="post">
-						<td><input style="width: 4px" type="number"  name="customer_id" id="cust_id" hidden></td>
-						<td><input style="width: 100px" type="text" name="customer_first_name" id="customerFirstName" placeholder="First Name"></td>
-						<td><input style="width: 100px" type="text" name="customer_last_name" id="customerLastName" placeholder="Last Name"></td>
-						<td><input style="width: 150px" type="text" name="customer_email" id="customerEmail" placeholder="Email"></td>
-						<td><input style="width: 100px" type="text" name="customer_phone" id="customerPhone" placehoder="Phone"></td>
-						<td><input style="width: 200px" type="text" name="customer_address" id="customerAddress" placeholder="Address"></td>
-						<td><input style="width: 80px" type="text" name="customer_city" id="customerCity" placehodler="City"></td>
-						<td><input style="width: 50px" type="text" name="customer_state" id="customerState" placeholder="State"></td>
-						<td><input style="width: 80px" type="text" name="customer_zip" id="customerZip" placeholder="Zip Code"></td>
-					<td><button id="customerButton" class="btn btn-secondary" name="customer-insert" value="0">Add Customer</button></td>
+						<td><input style="width: 4px" type="number" name="customer_id" id="cust_id" hidden></td>
+						<td><input style="width: 100px" type="text" name="customer_first_name" id="customerFirstName"
+								placeholder="First Name"></td>
+						<td><input style="width: 100px" type="text" name="customer_last_name" id="customerLastName"
+								placeholder="Last Name"></td>
+						<td><input style="width: 150px" type="text" name="customer_email" id="customerEmail"
+								placeholder="Email"></td>
+						<td><input style="width: 100px" type="text" name="customer_phone" id="customerPhone"
+								placehoder="Phone"></td>
+						<td><input style="width: 200px" type="text" name="customer_address" id="customerAddress"
+								placeholder="Address"></td>
+						<td><input style="width: 80px" type="text" name="customer_city" id="customerCity"
+								placehodler="City"></td>
+						<td><input style="width: 50px" type="text" name="customer_state" id="customerState"
+								placeholder="State"></td>
+						<td><input style="width: 80px" type="text" name="customer_zip" id="customerZip"
+								placeholder="Zip Code"></td>
+						<td><button id="customerButton" class="btn btn-secondary" name="customer-insert" value="0">Add
+								Customer</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
-		</tbody>
-	</table>
-    {% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Customers"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+					<!--</td>-->
+				</tr>
+			</tbody>
+		</table>
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Customers"]}}
+			</p>
+		</div>
+		{% endif %}
+	</div>
 
-{% if customer_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{customer_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if customer_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{customer_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
 
-  <!-- Table for Pets Data -->
-   {% if pets is defined and pets|length %}
-  <div class="contianer" style="width:100%">
-	<h5 class="card-title">Pets</h5>
-	<table id="petTable" class="table table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Name</th>
-				<th scope="col">Species</th>
-				<th scope="col">Breed</th>
-				<th scope="col">Age (years)</th>
-				<th scope="col">Gender</th>
-				<th scope="col">Vet ID</th>
-				<th scope="col">Customer ID</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for p in pets %}
-		<tr>
-			<th scope="row" class="pet-id">{{p[0]}}</th>
-			<td class="pet-name">{{p[1]}}</td>
-			<td class="pet-species">{{p[2]}}</td>
-			<td class="pet-breed">{{p[3]}}</td>
-			<td class="pet-age">{{p[4]}}</td>
-			<td class="pet-gender">{{p[5]}}</td>
-			<td>{{p[6]}}</td>
-			<td>{{p[7]}}</td>
-			<td>
-				<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+	<!-- Table for Pets Data -->
+	{% if pets is defined and pets|length %}
+	<div class="contianer" style="width:100%">
+		<h5 class="card-title">Pets</h5>
+		<table id="petTable" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Species</th>
+					<th scope="col">Breed</th>
+					<th scope="col">Age (years)</th>
+					<th scope="col">Gender</th>
+					<th scope="col">Vet ID</th>
+					<th scope="col">Customer ID</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for p in pets %}
+				<tr>
+					<th scope="row" class="pet-id">{{p[0]}}</th>
+					<td class="pet-name">{{p[1]}}</td>
+					<td class="pet-species">{{p[2]}}</td>
+					<td class="pet-breed">{{p[3]}}</td>
+					<td class="pet-age">{{p[4]}}</td>
+					<td class="pet-gender">{{p[5]}}</td>
+					<td>{{p[6]}}</td>
+					<td>{{p[7]}}</td>
+					<td>
+						<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#petModal" value="{{p[0]}}">Update</button>
+						<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#petModal" value="{{p[0]}}">Update</button>
 
-					<div class="modal fade" id="petModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Pet</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="pet-id" name="pet-id" value="{{p[0]}}">
-            								<label for="pet-name" class="col-form-label">Name:</label>
-											<input type="text" class="form-control pet-name" name="pet-name" value="{{p[1]}}">
-											<label for="pet-species" class="col-form-label">Species:</label>
-											<input type="text" class="form-control pet-species" name="pet-species" value="{{p[2]}}">
-											<label for="pet-breed" class="col-form-label">Breed:</label>
-											<input type="text" class="form-control pet-breed" name="pet-breed" value="{{p[3]}}">
-											<label for="pet-age" class="col-form-label">Age:</label>
-											<input type="text" class="form-control pet-age" name="pet-age" value="{{p[4]}}">
-											<label for="pet-gender" class="col-form-label">Gender:</label>
-											<br>
-											<input style="margin-left:55px" class="form-check-input pet-gender" type="radio" name="pet-gender" id="pet_gender1" value="{{p[5]}}">
-											<label class="form-check-label" for="pet_gender1"> Female </label>
-											<br>
-											<input style="margin-left:55px" class="form-check-input pet-gender" type="radio" name="pet-gender" id="pet_gender2" value="{{p[5]}}">
-											<label class="form-check-label" for="pet_gender2"> Male </label>
-											<br>
-											<label for="customer-first-name" class="col-form-label">Customer First Name:</label>
-											<input type="text" class="form-control cust-first-name" name="customer-first-name" required>
-											<label for="customer-last-name" class="col-form-label">Customer Last Name:</label>
-											<input type="text" class="form-control cust-last-name" name="customer-last-name" required>
-											<label for="vet-first-name" class="col-form-label">Vet First Name:</label>
-											<input type="text" class="form-control vet-first-name" name="vet-first-name">
-											<label for="vet-last-name" class="col-form-label">Vet Last Name:</label>
-											<input type="text" class="form-control vet-last-name" name="vet-last-name">
-											<br>
-											<button type="submit" class="btn btn-primary" name="pet-update" value="{{p[0]}}">Update Pet</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="petModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Pet</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="pet-id" name="pet-id" value="{{p[0]}}">
+												<label for="pet-name" class="col-form-label">Name:</label>
+												<input type="text" class="form-control pet-name" name="pet-name"
+													value="{{p[1]}}">
+												<label for="pet-species" class="col-form-label">Species:</label>
+												<input type="text" class="form-control pet-species" name="pet-species"
+													value="{{p[2]}}">
+												<label for="pet-breed" class="col-form-label">Breed:</label>
+												<input type="text" class="form-control pet-breed" name="pet-breed"
+													value="{{p[3]}}">
+												<label for="pet-age" class="col-form-label">Age:</label>
+												<input type="text" class="form-control pet-age" name="pet-age"
+													value="{{p[4]}}">
+												<label for="pet-gender" class="col-form-label">Gender:</label>
+												<br>
+												<input style="margin-left:55px" class="form-check-input pet-gender"
+													type="radio" name="pet-gender" id="pet_gender1" value="{{p[5]}}">
+												<label class="form-check-label" for="pet_gender1"> Female </label>
+												<br>
+												<input style="margin-left:55px" class="form-check-input pet-gender"
+													type="radio" name="pet-gender" id="pet_gender2" value="{{p[5]}}">
+												<label class="form-check-label" for="pet_gender2"> Male </label>
+												<br>
+												<label for="customer-first-name" class="col-form-label">Customer First
+													Name:</label>
+												<input type="text" class="form-control cust-first-name"
+													name="customer-first-name" required>
+												<label for="customer-last-name" class="col-form-label">Customer Last
+													Name:</label>
+												<input type="text" class="form-control cust-last-name"
+													name="customer-last-name" required>
+												<label for="vet-first-name" class="col-form-label">Vet First
+													Name:</label>
+												<input type="text" class="form-control vet-first-name"
+													name="vet-first-name">
+												<label for="vet-last-name" class="col-form-label">Vet Last Name:</label>
+												<input type="text" class="form-control vet-last-name"
+													name="vet-last-name">
+												<br>
+												<button type="submit" class="btn btn-primary" name="pet-update"
+													value="{{p[0]}}">Update Pet</button>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
-   						</div>
-  					</div>
-			</td>
-			<td>
-				<form action="" method="post">
-				<button class="btn btn-danger" name="pet-delete" value="{{p[0]}}">Delete</button>
-				</form>
-			</td>
-		</tr>
-		{% endfor %}
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name="pet-delete" value="{{p[0]}}">Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="10">-->
+				<tr>
+					<!--<td colspan="10">-->
 					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
 					remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new customers to the DB. We are 
+					<!-- We need to add a form attribute in order to add new customers to the DB. We are 
 				also using JQUERY to make the Add Pet button reactive-->
-				<!--<td colspan="11">-->
+					<!--<td colspan="11">-->
 					<form action="" method="post">
 						<td><input style="width:4px" type="number" name="pet_id" hidden></td>
 						<td><input style="width:100px" type="text" name="pet_name" placeholder="Pet Name"></td>
 						<td><input style="width:100px" type="text" name="pet_species" placeholder="Species"></td>
 						<td><input style="width:200px" type="text" name="pet_breed" placeholder="Breed"></td>
 						<td><input style="width:50px" type="number" name="pet_age" placehoder="Age"></td>
-						<td><input type="radio" name ="pet_gender" id="pet_gender1" value="1">
+						<td><input type="radio" name="pet_gender" id="pet_gender1" value="1">
 							<label for="pet_gender1">Female</label>
 							<br>
 							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<label for="pet_gender2">Male</label></td>
-						<td><input style="width:180px" type="text" name="customer_first_name" placeholder="Customer First Name"></td>
-						<td><input style="width:180px" type="text" name="customer_last_name" placeholder="Customer Last Name"></td>
-						<td><input style="width:120px" type="text" name="vet_first_name" placeholder="Vet First Name"></td>
-						<td><input style="width:120px" type="text" name="vet_last_name" placeholder="Vet Last Name"></td>
-						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add Pet</button></td>					
+						<td>
+							<SELECT name="customer_first_name">
+								{% for c in customerFirstNames %}
+								<option value="{{c}}">{{c}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:180px" type="text" name="customer_first_name" placeholder="Customer First Name">-->
+						</td>
+						<td>
+							<SELECT name="customer_last_name">
+								{% for name in customerLastNames %}
+								<option value="{{name}}">{{name}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:180px" type="text" name="customer_last_name" placeholder="Customer Last Name">-->
+						</td>
+						<td>
+							<SELECT name="vet_first_name">
+								{% for v in vetFirstNames %}
+								<option value="{{v}}">{{v}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:120px" type="text" name="vet_first_name" placeholder="Vet First Name">-->
+						</td>
+
+						<td>
+							<SELECT name="vet_last_name">
+								{% for vet in vetLastNames %}
+								<option value="{{vet}}">{{vet}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:120px" type="text" name="vet_last_name" placeholder="Vet Last Name">-->
+						</td>
+						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add
+								Pet</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
+					<!--</td>-->
+				</tr>
 
-		</tbody>
-	</table>
-	{% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Pets"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+			</tbody>
+		</table>
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Pets"]}}
+			</p>
+		</div>
+		{% endif %}
+	</div>
 
-{% if pet_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{pet_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if pet_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{pet_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
 
-  <!-- Table for Classes -->
-  {% if classes is defined and classes|length %}
-  <div class="contianer" style="width:100%">
-	<h5 class="card-title">Classes</h5>
-	<table id="classTable" class="table table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Class Name</th>
-				<th scope="col">Description</th>
-				<th scope="col">Day</th>
-				<th scope="col">Time</th>
-				<th scope="col">Price</th>
-				<th scope="col">Class Seats</th>
-                <th scope="col">Teacher ID</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{% for c in classes %}
-			<th scope="row" class="class-id">{{c[0]}}</th>
-			<td class="class-name">{{c[1]}}</td>
-			<td class="class-description">{{c[2]}}</td>
-			<td class="class-day">{{c[3]}}</td>
-			<td class="class-time">{{c[4]}}</td>
-			<td class="class-price">{{c[5]}}</td>
-			<td class="class-seats">{{c[6]}}</td>
-			<td>{{c[7]}}</td>
-			<td>
-				<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+	<!-- Table for Classes -->
+	{% if classes is defined and classes|length %}
+	<div class="contianer" style="width:100%">
+		<h5 class="card-title">Classes</h5>
+		<table id="classTable" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Class Name</th>
+					<th scope="col">Description</th>
+					<th scope="col">Day</th>
+					<th scope="col">Time</th>
+					<th scope="col">Price</th>
+					<th scope="col">Class Seats</th>
+					<th scope="col">Teacher ID</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for c in classes %}
+					<th scope="row" class="class-id">{{c[0]}}</th>
+					<td class="class-name">{{c[1]}}</td>
+					<td class="class-description">{{c[2]}}</td>
+					<td class="class-day">{{c[3]}}</td>
+					<td class="class-time">{{c[4]}}</td>
+					<td class="class-price">{{c[5]}}</td>
+					<td class="class-seats">{{c[6]}}</td>
+					<td>{{c[7]}}</td>
+					<td>
+						<!--Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#classModal" value="{{c[0]}}">Update</button>
+						<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#classModal" value="{{c[0]}}">Update</button>
 
-					<div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Class</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="class-id" name="class-id" value="{{c[0]}}">
-            								<label for="class-name" class="col-form-label">Class Name:</label>
-											<input type="text" class="form-control class-name" name="class-name" value="{{c[1]}}">
-											<label for="class-description" class="col-form-label">Class Description:</label>
-											<textarea rows="2" cols="5" type="text" class="form-control class-description" name="class-description" value="{{c[2]}}"></textarea>
-											<label for="class-day" class="col-form-label">Day:</label>
-											<input type="date" class="form-control class-day" name="class-day" value="{{c[3]}}">
-											<label for="class-time" class="col-form-label">Time:</label>
-											<input type="datetime-local" class="form-control class-time" name="class-time" value="{{c[4]}}">
-											<label for="class-price" class="col-form-label">Price:</label>
-											<input type="number" class="form-control class-price" name="class-price" value="{{c[5]}}">
-											<label for="class-seats" class="col-form-label">Seats Available:</label>
-											<input type="text" class="form-control class-seats" name="class-seats" value="{{c[6]}}">
-											<label for="teacher-first-name" class="col-form-label">Teacher First Name:</label>
-											<input type="text" class="form-control teacher-first-name" name="teacher-first-name" required>
-											<label for="teacher-last-name" class="col-form-label">Teacher Last Name:</label>
-											<input type="text" class="form-control teacher-last-name" name="teacher-last-name" required>
-											<br>
-											<button type="submit" class="btn btn-primary" name="class-update" value="{{c[0]}}">Update Class</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="classModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Class</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="class-id" name="class-id" value="{{c[0]}}">
+												<label for="class-name" class="col-form-label">Class Name:</label>
+												<input type="text" class="form-control class-name" name="class-name"
+													value="{{c[1]}}">
+												<label for="class-description" class="col-form-label">Class
+													Description:</label>
+												<textarea rows="2" cols="5" type="text"
+													class="form-control class-description" name="class-description"
+													value="{{c[2]}}"></textarea>
+												<label for="class-day" class="col-form-label">Day:</label>
+												<input type="date" class="form-control class-day" name="class-day"
+													value="{{c[3]}}">
+												<label for="class-time" class="col-form-label">Time:</label>
+												<input type="datetime-local" class="form-control class-time"
+													name="class-time" value="{{c[4]}}">
+												<label for="class-price" class="col-form-label">Price:</label>
+												<input type="number" class="form-control class-price" name="class-price"
+													value="{{c[5]}}">
+												<label for="class-seats" class="col-form-label">Seats Available:</label>
+												<input type="text" class="form-control class-seats" name="class-seats"
+													value="{{c[6]}}">
+												<label for="teacher-first-name" class="col-form-label">Teacher First
+													Name:</label>
+												<input type="text" class="form-control teacher-first-name"
+													name="teacher-first-name" required>
+												<label for="teacher-last-name" class="col-form-label">Teacher Last
+													Name:</label>
+												<input type="text" class="form-control teacher-last-name"
+													name="teacher-last-name" required>
+												<br>
+												<button type="submit" class="btn btn-primary" name="class-update"
+													value="{{c[0]}}">Update Class</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
 							</div>
-   						</div>
-  					</div>
-			</td>
-			<td>
-				<form action="" method="post">
-					<button class="btn btn-danger" name="class-delete" value="{{c[0]}}">Delete</button>
-				</form>			
-			</td>
-		</tr>
-		{% endfor %}
+						</div>
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name="class-delete" value="{{c[0]}}">Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="10">-->
-					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
-					remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new classes to the DB. We are 
-				also using JQUERY to make the Add Class button reactive-->
-				<!--<td colspan="11">-->
+				<tr>
+					<!--This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+					remove-table-rows-dynamically-using-jquery.php
+					We need to add a form attribute in order to add new classes to the DB. We are
+					also using JQUERY to make the Add Class button reactive-->
 					<form action="" method="post">
 						<td><input style="width:4px" type="number" name="class_id" hidden></td>
 						<td><input style="width:150px" type="text" name="class_name" placeholder="Class Name"></td>
-						<td><input style="width:280px" type="text" name="class_description" placeholder="Class Description"></td>
+						<td><input style="width:280px" type="text" name="class_description"
+								placeholder="Class Description"></td>
 						<td><input style="width:145px" type="date" name="class_day" placeholder="Day"></td>
 						<td><input style="width:175px" type="datetime-local" name="class_time" placehoder="Time"></td>
 						<td><input style="width:45px" type="number" name="class_price" placeholder="Price"></td>
 						<td><input style="width:45px" type="number" name="class_seats" placeholder="Class Seats"></td>
-						<td><input style="width:150px" type="text" name="teacher_first_name" placeholder="Teacher First Name"></td>
-						<td><input style="width:150px" type="text" name="teacher_last_name" placeholder="Teacher Last Name"></td>
+						<td>
+							<SELECT name="teacher_first_name">
+								{% for t in teacherFirstNames %}
+								<option value="{{t}}">{{t}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:150px" type="text" name="teacher_first_name"
+								placeholder="Teacher First Name">-->
+						</td>
+						<td>
+							<SELECT name="teacher_last_name">
+								{% for teach in teacherLastNames %}
+								<option value="{{teach}}">{{teach}}</option>
+								{% endfor %}
+							</SELECT>
+							<!--<input style="width:150px" type="text" name="teacher_last_name"
+								placeholder="Teacher Last Name">-->
+						</td>
 
-						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add Class</button></td>					
+						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add
+								Class</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
+				</tr>
 
-		</tbody>
-	</table>
-	{% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Classes"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+			</tbody>
+		</table>
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Classes"]}}
+			</p>
+		</div>
+		{% endif %}
+	</div>
 
-{% if class_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{class_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if class_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{class_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
 
-  <!-- Table for Enrollments -->
-  {% if enroll is defined and enroll|length %}
-  <div class="contianer" style="width:90%">
-	<h5 class="card-title">Enrollments</h5>
-	<table id="enrollTable" class="table table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Pet ID</th>
-				<th scope="col">Class ID</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{% for e in enroll %}
-				<th scope="row" class="enroll-id">{{e[0]}}</th>
-				<td>{{e[1]}}</td>
-				<td>{{e[2]}}</td>
-				<td>
-							<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+	<!-- Table for Enrollments -->
+	{% if enroll is defined and enroll|length %}
+	<div class="contianer" style="width:90%">
+		<h5 class="card-title">Enrollments</h5>
+		<table id="enrollTable" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Pet ID</th>
+					<th scope="col">Class ID</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for e in enroll %}
+					<th scope="row" class="enroll-id">{{e[0]}}</th>
+					<td>{{e[1]}}</td>
+					<td>{{e[2]}}</td>
+					<td>
+						<!--Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#enrollModal" value="{{e[0]}}">Update</button>
+						<button id="updatePetButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#enrollModal" value="{{e[0]}}">Update</button>
 
-					<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Enrollment</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="enroll-id" name="enroll-id" value="{{e[0]}}">
-											<label for="class-pet" class="col-form-label">Pet Name:</label>
-											<input type="text" class="form-control pet-name" name="pet-name" required>
-            								<label for="class-name" class="col-form-label">Class Name:</label>
-											<input type="text" class="form-control class-name" name="class-name" required>
-											<br>
-											<button type="submit" class="btn btn-primary" name="enrollment-update" value="{{e[0]}}">Update Enrollment</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Enrollment</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="enroll-id" name="enroll-id"
+													value="{{e[0]}}">
+												<label for="class-pet" class="col-form-label">Pet Name:</label>
+												<input type="text" class="form-control pet-name" name="pet-name"
+													required>
+												<label for="class-name" class="col-form-label">Class Name:</label>
+												<input type="text" class="form-control class-name" name="class-name"
+													required>
+												<br>
+												<button type="submit" class="btn btn-primary" name="enrollment-update"
+													value="{{e[0]}}">Update Enrollment</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
 							</div>
-   						</div>
-  					</div>
-				</td>
-				<td>
-					<form action="" method="post">
-					<button class="btn btn-danger" name='enroll-delete' value='{{e[0]}}'>Delete</button>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
+						</div>
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name='enroll-delete' value='{{e[0]}}'>Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="7">-->
-									<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
-					remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new enrollments to the DB. We are 
-				also using JQUERY to make the Enroll Pet button reactive-->
-				<!--<td colspan="11">-->
+				<tr>
+					<!--This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+					remove-table-rows-dynamically-using-jquery.php
+					We need to add a form attribute in order to add new enrollments to the DB. We are 
+					also using JQUERY to make the Enroll Pet button reactive-->
+					<!--<td colspan="11">-->
 					<form action="" method="post">
 						<td><input type="number" name="enroll_id" hidden></td>
 						<td><input type="text" name="pet_name" placeholder="Pet Name"></td>
 						<td><input type="text" name="class_name" placeholder="Class Name"></td>
-						<td><button id="enrollButton" class="btn btn-secondary" name='enroll-insert' value="0">Enroll Pet</button></td>
+						<td><button id="enrollButton" class="btn btn-secondary" name='enroll-insert' value="0">Enroll
+								Pet</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
+				</tr>
 
-		</tbody>
-	</table>
-	{% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Enrollments"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+			</tbody>
+		</table>
+		<!--</div>-->
+	
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Enrollments"]}}
+			</p>
+		</div>
+		{% endif %}
+	  </div>
 
-{% if enroll_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{enroll_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if enroll_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{enroll_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
-<!-- Table for Teachers -->
-  {% if teacher is defined and teacher|length %}
-  <div class="contianer" style="width:90%">
-	<h5 class="card-title">Teachers</h5>
-	<table id="teacherTable" class="table table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First Name</th>
-				<th scope="col">Last Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Phone</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
+	<!-- Table for Teachers -->
+	{% if teacher is defined and teacher|length %}
+	<div class="contianer" style="width:90%">
+		<h5 class="card-title">Teachers</h5>
+		<table id="teacherTable" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
 
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{% for t in teacher %}
-				<th scope="row" class="teacher-id">{{t[0]}}</th>
-				<td class="teacher-first-name">{{t[1]}}</td>
-				<td class="teacher-last-name">{{t[2]}}</td>
-				<td class="teacher-email">{{t[3]}}</td>
-				<td class="teacher-phone">{{t[4]}}</td>
-				<td>
-					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for t in teacher %}
+					<th scope="row" class="teacher-id">{{t[0]}}</th>
+					<td class="teacher-first-name">{{t[1]}}</td>
+					<td class="teacher-last-name">{{t[2]}}</td>
+					<td class="teacher-email">{{t[3]}}</td>
+					<td class="teacher-phone">{{t[4]}}</td>
+					<td>
+						<!--Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#teacherModal" value="{{t[0]}}">Update</button>
+						<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#teacherModal" value="{{t[0]}}">Update</button>
 
-					<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Teacher</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="teacher-id" name="teacher-id" value="{{t[0]}}">
-            								<label for="teacher-first-name" class="col-form-label">First Name:</label>
-											<input type="text" class="form-control teacher-first-name" name="teacher-first-name" value="{{t[1]}}">
-											<label for="teacher-last-name" class="col-form-label">Last Name:</label>
-											<input type="text" class="form-control teacher-last-name" name="teacher-last-name" value="{{t[2]}}">
-											<label for="teacher-email" class="col-form-label">Email:</label>
-											<input type="text" class="form-control teacher-email" name="teacher-email" value="{{t[3]}}">
-											<label for="teacher-phone" class="col-form-label">Phone Number:</label>
-											<input type="text" class="form-control teacher-phone" name="teacher-phone" value="{{t[4]}}">
-											<br>
-											<button type="submit" class="btn btn-primary" name="teacher-update" value="{{t[0]}}">Update Teacher</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Teacher</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="teacher-id" name="teacher-id"
+													value="{{t[0]}}">
+												<label for="teacher-first-name" class="col-form-label">First
+													Name:</label>
+												<input type="text" class="form-control teacher-first-name"
+													name="teacher-first-name" value="{{t[1]}}">
+												<label for="teacher-last-name" class="col-form-label">Last Name:</label>
+												<input type="text" class="form-control teacher-last-name"
+													name="teacher-last-name" value="{{t[2]}}">
+												<label for="teacher-email" class="col-form-label">Email:</label>
+												<input type="text" class="form-control teacher-email"
+													name="teacher-email" value="{{t[3]}}">
+												<label for="teacher-phone" class="col-form-label">Phone Number:</label>
+												<input type="text" class="form-control teacher-phone"
+													name="teacher-phone" value="{{t[4]}}">
+												<br>
+												<button type="submit" class="btn btn-primary" name="teacher-update"
+													value="{{t[0]}}">Update Teacher</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
 							</div>
-   						</div>
-  					</div>
-				</td>
-				<td>
-					<form action="" method="post">
-					<button class="btn btn-danger" name="teacher-delete" value="{{t[0]}}">Delete</button>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
+						</div>
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name="teacher-delete" value="{{t[0]}}">Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="8">-->
-				<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
-				remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new vets to the DB. We are 
+				<tr>
+					<!--This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+				remove-table-rows-dynamically-using-jquery.php
+				 We need to add a form attribute in order to add new vets to the DB. We are 
 				also using JQUERY to make the Add Vet button reactive-->
-				<!--<td colspan="11">-->
 					<form action="" method="post">
 						<td><input type="number" name="teacher_id" hidden></td>
 						<td><input type="text" name="teacher_first_name" placeholder="First Name"></td>
 						<td><input type="text" name="teacher_last_name" placeholder="Last Name"></td>
 						<td><input type="text" name="teacher_email" placeholder="Email"></td>
 						<td><input type="text" name="teacher_phone" placehoder="Phone"></td>
-						<td><button id="teacherButton" class="btn btn-secondary" name="teacher-insert" value="0">Add Teacher</button></td>
+						<td><button id="teacherButton" class="btn btn-secondary" name="teacher-insert" value="0">Add
+								Teacher</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
-		</tbody>
-	</table>
-	{% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Teachers"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+				</tr>
+			</tbody>
+		</table>
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Teachers"]}}
+			</p>
+		</div>
+		{% endif %}
+	</div>
 
-{% if teacher_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{teacher_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if teacher_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{teacher_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
-<!-- Table for Vets -->
-  {% if vet is defined and vet|length %}
-  <div class="contianer" style="width:90%">
-	<h5 class="card-title">Vets</h5>
-	<table id="vetTable" class="table table-striped" style="width:100%">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First Name</th>
-				<th scope="col">Last Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Phone</th>
-				<th scope="col">Specialty</th>
-				<th scope="col">Update</th>
-				<th scope="col">Delete</th>
+	<!-- Table for Vets -->
+	{% if vet is defined and vet|length %}
+	<div class="contianer" style="width:90%">
+		<h5 class="card-title">Vets</h5>
+		<table id="vetTable" class="table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Specialty</th>
+					<th scope="col">Update</th>
+					<th scope="col">Delete</th>
 
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{% for v in vet %}
-				<th scope="row" class="vet-id">{{v[0]}}</th>
-				<td class="vet-first-name">{{v[1]}}</td>
-				<td class="vet-last-name">{{v[2]}}</td>
-				<td class="vet-email">{{v[3]}}</td>
-				<td class="vet-phone">{{v[4]}}</td>
-				<td class="vet-specialty">{{v[5]}}</td>
-				<td>
-					<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for v in vet %}
+					<th scope="row" class="vet-id">{{v[0]}}</th>
+					<td class="vet-first-name">{{v[1]}}</td>
+					<td class="vet-last-name">{{v[2]}}</td>
+					<td class="vet-email">{{v[3]}}</td>
+					<td class="vet-phone">{{v[4]}}</td>
+					<td class="vet-specialty">{{v[5]}}</td>
+					<td>
+						<!-- Got the pop up form code from bootstrap. This creates a pop-up form the user can edit
 					https://getbootstrap.com/docs/4.0/components/modal/-->
-					<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal" data-target="#vetModal" value="{{v[0]}}">Update</button>
+						<button id="updateCustomerButton" type="button" class="btn btn-info" data-toggle="modal"
+							data-target="#vetModal" value="{{v[0]}}">Update</button>
 
-					<div class="modal fade" id="vetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  						<div class="modal-dialog" role="document">
-    						<div class="modal-content">
-      							<div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Update Vet</h5>
-       								 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          								<span aria-hidden="true">&times;</span>
-        							</button>
-								  </div>
-      							<div class="modal-body">
-        							<form action="" method="post">
-          								<div class="form-group">
-											<input type="hidden" class="vet-id" name="vet-id" value="{{v[0]}}">
-            								<label for="vet-first-name" class="col-form-label">First Name:</label>
-											<input type="text" class="form-control vet-first-name" name="vet-first-name" value="{{v[1]}}">
-											<label for="vet-last-name" class="col-form-label">Last Name:</label>
-											<input type="text" class="form-control vet-last-name" name="vet-last-name" value="{{v[2]}}">
-											<label for="vet-email" class="col-form-label">Email:</label>
-											<input type="text" class="form-control vet-email" name="vet-email" value="{{v[3]}}">
-											<label for="vet-phone" class="col-form-label">Phone Number:</label>
-											<input type="text" class="form-control vet-phone" name="vet-phone" value="{{v[4]}}">
-											<label for="vet-specialty" class="col-form-label">Specialty:</label>
-											<input type="text" class="form-control vet-specialty" name="vet-specialty" value="{{v[5]}}">
-											<br>
-											<button type="submit" class="btn btn-primary" name="vet-update" value="{{v[0]}}">Update Vet</button>
-          								</div>
-        							</form>
-								  </div>
-      						<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<div class="modal fade" id="vetModal" tabindex="-1" role="dialog"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Update Vet</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="post">
+											<div class="form-group">
+												<input type="hidden" class="vet-id" name="vet-id" value="{{v[0]}}">
+												<label for="vet-first-name" class="col-form-label">First Name:</label>
+												<input type="text" class="form-control vet-first-name"
+													name="vet-first-name" value="{{v[1]}}">
+												<label for="vet-last-name" class="col-form-label">Last Name:</label>
+												<input type="text" class="form-control vet-last-name"
+													name="vet-last-name" value="{{v[2]}}">
+												<label for="vet-email" class="col-form-label">Email:</label>
+												<input type="text" class="form-control vet-email" name="vet-email"
+													value="{{v[3]}}">
+												<label for="vet-phone" class="col-form-label">Phone Number:</label>
+												<input type="text" class="form-control vet-phone" name="vet-phone"
+													value="{{v[4]}}">
+												<label for="vet-specialty" class="col-form-label">Specialty:</label>
+												<input type="text" class="form-control vet-specialty"
+													name="vet-specialty" value="{{v[5]}}">
+												<br>
+												<button type="submit" class="btn btn-primary" name="vet-update"
+													value="{{v[0]}}">Update Vet</button>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
-   						</div>
-  					</div>
-				</td>
-				<td>
-					<form action="" method="post">
-					<button class="btn btn-danger" name="vet-delete" value="{{v[0]}}">Delete</button>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
+					</td>
+					<td>
+						<form action="" method="post">
+							<button class="btn btn-danger" name="vet-delete" value="{{v[0]}}">Delete</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
 
-			<tr>
-				<!--<td colspan="8">-->
-				<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
+				<tr>
+					<!--<td colspan="8">-->
+					<!-- This code is from: https://www.tutorialrepublic.com/faq/how-to-add-
 				remove-table-rows-dynamically-using-jquery.php-->
-				<!-- We need to add a form attribute in order to add new vets to the DB. We are 
+					<!-- We need to add a form attribute in order to add new vets to the DB. We are 
 				also using JQUERY to make the Add Vet button reactive-->
-				<!--<td colspan="11">-->
+					<!--<td colspan="11">-->
 					<form action="" method="post">
 						<td><input type="number" name="vet_id" hidden></td>
 						<td><input type="text" name="vet_first_name" placeholder="First Name"></td>
@@ -753,213 +884,220 @@
 						<td><input type="text" name="vet_email" placeholder="Email"></td>
 						<td><input type="text" name="vet_phone" placehoder="Phone"></td>
 						<td><input type="text" name="vet_specialty" placeholder="Specialty"></td>
-						<td><button id="vetButton" class="btn btn-secondary" name="vet-insert" value="0">Add Vet</button></td>
+						<td><button id="vetButton" class="btn btn-secondary" name="vet-insert" value="0">Add
+								Vet</button></td>
 					</form>
-				<!--</td>-->
-			</tr>
-		</tbody>
-	</table>
-	{% if feedback is defined and feedback|length %}
-    <div>
-        <p class="text-center">
-        {{feedback["Vets"]}}
-        </p>
-    </div>
-    {% endif %}
-</div>
+					<!--</td>-->
+				</tr>
+			</tbody>
+		</table>
+		{% if feedback is defined and feedback|length %}
+		<div>
+			<p class="text-center">
+				{{feedback["Vets"]}}
+			</p>
+		</div>
+		{% endif %}
+	</div>
 
-{% if vet_admin_result is defined %}
-<div>
-	<p class="text-center">
-        {{vet_admin_result}}
-    </p>
-</div>
-{% endif %}
-{% endif %}
+	{% if vet_admin_result is defined %}
+	<div>
+		<p class="text-center">
+			{{vet_admin_result}}
+		</p>
+	</div>
+	{% endif %}
+	{% endif %}
 
 	<!-- Jquery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
 
 	<!-- Bootstrap Javascript functionality to make things work -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 
 
-<!-- Footer --> 
-<div class="footer" style="width:100%">
+	<!-- Footer -->
+	<div class="footer" style="width:100%">
 		<div class="container">
-  			<div id="footerRow" class="row">
-    			<div class="col-sm-4">
-      				Contact Us:
-    			</div>
-    			<div class="col-sm-4">
-      				<p>1234 Some Road, USA</p>
-    			</div>
-    			<div class="col-sm-4">
-      				<p>Phone: 123-456-7890</p>
-    			</div>
-  			</div>
+			<div id="footerRow" class="row">
+				<div class="col-sm-4">
+					Contact Us:
+				</div>
+				<div class="col-sm-4">
+					<p>1234 Some Road, USA</p>
+				</div>
+				<div class="col-sm-4">
+					<p>Phone: 123-456-7890</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
-<!--In order to get the update form to populate (that way users won't have to type everything in
+	<!--In order to get the update form to populate (that way users won't have to type everything in
 	again, I needed to figure out how to populate the modal form. I used this SO and Fiddle page
 	to figure it out and write the following jquery functions
 	Fiddle: https://jsfiddle.net/sudarpochong/nxL8jezp/
 	SO: https://stackoverflow.com/questions/47449392/data-into-bootstrap-modal-from-table-row-using-javascript-->
-<script>
-	$(document).ready(function() {
+	<script>
+		$(document).ready(function () {
 
-		// Fill the Update Customer form
-		$('#customerModal').on('show.bs.modal', function (e) {
-  
-			var _button = $(e.relatedTarget); // Button that triggered the modal
-  
-  			var _row = _button.parents("tr");
-  			var _custId = _row.find(".cust-id").text();
-  			var _custFirstName = _row.find(".cust-first-name").text();
-			var _custLastName = _row.find(".cust-last-name").text();
-  			var _custEmail = _row.find(".cust-email").text();
-  			var _custPhone = _row.find(".cust-phone").text();
-  			var _custAddress = _row.find(".cust-address").text();
-  			var _custCity = _row.find(".cust-city").text();
-			var _custState = _row.find(".cust-state").text();
-			var _custZip = _row.find(".cust-zip").text();
-  
-  			$(this).find(".cust-id").val(_custId);
-  			$(this).find(".cust-first-name").val(_custFirstName);
-			$(this).find(".cust-last-name").val(_custLastName);
-			$(this).find(".cust-email").val(_custEmail);
-			$(this).find(".cust-phone").val(_custPhone);
-			$(this).find(".cust-address").val(_custAddress);
-			$(this).find(".cust-city").val(_custCity);
-			$(this).find(".cust-state").val(_custState);
-			$(this).find(".cust-zip").val(_custZip);
+			// Fill the Update Customer form
+			$('#customerModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _custId = _row.find(".cust-id").text();
+				var _custFirstName = _row.find(".cust-first-name").text();
+				var _custLastName = _row.find(".cust-last-name").text();
+				var _custEmail = _row.find(".cust-email").text();
+				var _custPhone = _row.find(".cust-phone").text();
+				var _custAddress = _row.find(".cust-address").text();
+				var _custCity = _row.find(".cust-city").text();
+				var _custState = _row.find(".cust-state").text();
+				var _custZip = _row.find(".cust-zip").text();
+
+				$(this).find(".cust-id").val(_custId);
+				$(this).find(".cust-first-name").val(_custFirstName);
+				$(this).find(".cust-last-name").val(_custLastName);
+				$(this).find(".cust-email").val(_custEmail);
+				$(this).find(".cust-phone").val(_custPhone);
+				$(this).find(".cust-address").val(_custAddress);
+				$(this).find(".cust-city").val(_custCity);
+				$(this).find(".cust-state").val(_custState);
+				$(this).find(".cust-zip").val(_custZip);
+
+			});
+
+			// Fill the Update Pets form
+			$('#petModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _petId = _row.find(".pet-id").text();
+				var _petName = _row.find(".pet-name").text();
+				var _petSpecies = _row.find(".pet-species").text();
+				var _petBreed = _row.find(".pet-breed").text();
+				var _petAge = _row.find(".pet-age").text();
+				var _petGender = _row.find(".pet-gender").text();
+				var _custFistName = _row.find(".cust-first-name").text();
+				var _custLastName = _row.find(".cust-last-name").text();
+				var _vetFirstName = _row.find(".vet-first-name").text();
+				var _vetLastName = _row.find(".vet-last-name").text();
+
+
+				$(this).find(".pet-id").val(_petId);
+				$(this).find(".pet-name").val(_petName);
+				$(this).find(".pet-species").val(_petSpecies);
+				$(this).find(".pet-breed").val(_petBreed);
+				$(this).find(".pet-age").val(_petAge);
+				$(this).find(".pet-gender").val(_petGender);
+				$(this).find(".cust-first-name").val(_custFistName);
+				$(this).find(".cust-last-name").val(_custLastName);
+				$(this).find(".vet-first-name").val(_vetFirstName);
+				$(this).find(".vet-last-name").val(_vetLastName);
+
+			});
+
+			// Fill the Update Classes form
+			$('#classModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _classId = _row.find(".class-id").text();
+				var _className = _row.find(".class-name").text();
+				var _classDescription = _row.find(".class-description").text();
+				var _classDay = _row.find(".class-day").text();
+				var _classTime = _row.find(".class-time").text();
+				var _classPrice = _row.find(".class-price").text();
+				var _classSeats = _row.find(".class-seats").text();
+				var _classTeacherFirstName = _row.find(".teacher-first-name").text();
+				var _classTeacherLastName = _row.find(".teacher-last-name").text();
+
+				$(this).find(".class-id").val(_classId);
+				$(this).find(".class-name").val(_className);
+				$(this).find(".class-description").val(_classDescription);
+				$(this).find(".class-day").val(_classDay);
+				$(this).find(".class-time").val(_classTime);
+				$(this).find(".class-price").val(_classPrice);
+				$(this).find(".class-seats").val(_classSeats);
+				$(this).find(".teacher-first-name").val(_classTeacherFirstName);
+				$(this).find(".teacher-last-name").val(_classTeacherLastName);
+
+
+			});
+
+			// Fill the Update Enrollments form
+			$('#enrollModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _enrollId = _row.find(".enroll-id").text();
+				var _petName = _row.find(".pet-name").text();
+				var _className = _row.find(".class-name").text();
+
+				$(this).find(".enroll-id").val(_enrollId);
+				$(this).find(".pet-name").val(_petName);
+				$(this).find(".class-name").val(_className);
+
+			});
+
+			// Fill the Update Teacher form
+			$('#teacherModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _techerId = _row.find(".teacher-id").text();
+				var _teacherFirstName = _row.find(".teacher-first-name").text();
+				var _teacherLastName = _row.find(".teacher-last-name").text();
+				var _teacherEmail = _row.find(".teacher-email").text();
+				var _teacherPhone = _row.find(".teacher-phone").text();
+
+				$(this).find(".teacher-id").val(_techerId);
+				$(this).find(".teacher-first-name").val(_teacherFirstName);
+				$(this).find(".teacher-last-name").val(_teacherLastName);
+				$(this).find(".teacher-email").val(_teacherEmail);
+				$(this).find(".teacher-phone").val(_teacherPhone);
+
+			});
+
+			// Fill the Update Vet form
+			$('#vetModal').on('show.bs.modal', function (e) {
+
+				var _button = $(e.relatedTarget); // Button that triggered the modal
+
+				var _row = _button.parents("tr");
+				var _vetId = _row.find(".vet-id").text();
+				var _vetFirstName = _row.find(".vet-first-name").text();
+				var _vetLastName = _row.find(".vet-last-name").text();
+				var _vetEmail = _row.find(".vet-email").text();
+				var _vetPhone = _row.find(".vet-phone").text();
+				var _vetSpec = _row.find(".vet-specialty").text();
+
+				$(this).find(".vet-id").val(_vetId);
+				$(this).find(".vet-first-name").val(_vetFirstName);
+				$(this).find(".vet-last-name").val(_vetLastName);
+				$(this).find(".vet-email").val(_vetEmail);
+				$(this).find(".vet-phone").val(_vetPhone);
+				$(this).find(".vet-specialty").val(_vetSpec);
+
+			});
+
 
 		});
-
-		// Fill the Update Pets form
-		$('#petModal').on('show.bs.modal', function (e) {
-  
-  			var _button = $(e.relatedTarget); // Button that triggered the modal
-
-			var _row = _button.parents("tr");
-			var _petId = _row.find(".pet-id").text();
-			var _petName = _row.find(".pet-name").text();
-  			var _petSpecies = _row.find(".pet-species").text();
-			var _petBreed = _row.find(".pet-breed").text();
-			var _petAge = _row.find(".pet-age").text();
-			var _petGender = _row.find(".pet-gender").text();
-			var _custFistName = _row.find(".cust-first-name").text();
-  			var _custLastName = _row.find(".cust-last-name").text();
-  			var _vetFirstName = _row.find(".vet-first-name").text();
-			var _vetLastName = _row.find(".vet-last-name").text();
-
-
-			$(this).find(".pet-id").val(_petId);
-			$(this).find(".pet-name").val(_petName);
-			$(this).find(".pet-species").val(_petSpecies);
-			$(this).find(".pet-breed").val(_petBreed);
-			$(this).find(".pet-age").val(_petAge);
-			$(this).find(".pet-gender").val(_petGender);
-			$(this).find(".cust-first-name").val(_custFistName);
-			$(this).find(".cust-last-name").val(_custLastName);
-			$(this).find(".vet-first-name").val(_vetFirstName);
-			$(this).find(".vet-last-name").val(_vetLastName);
-
-		});
-
-		// Fill the Update Classes form
-		$('#classModal').on('show.bs.modal', function (e) {
-  
-  			var _button = $(e.relatedTarget); // Button that triggered the modal
-
-			var _row = _button.parents("tr");
-			var _classId = _row.find(".class-id").text();
-			var _className = _row.find(".class-name").text();
-  			var _classDescription = _row.find(".class-description").text();
-			var _classDay = _row.find(".class-day").text();
-			var _classTime = _row.find(".class-time").text();
-			var _classPrice = _row.find(".class-price").text();
-			var _classSeats = _row.find(".class-seats").text();
-			var _classTeacherFirstName = _row.find(".teacher-first-name").text();
-			var _classTeacherLastName = _row.find(".teacher-last-name").text();
-
-			$(this).find(".class-id").val(_classId);
-			$(this).find(".class-name").val(_className);
-			$(this).find(".class-description").val(_classDescription);
-			$(this).find(".class-day").val(_classDay);
-			$(this).find(".class-time").val(_classTime);
-			$(this).find(".class-price").val(_classPrice);
-			$(this).find(".class-seats").val(_classSeats);
-			$(this).find(".teacher-first-name").val(_classTeacherFirstName);
-			$(this).find(".teacher-last-name").val(_classTeacherLastName);
-
-
-		});
-
-		// Fill the Update Enrollments form
-		$('#enrollModal').on('show.bs.modal', function (e) {
-  
-  			var _button = $(e.relatedTarget); // Button that triggered the modal
-
-			var _row = _button.parents("tr");
-			var _enrollId = _row.find(".enroll-id").text();
-			var _petName = _row.find(".pet-name").text();
-  			var _className = _row.find(".class-name").text();
-
-			$(this).find(".enroll-id").val(_enrollId);
-			$(this).find(".pet-name").val(_petName);
-			$(this).find(".class-name").val(_className);
-
-		});
-
-		// Fill the Update Teacher form
-		$('#teacherModal').on('show.bs.modal', function (e) {
-  
-  			var _button = $(e.relatedTarget); // Button that triggered the modal
-
-			var _row = _button.parents("tr");
-			var _techerId = _row.find(".teacher-id").text();
-			var _teacherFirstName = _row.find(".teacher-first-name").text();
-  			var _teacherLastName = _row.find(".teacher-last-name").text();
-			var _teacherEmail = _row.find(".teacher-email").text();
-			var _teacherPhone = _row.find(".teacher-phone").text();
-
-			$(this).find(".teacher-id").val(_techerId);
-			$(this).find(".teacher-first-name").val(_teacherFirstName);
-			$(this).find(".teacher-last-name").val(_teacherLastName);
-			$(this).find(".teacher-email").val(_teacherEmail);
-			$(this).find(".teacher-phone").val(_teacherPhone);
-
-		});
-
-		// Fill the Update Vet form
-		$('#vetModal').on('show.bs.modal', function (e) {
-  
-  			var _button = $(e.relatedTarget); // Button that triggered the modal
-
-			var _row = _button.parents("tr");
-			var _vetId = _row.find(".vet-id").text();
-			var _vetFirstName = _row.find(".vet-first-name").text();
-  			var _vetLastName = _row.find(".vet-last-name").text();
-			var _vetEmail = _row.find(".vet-email").text();
-			var _vetPhone = _row.find(".vet-phone").text();
-			var _vetSpec = _row.find(".vet-specialty").text();
-
-			$(this).find(".vet-id").val(_vetId);
-			$(this).find(".vet-first-name").val(_vetFirstName);
-			$(this).find(".vet-last-name").val(_vetLastName);
-			$(this).find(".vet-email").val(_vetEmail);
-			$(this).find(".vet-phone").val(_vetPhone);
-			$(this).find(".vet-specialty").val(_vetSpec);
-
-		});
-
-
-});
-</script>
+	</script>
 
 </body>
 

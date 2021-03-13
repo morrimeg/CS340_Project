@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `pets` (
   `species` varchar(255) NOT NULL,
   `breed` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
-  `gender` binary NOT NULL,
+  `gender` char(1) NOT NULL,
   `vet_id` int(11),
   `customer_id` int(11) NOT NULL,
   PRIMARY KEY(`pet_id`),
@@ -123,17 +123,17 @@ CREATE TABLE IF NOT EXISTS `pets` (
 LOCK TABLES `pets` WRITE, `vets` READ, `customers` READ;
 /*!40000 ALTER TABLE `pets` DISABLE KEYS */;
 
-INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Kirby', 'Canine', 'Cavalier King Charles Spaniel', 1, 0,
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Kirby', 'Canine', 'Cavalier King Charles Spaniel', 1, 'M',
   (SELECT vet_id FROM vets WHERE first_name = 'Elise' and last_name = 'Noalhyt'),
   (SELECT customer_id FROM customers WHERE first_name = 'Mbali' and last_name = 'Octavius')
 );
 
-INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Scout', 'Canine', 'Springer Spaniel', 11, 0,
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Scout', 'Canine', 'Springer Spaniel', 11, 'M',
   (SELECT vet_id FROM vets WHERE first_name = 'Elise' and last_name = 'Noalhyt'),
   (SELECT customer_id FROM customers WHERE first_name = 'Mira' and last_name = 'Magee')
 );
 
-INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Chairman Meow', 'Feline', 'Persian', 14, 0,
+INSERT INTO `pets` (pet_name, species, breed, age, gender, vet_id, customer_id) values ('Chairman Meow', 'Feline', 'Persian', 14, 'M',
   (SELECT vet_id FROM vets WHERE first_name = 'Samantha' and last_name = 'Sukej'),
   (SELECT customer_id FROM customers WHERE first_name = 'Sundar' and last_name = 'Pichai')
 );

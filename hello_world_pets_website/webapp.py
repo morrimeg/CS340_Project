@@ -219,26 +219,21 @@ def classes():
             className = request.form.get('select-class-name')
             query = "SELECT * FROM classes WHERE class_name = '" + className + "'"
             result = execute_query(db_connection, query).fetchall()
-
-            return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
-                                class_time=class_time_list, pet_name=pet_list)
         
+        # Selected a day to search by
         elif request.form['searchClasses'] == 'day':
             day = request.form.get('select-class-day')
             query = "SELECT * FROM classes WHERE DAYNAME(class_day) = '" + day + "'"
             result = execute_query(db_connection, query).fetchall()
 
-            return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
-                                class_time=class_time_list, pet_name=pet_list)
-
+        # Selected a time to search by
         elif request.form['searchClasses'] == 'time':
             time = request.form.get('select-class-time')
             query = "SELECT * FROM classes WHERE HOUR(class_time) = '" + time + "'"
             result = execute_query(db_connection, query).fetchall()
 
-            return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
-                                class_time=class_time_list, pet_name=pet_list)
 
+        # Selected a price to search by
         elif request.form['searchClasses'] == 'price':
             price = request.form.get('price-range')
             query = "SELECT * FROM classes WHERE class_price <= " + str(price)
@@ -247,31 +242,14 @@ def classes():
             if result is None:
                 result = "No prices at or below" + str(price)
 
-            return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
-                                class_time=class_time_list, pet_name=pet_list)
 
-        # # Get pet naems for enrollment
-        # pet_name_query = "SELECT pet_name FROM pets"
-        # pet_tuple = execute_query(db_connection, pet_name_query).fetchall()
-        # pet_list = [item for x in pet_tuple for item in x]
+        # Get pet naems for enrollment
+        pet_name_query = "SELECT pet_name FROM pets"
+        pet_tuple = execute_query(db_connection, pet_name_query).fetchall()
+        pet_list = [item for x in pet_tuple for item in x]
             
-        # return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
-        #                         class_time=class_time_list, pet_name=pet_list)
-
-        elif request.form['enroll-pet-class-search'] == "enroll":
-            print('clicked enroll pet')
-            # # Get class data from form fields
-            # enroll_data = {
-            #             "Pet Name": request.form.get('select_pet_name_class_search'),
-            #             "Class Name": request.form.get('class_name_class_search')
-            #             }
-
-       
-            # query = 'INSERT INTO enrollments (pet_id, class_id) VALUES ((SELECT pet_id FROM pets WHERE pet_name = %s), (SELECT class_id FROM classes WHERE class_name = %s))'
-            # data = (enroll_data["Pet Name"],
-            #         enroll_data["Class Name"])
-                
-            # execute_query(db_connection, query, data)
+        return render_template('classes.html', rows=result, class_list=class_list, class_day=class_day_list, 
+                                class_time=class_time_list, pet_name=pet_list)
 
     
     else:

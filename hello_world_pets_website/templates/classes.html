@@ -158,8 +158,6 @@
 				<th scope="col">Price</th>
 				<th scope="col">Class Seats</th>
                 <th scope="col">Instructor ID</th>
-        <th scope="col">Pet Name</th>
-        <th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -173,18 +171,6 @@
             <td>{{r[5]}}</td>
             <td>{{r[6]}}</td>
             <td>{{r[7]}}</td>
-            <td>
-			  <SELECT id="listPets" name="select_pet_name_class_search">
-				{% for p in pet_name %}
-				<option value="{{p}}">{{p}}</option>
-				{% endfor %}
-			  </SELECT>
-            </td>
-            <td>
-			 <form action="" method="post">
-			  	<button class="btn btn-info" type="submit" name="enroll-pet-class-search" value="enroll">Enroll Pet</button>
-		     </form>
-            </td>
         </tr>
         {% endfor %}
 		</tbody>

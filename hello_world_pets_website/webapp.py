@@ -134,11 +134,23 @@ def customers():
 @webapp.route('/pets.html', methods=['GET', 'POST'])
 def pets():
     db_connection = connect_to_database()
-   
+    result = ''
+
+    # Query customer options to populate pet search drop-down menu
+    query = 'SELECT customer_id, first_name, last_name FROM customers'
+    customers_result = execute_query(db_connection, query).fetchall()
+
+    # Query pet names to populate pet search dropdown
+    pet_names_query = 'SELECT pet_id, pet_name, species FROM pets'
+    pet_result = execute_query(db_connection, pet_names_query).fetchall()
+
     if request.method == 'POST':
+        print("In post statement")
         # They submitted the form
         if request.form['searchPets'] == 'customerName':
-            customerName = request.form['petSearchText'].split()
+            print("in customers")
+            customerName = request.form.get('select-customer-name').split()
+            print("customer name: ", customerName)
             
             # One name provided - could be first or last
             if len(customerName) == 1:
@@ -153,20 +165,23 @@ def pets():
  
             # Execute the query
             result = execute_query(db_connection, query).fetchall()
+            print()
+            print(result)
 
         elif request.form['searchPets'] == 'petName':
-            petName = request.form['petSearchText']
+            petName = request.form.get('select-pet-name')
             query = "SELECT * FROM pets where pet_name = '" + petName + "'"
             result = execute_query(db_connection, query).fetchall()
 
         elif request.form['searchPets'] == 'petType':
-            petType = request.form['petSearchText']
+            petType = request.form.get('select-pet-species')
             query = "SELECT * FROM pets WHERE species = '" + petType + "' OR breed = '" + petType + "'"
             result = execute_query(db_connection, query).fetchall()
 
-        return render_template('pets.html', rows=result)
+        return render_template('pets.html', rows=result, customer_list=customers_result, pet_list=pet_result)
+
     else:
-        return render_template('pets.html')
+        return render_template('pets.html', customer_list=customers_result, pet_list=pet_result)
 
 
 @webapp.route('/classes.html', methods=['GET', 'POST'])

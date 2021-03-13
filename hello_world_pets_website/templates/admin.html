@@ -295,21 +295,19 @@
 													type="radio" name="pet-gender" id="pet_gender2" value="{{p[5]}}">
 												<label class="form-check-label" for="pet_gender2"> Male </label>
 												<br>
-												<label for="customer-first-name" class="col-form-label">Customer First
-													Name:</label>
-												<input type="text" class="form-control cust-first-name"
-													name="customer-first-name" required>
-												<label for="customer-last-name" class="col-form-label">Customer Last
-													Name:</label>
-												<input type="text" class="form-control cust-last-name"
-													name="customer-last-name" required>
-												<label for="vet-first-name" class="col-form-label">Vet First
-													Name:</label>
-												<input type="text" class="form-control vet-first-name"
-													name="vet-first-name">
-												<label for="vet-last-name" class="col-form-label">Vet Last Name:</label>
-												<input type="text" class="form-control vet-last-name"
-													name="vet-last-name">
+												<label for="customer-name" class="col-form-label">Customer Name:</label>
+													<SELECT name="customer_name__update_select">
+														{% for c in customerNames %}
+														<option value="{{c[1]}} {{c[2]}}">{{c[1]}} {{c[2]}}</option>
+														{% endfor %}
+													</SELECT>
+												<br>
+												<label for="vet-name" class="col-form-label">Vet Name:</label>
+												<SELECT name="vet_name_update_select">
+													{% for vet in vetNames %}
+													<option value="{{vet[1]}} {{vet[2]}}">{{vet[1]}} {{vet[2]}}</option>
+													{% endfor %}
+												</SELECT>
 												<br>
 												<button type="submit" class="btn btn-primary" name="pet-update"
 													value="{{p[0]}}">Update Pet</button>
@@ -337,7 +335,6 @@
 					remove-table-rows-dynamically-using-jquery.php-->
 					<!-- We need to add a form attribute in order to add new customers to the DB. We are 
 				also using JQUERY to make the Add Pet button reactive-->
-					<!--<td colspan="11">-->
 					<form action="" method="post">
 						<td><input style="width:4px" type="number" name="pet_id" hidden></td>
 						<td><input style="width:100px" type="text" name="pet_name" placeholder="Pet Name"></td>
@@ -355,15 +352,6 @@
 								<option value="{{c[1]}} {{c[2]}}">{{c[1]}} {{c[2]}}</option>
 								{% endfor %}
 							</SELECT>
-							<!--<input style="width:180px" type="text" name="customer_first_name" placeholder="Customer First Name">-->
-						</td>
-						<td>
-						<!--	<SELECT name="customer_last_name">
-								{% for name in customerLastNames %}
-								<option value="{{name}}">{{name}}</option>
-								{% endfor %}
-							</SELECT>-->
-							<!--<input style="width:180px" type="text" name="customer_last_name" placeholder="Customer Last Name">-->
 						</td>
 						<td>
 							<SELECT name="vet_name_select">
@@ -371,21 +359,10 @@
 								<option value="{{vet[1]}} {{vet[2]}}">{{vet[1]}} {{vet[2]}}</option>
 								{% endfor %}
 							</SELECT>
-							<!--<input style="width:120px" type="text" name="vet_first_name" placeholder="Vet First Name">-->
-						</td>
-
-						<td>
-						<!--	<SELECT name="vet_last_name">
-								{% for vet in vetLastNames %}
-								<option value="{{vet}}">{{vet}}</option>
-								{% endfor %}
-							</SELECT>-->
-							<!--<input style="width:120px" type="text" name="vet_last_name" placeholder="Vet Last Name">-->
 						</td>
 						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add
 								Pet</button></td>
 					</form>
-					<!--</td>-->
 				</tr>
 
 			</tbody>
@@ -479,14 +456,12 @@
 												<label for="class-seats" class="col-form-label">Seats Available:</label>
 												<input type="text" class="form-control class-seats" name="class-seats"
 													value="{{c[6]}}">
-												<label for="teacher-first-name" class="col-form-label">Teacher First
-													Name:</label>
-												<input type="text" class="form-control teacher-first-name"
-													name="teacher-first-name" required>
-												<label for="teacher-last-name" class="col-form-label">Teacher Last
-													Name:</label>
-												<input type="text" class="form-control teacher-last-name"
-													name="teacher-last-name" required>
+												<label for="teacher-first-name" class="col-form-label">Teacher Name:</label>
+												<SELECT name="teacher_name_update_select">
+													{% for teach in teacherNames %}
+													<option value="{{teach[1]}} {{teach[2]}}">{{teach[1]}} {{teach[2]}}</option>
+													{% endfor %}
+												</SELECT>
 												<br>
 												<button type="submit" class="btn btn-primary" name="class-update"
 													value="{{c[0]}}">Update Class</button>
@@ -528,8 +503,6 @@
 								<option value="{{teach[1]}} {{teach[2]}}">{{teach[1]}} {{teach[2]}}</option>
 								{% endfor %}
 							</SELECT>
-							<!--<input style="width:150px" type="text" name="teacher_first_name"
-								placeholder="Teacher First Name">-->
 						</td>
 						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add
 								Class</button></td>
@@ -599,11 +572,23 @@
 												<input type="hidden" class="enroll-id" name="enroll-id"
 													value="{{e[0]}}">
 												<label for="class-pet" class="col-form-label">Pet Name:</label>
-												<input type="text" class="form-control pet-name" name="pet-name"
-													required>
-												<label for="class-name" class="col-form-label">Class Name:</label>
-												<input type="text" class="form-control class-name" name="class-name"
-													required>
+												<SELECT name="pet_name_update_select">
+													{% for pet in petNames %}
+													<option value="{{pet[1]}}">{{pet[1]}}</option>
+													{% endfor %}
+												</SELECT>
+												<br>
+												<!--<input type="text" class="form-control pet-name" name="pet-name"
+													required>-->
+												<label for="class-name-update" class="col-form-label">Class Name:</label>
+													<SELECT name="class_name_update_select">
+														{% for class in classNames %}
+															<option value="{{class[1]}}">{{class[1]}}</option>
+														{% endfor %}
+													</SELECT>
+
+												<!--<input type="text" class="form-control class-name" name="class-name"
+													required>-->
 												<br>
 												<button type="submit" class="btn btn-primary" name="enrollment-update"
 													value="{{e[0]}}">Update Enrollment</button>
@@ -635,16 +620,17 @@
 						<td><input type="number" name="enroll_id" hidden></td>
 						<td>
 							<SELECT name="pet_name">
-							{% for pet in petNames %}
-							<option value="{{pet[1]}}">{{pet[1]}}</option>
-							{% endfor %}
+								{% for pet in petNames %}
+									<option value="{{pet[0]}} {{pet[1]}}">{{pet[1]}}</option>
+								{% endfor %}
 							</SELECT>
 					   </td>
 						<!--<td><input type="text" name="pet_name" placeholder="Pet Name"></td>-->
+						<br>
 						<td>
 							<SELECT name="class_name">
 								{% for class in classNames %}
-								<option value="{{class[1]}}">{{class[1]}}</option>
+								<option value="{{class[0]}} {{class[1]}}">{{class[1]}}</option>
 								{% endfor %}
 							</SELECT>
 						</td>

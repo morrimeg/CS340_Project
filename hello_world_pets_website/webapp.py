@@ -340,7 +340,7 @@ def refresh_admin(feedback=None):
     teacher_name_query = "SELECT teacher_id, first_name, last_name FROM teachers"
     teacher_name_result = execute_query(db_connection, teacher_name_query).fetchall()
         
-    # Pet name
+    # Pet name for dropdowns
     pet_name_query = "SELECT pet_id, pet_name FROM pets"
     pet_name_result = execute_query(db_connection, pet_name_query).fetchall()
 
@@ -379,7 +379,7 @@ def admin():
         db_connection = connect_to_database()
 
         # They submitted a form to update a customer
-        if request.form.get('customer-update'): # == 'updateCustomer':
+        if request.form.get('customer-update'):
             
             # Get customer data from form fields
             customer_data = {
@@ -416,7 +416,7 @@ def admin():
             except:
                 feedback = "Update Customer Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
         # If they request to update a Pet
         elif request.form.get('pet-update'):
@@ -428,10 +428,10 @@ def admin():
                     "Pet Breed": request.form.get('pet-breed'),
                     "Pet Age": request.form.get('pet-age'),
                     "Pet Gender": request.form.get('pet-gender'),
-                    "Vet First Name": request.form.get('vet-first-name'),
-                    "Vet Last Name": request.form.get('vet-last-name'),
-                    "Customer First Name": request.form.get('customer-first-name'),
-                    "Customer Last Name": request.form.get('customer-last-name'),
+                    "Vet First Name": request.form.get('vet_name_update_select').split()[0],
+                    "Vet Last Name": request.form.get('vet_name_update_select').split()[1],
+                    "Customer First Name": request.form.get('customer_name__update_select').split()[0],
+                    "Customer Last Name": request.form.get('customer_name__update_select').split()[1],
                     "Pet ID": request.form.get('pet-id')
                     }
             
@@ -459,7 +459,7 @@ def admin():
             except:
                 feedback = "Update Pets Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
 
         # If they submitted to update a Class
@@ -473,8 +473,8 @@ def admin():
                     "Class Time": request.form.get('class-time'),
                     "Class Price": request.form.get('class-price'),
                     "Class Seats": request.form.get('class-seats'),
-                    "Teacher First Name": request.form.get('teacher-first-name'),
-                    "Teacher Last Name": request.form.get('teacher-last-name'),
+                    "Teacher First Name": request.form.get('teacher_name_update_select').split()[0],
+                    "Teacher Last Name": request.form.get('teacher_name_update_select').split()[1],
                     "Class ID": request.form.get('class-id')
                     }
             
@@ -501,15 +501,15 @@ def admin():
             except:
                 feedback = "Update Class Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
-        # If they requested to update an enrollment
+        # If they requested to update an Enrollment
         elif request.form.get('enrollment-update'):
             
             # Get enrollment data from form fields
             enrollment_data = {
-                    "Pet Name": request.form.get('pet-name'),
-                    "Class Name": request.form.get('class-name'),
+                    "Pet Name": request.form.get('pet_name_update_select'),
+                    "Class Name": request.form.get('class_name_update_select'),
                     "Enrollment ID": request.form.get('enroll-id')
                     }
             
@@ -530,7 +530,7 @@ def admin():
             except:
                 feedback = "Update Enrollment Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
 
         # If they submitted to update a teacher
@@ -563,7 +563,7 @@ def admin():
             except:
                 feedback = "Update Teacher Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
         # If they submitted to update a vet
         elif request.form.get('vet-update'):
@@ -597,7 +597,7 @@ def admin():
             except:
                 feedback = "Update Vet Failed."
             
-            return refresh_admin(feedback)
+            return refresh_admin(feedback), refresh_admin()
 
         # If they submitted to delete a customer
         elif request.form.get('customer-delete'):

@@ -166,7 +166,7 @@
         {% for r in rows %}
         <tr>
             <th scope="row">{{r[0]}}</th>
-            <td>{{r[1]}}</td>
+            <td name="class_name_class_search">{{r[1]}}</td>
             <td>{{r[2]}}</td>
             <td>{{r[3]}}</td>
             <td>{{r[4]}}</td>
@@ -174,17 +174,16 @@
             <td>{{r[6]}}</td>
             <td>{{r[7]}}</td>
             <td>
-			  <!--<input type="text" style="width:100%" name="enrollPetId">-->
-			  <SELECT id="listPets" name="select-pet-name">
+			  <SELECT id="listPets" name="select_pet_name_class_search">
 				{% for p in pet_name %}
 				<option value="{{p}}">{{p}}</option>
 				{% endfor %}
 			  </SELECT>
             </td>
             <td>
-			<form action="" method="post">
-			  <button class="btn btn-info" type="submit" name="enroll-pet">Enroll Pet</button>
-			</form>
+			 <form action="" method="post">
+			  	<button class="btn btn-info" type="submit" name="enroll-pet-class-search" value="enroll">Enroll Pet</button>
+		     </form>
             </td>
         </tr>
         {% endfor %}

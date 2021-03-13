@@ -71,7 +71,7 @@ INSERT INTO enrollments (pet_id, class_id) values (
 );
 
 -- Admin page: add Teacher
-
+INSERT INTO teachers (first_name, last_name, email, phone) VALUES (:firstName, :lastName, :email, :phone);
 
 -- Admin page: add Vet
 INSERT INTO vets (first_name, last_name, email, phone, specialty) VALUES (:firstName, :lastName, :email, :phone, :specialty);
@@ -95,6 +95,8 @@ WHERE class_id = :classId;
 UPDATE enrollments SET pet_id = :petId, class_id = :classId WHERE enrollment_id = :enrollmentID;
 
 -- Admin page: update Teachers
+UPDATE teachers SET first_name = :firstName, last_name = :lastName, email = :email, phone = :phone, specialty = :specialty
+WHERE teacher_id = :teacherId;
 
 -- Admin page: update Vet
 UPDATE vets SET first_name = :firstName, last_name = :lastName, email = :email, phone = :phone, specialty = :specialty
@@ -115,6 +117,9 @@ DELETE FROM classes WHERE class_id = :classId;
 
 -- Admin page: delete Enrollment
 DELETE FROM enrollments WHERE enrollment_id = :enrollmentId;
+
+-- Admin page: delete Teacher
+DELETE FROM teachers WHERE teacher_id = :teacherId;
 
 -- Admin page: delete Vet
 DELETE FROM vets WHERE vet_id = :vetId;

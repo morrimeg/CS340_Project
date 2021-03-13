@@ -52,12 +52,6 @@ INSERT INTO customers (first_name, last_name, email, phone, address, city, state
 -- Customers page: add a pet
 INSERT INTO pets (pet_name, species, breed, age, gender, vet_id, customer_id) VALUES (:petName, :petSpecies, :petBreed, :petAge, :vetId, :customerId);
 
--- Classes page: enroll a pet in a class by ID
-INSERT INTO enrollments (pet_id, class_id) VALUES(
-	(SELECT pet_id FROM pets WHERE pet_id = :petId),
-	(SELECT class_id FROM classes WHERE class_id = :classId)
-);
-
 -- Admin page: add Customer
 INSERT INTO customers (first_name, last_name, email, phone, address, city, state, zip_code) VALUES (:firstName, :lastName, :email, :phone, :address, :city, :state, :zip);
 

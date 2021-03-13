@@ -523,24 +523,14 @@
 						<td><input style="width:45px" type="number" name="class_price" placeholder="Price"></td>
 						<td><input style="width:45px" type="number" name="class_seats" placeholder="Class Seats"></td>
 						<td>
-							<SELECT name="teacher_first_name">
-								{% for t in teacherFirstNames %}
-								<option value="{{t}}">{{t}}</option>
+							<SELECT name="teacher_name_select">
+								{% for teach in teacherNames %}
+								<option value="{{teach[1]}} {{teach[2]}}">{{teach[1]}} {{teach[2]}}</option>
 								{% endfor %}
 							</SELECT>
 							<!--<input style="width:150px" type="text" name="teacher_first_name"
 								placeholder="Teacher First Name">-->
 						</td>
-						<td>
-							<SELECT name="teacher_last_name">
-								{% for teach in teacherLastNames %}
-								<option value="{{teach}}">{{teach}}</option>
-								{% endfor %}
-							</SELECT>
-							<!--<input style="width:150px" type="text" name="teacher_last_name"
-								placeholder="Teacher Last Name">-->
-						</td>
-
 						<td><button id="classButton" class="btn btn-secondary" name="class-insert" value="0">Add
 								Class</button></td>
 					</form>
@@ -646,7 +636,7 @@
 						<td>
 							<SELECT name="pet_name">
 							{% for pet in petNames %}
-							<option value="{{pet}}">{{pet}}</option>
+							<option value="{{pet[1]}}">{{pet[1]}}</option>
 							{% endfor %}
 							</SELECT>
 					   </td>
@@ -654,7 +644,7 @@
 						<td>
 							<SELECT name="class_name">
 								{% for class in classNames %}
-								<option value="{{class}}">{{class}}</option>
+								<option value="{{class[1]}}">{{class[1]}}</option>
 								{% endfor %}
 							</SELECT>
 						</td>

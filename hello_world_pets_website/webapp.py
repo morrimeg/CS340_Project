@@ -328,60 +328,35 @@ def refresh_admin(feedback=None):
     customer_names_query = "SELECT customer_id, first_name, last_name FROM customers"
     customer_names_result = execute_query(db_connection, customer_names_query).fetchall()
 
-    # Get customer last name
-    # customer_last_name_query = "SELECT last_name FROM customers"
-    # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
-    # customer_lname_list = [item for x in customer_lname_tuple for item in x]
-
-    # Get vet first name
-    # vet_first_name_query = "SELECT first_name FROM vets"
-    # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
-    # vet_fname_list = [item for x in vet_fname_tuple for item in x]
-
-    # # Get vet last name
-    # vet_last_name_query = "SELECT last_name FROM vets"
-    # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
-    # vet_lname_list = [item for x in vet_lname_tuple for item in x]
-
     # Get vet names for dropdowns
     vet_name_query = "SELECT vet_id, first_name, last_name FROM vets"
     vet_names_result = execute_query(db_connection, vet_name_query).fetchall()
 
-    # Get class name
-    class_name_query = "SELECT class_name FROM classes"
-    class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
-    class_name_list = [item for x in class_name_tuple for item in x]
+    # Get class name for dropdowns
+    class_name_query = "SELECT class_id, class_name FROM classes"
+    class_name_result = execute_query(db_connection, class_name_query).fetchall()
 
-    # Teacher first name
-    teacher_fname_query = "SELECT first_name FROM teachers"
-    teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
-    teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
-
-    # Teacher last name
-    teacher_lname_query = "SELECT last_name FROM teachers"
-    teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
-    teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
+    # Get teacher name for dropdowns
+    teacher_name_query = "SELECT teacher_id, first_name, last_name FROM teachers"
+    teacher_name_result = execute_query(db_connection, teacher_name_query).fetchall()
         
     # Pet name
-    pet_name_query = "SELECT pet_name FROM pets"
-    pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
-    pet_name_list = [item for x in pet_name_tuple for item in x]
+    pet_name_query = "SELECT pet_id, pet_name FROM pets"
+    pet_name_result = execute_query(db_connection, pet_name_query).fetchall()
 
     # Return info from all tables
     if feedback:
         return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, 
                                 enroll=enroll_result, vet=vet_result, teacher=teacher_result, feedback=feedback,
                                 customerNames=customer_names_result, 
-                                vetNames=vet_names_result, 
-                                classNames=class_name_list, teacherFirstNames=teacher_fname_list,
-                                teacherLastNames=teacher_lname_list, petNames=pet_name_list)
+                                vetNames=vet_names_result, classNames=class_name_result, teacherNames=teacher_name_result, 
+                                ames=pet_name_result)
 
 
     return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, 
                             teacher=teacher_result, customerNames=customer_names_result, 
-                            vetNames=vet_names_result, classNames=class_name_list, 
-                            teacherFirstNames=teacher_fname_list,
-                            teacherLastNames=teacher_lname_list, petNames=pet_name_list)
+                            vetNames=vet_names_result, classNames=class_name_result, 
+                            teacherNames=teacher_name_result, petNames=pet_name_result)
 
 
 @webapp.route('/admin.html', methods=['GET', 'POST'])
@@ -402,54 +377,6 @@ def admin():
                     "Vets": ""}
 
         db_connection = connect_to_database()
-
-        # Get customer first name
-        # customer_first_name_query = "SELECT first_name FROM customers"
-        # customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
-        # customer_fname_list = [item for x in customer_fname_tuple for item in x]
-
-        # # Get customer last name
-        # customer_last_name_query = "SELECT last_name FROM customers"
-        # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
-        # customer_lname_list = [item for x in customer_lname_tuple for item in x]
-
-        # Get data for dropdowns -- get customer names
-        customer_names_query = "SELECT customer_id, first_name, last_name FROM customers"
-        customer_names_result = execute_query(db_connection, customer_names_query).fetchall()
-
-        # Get vet names for dropdowns
-        vet_name_query = "SELECT vet_id, first_name, last_name FROM vets"
-        vet_names_result = execute_query(db_connection, vet_name_query).fetchall()
-
-        # Get vet first name
-        # vet_first_name_query = "SELECT first_name FROM vets"
-        # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
-        # vet_fname_list = [item for x in vet_fname_tuple for item in x]
-
-        # # Get vet last name
-        # vet_last_name_query = "SELECT last_name FROM vets"
-        # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
-        # vet_lname_list = [item for x in vet_lname_tuple for item in x]
-
-        # Get class name
-        class_name_query = "SELECT class_name FROM classes"
-        class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
-        class_name_list = [item for x in class_name_tuple for item in x]
-
-        # Teacher first name
-        teacher_fname_query = "SELECT first_name FROM teachers"
-        teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
-        teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
-
-        # Teacher last name
-        teacher_lname_query = "SELECT last_name FROM teachers"
-        teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
-        teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
-        
-        # Pet name
-        pet_name_query = "SELECT pet_name FROM pets"
-        pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
-        pet_name_list = [item for x in pet_name_tuple for item in x]
 
         # They submitted a form to update a customer
         if request.form.get('customer-update'): # == 'updateCustomer':
@@ -493,16 +420,6 @@ def admin():
 
         # If they request to update a Pet
         elif request.form.get('pet-update'):
-
-            customerName = request.form.get('customer_name_select').split()[0]
-            customerFirstName = customerName[0]
-            customerLastName = customerName[1]
-
-            print("customer last name:", customerLastName)
-
-            vetName = request.form.get('vet_name_select').split()
-            vetFirstName = vetName[0]
-            vetLastName = vetName[1]
             
             # Get pet data from form fields
             pet_data = {
@@ -511,10 +428,10 @@ def admin():
                     "Pet Breed": request.form.get('pet-breed'),
                     "Pet Age": request.form.get('pet-age'),
                     "Pet Gender": request.form.get('pet-gender'),
-                    "Vet First Name": request.form.get('vet_name_select').split()[0],
-                    "Vet Last Name": request.form.get('vet_name_select').split()[1],
-                    "Customer First Name": request.form.get('customer_name_select').split()[0],
-                    "Customer Last Name": request.form.get('customer_name_select').split()[1],
+                    "Vet First Name": request.form.get('vet-first-name'),
+                    "Vet Last Name": request.form.get('vet-last-name'),
+                    "Customer First Name": request.form.get('customer-first-name'),
+                    "Customer Last Name": request.form.get('customer-last-name'),
                     "Pet ID": request.form.get('pet-id')
                     }
             
@@ -586,7 +503,7 @@ def admin():
             
             return refresh_admin(feedback)
 
-        # If they requested to upate an enrollment
+        # If they requested to update an enrollment
         elif request.form.get('enrollment-update'):
             
             # Get enrollment data from form fields
@@ -780,10 +697,10 @@ def admin():
                     "Breed": request.form.get('pet_breed'),
                     "Age": request.form.get('pet_age'),
                     "Gender": request.form.get('pet_gender'),
-                    "Vet First Name": request.form.get('vet_first_name'),
-                    "Vet Last Name": request.form.get('vet_last_name'),
-                    "Customer First Name": request.form.get('customer_first_name'),
-                    "Customer Last Name": request.form.get('customer_last_name')
+                    "Vet First Name": request.form.get('vet_name_select').split()[0],
+                    "Vet Last Name": request.form.get('vet_name_select').split()[1],
+                    "Customer First Name": request.form.get('customer_name_select').split()[0],
+                    "Customer Last Name": request.form.get('customer_name_select').split()[1]
                     }
 
             # Check for any empty fields (all required in this form)
@@ -830,8 +747,8 @@ def admin():
                     "Class Time": request.form.get('class_time'),
                     "Class Price": request.form.get('class_price'),
                     "Class Seats": request.form.get('class_seats'),
-                    "Teacher First Name": request.form.get('teacher_first_name'),
-                    "Teacher Last Name": request.form.get('teacher_last_name') 
+                    "Teacher First Name": request.form.get('teacher_name_select').split()[0],
+                    "Teacher Last Name": request.form.get('teacher_name_select').split()[1] 
                 }
 
             # Check for any empty fields (all required in this form)

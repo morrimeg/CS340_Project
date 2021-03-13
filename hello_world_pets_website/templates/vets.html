@@ -90,27 +90,42 @@
     <form action="" method="post">
     	<fieldset>
     		<div class="form-check form-check-inline">
-    			<input class="form-check-input" type="radio" name="vetSearchType" value="vetFirstName" checked>
-  				<label class="form-check-label" for="vetFirstName">Vet First Name</label>
+    			<input id="vetName" class="form-check-input" type="radio" name="vetSearchType" value="vetName" checked>
+				  <label class="form-check-label" for="vetName">Vet Name</label>
+				  <SELECT id="listVets" name="select-vet-name">
+					{% for vet in vet_list %}
+					<option value="{{vet[1]}} {{vet[2]}}">{{vet[1]}} {{vet[2]}}</option>
+					{% endfor %}
+				  </SELECT>
   			</div>
     		
-            <div class="form-check form-check-inline">
+           <!-- <div class="form-check form-check-inline">
     			<input class="form-check-input" type="radio" name="vetSearchType" value="vetLastName">
   				<label class="form-check-label" for="vetLastName">Vet Last Name</label>
-  			</div>
+  			</div> -->
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="vetSearchType" value="vetSpecialty">
-  				<label class="form-check-label" for="vetSpecialty">Vet Specialty</label>
+				  <label class="form-check-label" for="vetSpecialty">Vet Specialty</label>
+				  <SELECT id="listVetSpecialty" name="select-vet-specialty">
+					{% for vet in vet_list %}
+					<option value="{{vet[3]}}">{{vet[3]}}</option>
+					{% endfor %}
+				  </SELECT>
   			</div>
 
   			<div class="form-check form-check-inline">
   				<input class="form-check-input" type="radio" name="vetSearchType" value="petName">
-  				<label class="form-check-label" for="petName">Pet Name</label>
+				  <label class="form-check-label" for="petName">Pet Name</label>
+				  <SELECT id="listPets" name="select-pet-name">
+					{% for pet in pet_list %}
+					<option value="{{pet[1]}}">{{pet[1]}}</option>
+					{% endfor %}
+				  </SELECT>
   			</div>
 
   			<div>
-                <input type="text" style="width: 400px;" name="vetSearchText">
+               <!--<input type="text" style="width: 400px;" name="vetSearchText">-->
   				<button type="submit" class="btn btn-primary">Find Vets</button>
   			</div>
     	</fieldset>

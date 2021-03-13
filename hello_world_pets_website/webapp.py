@@ -145,12 +145,9 @@ def pets():
     pet_result = execute_query(db_connection, pet_names_query).fetchall()
 
     if request.method == 'POST':
-        print("In post statement")
         # They submitted the form
         if request.form['searchPets'] == 'customerName':
-            print("in customers")
             customerName = request.form.get('select-customer-name').split()
-            print("customer name: ", customerName)
             
             # One name provided - could be first or last
             if len(customerName) == 1:
@@ -253,34 +250,53 @@ def classes():
 @webapp.route('/vets.html', methods=['GET','POST'])
 def vets():
     db_connection = connect_to_database()
+
+    # Query vet options to populate pet search drop-down menu
+    vets_query = 'SELECT vet_id, first_name, last_name, specialty FROM vets'
+    vet_result = execute_query(db_connection, vets_query).fetchall()
+
+    # Query pet names to populate pet search dropdown
+    pet_names_query = 'SELECT pet_id, pet_name, species FROM pets'
+    pet_result = execute_query(db_connection, pet_names_query).fetchall()
+
     if request.method == 'POST':
         
         # They submitted the form
-        if request.form['vetSearchType'] == 'vetFirstName':
-            firstName = request.form['vetSearchText']
-            query = "SELECT * from vets where first_name = '" + firstName + "'"
-            result = execute_query(db_connection, query).fetchall()
+        if request.form['vetSearchType'] == 'vetName':
+            vetName = request.form.get('select-vet-name').split()
 
-        elif request.form['vetSearchType'] == 'vetLastName':
-            lastName = request.form['vetSearchText']
-            query = "SELECT * from vets where last_name = '" + lastName + "'"
+            # One name provided - could be first or last
+            if len(vetName) == 1:
+                name = vetName[0]
+                query = "SELECT * FROM vets WHERE first_name = '" + name + "' OR last_name = '" + name + "'"
+            
+            # Two names provided - first and last
+            elif len(vetName) == 2:
+                first = vetName[0]
+                last = vetName[1]
+                query = "SELECT * FROM vets WHERE first_name = '" + first + "' AND last_name = '" + last + "'"
+
             result = execute_query(db_connection, query).fetchall()
 
         elif request.form['vetSearchType'] == 'vetSpecialty':
-            specialty = request.form['vetSearchText']
+            specialty = request.form.get('select-vet-specialty')
             query = "SELECT * FROM vets WHERE specialty LIKE '%%" + specialty + "%%'"
             result = execute_query(db_connection, query).fetchall()
 
         elif request.form['vetSearchType'] == 'petName':
-            petName = request.form['vetSearchText']
-            query = "SELECT * FROM vets WHERE vet_id = (SELECT vet_id FROM pets WHERE pet_name = '" + petName + "')"
-            result = execute_query(db_connection, query).fetchall()
+            petName = request.form.get('select-pet-name')
+            if petName is None:
+                result = "No vet for this pet"
+            
+            else:
+                query = "SELECT * FROM vets WHERE vet_id = (SELECT vet_id FROM pets WHERE pet_name = '" + petName + "')"
+                result = execute_query(db_connection, query).fetchall()
 
-        return render_template('vets.html', rows=result)
+        return render_template('vets.html', rows=result, vet_list=vet_result, pet_list=pet_result)
    
     else:
         # They're just visiting the page for the first time
-        return render_template('vets.html')
+        return render_template('vets.html', vet_list=vet_result, pet_list=pet_result)
 
 def refresh_admin(feedback=None):
     db_connection = connect_to_database()

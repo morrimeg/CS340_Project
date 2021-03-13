@@ -350,36 +350,36 @@
 							<input type="radio" name="pet_gender" id="pet_gender2" value="2">
 							<label for="pet_gender2">Male</label></td>
 						<td>
-							<SELECT name="customer_first_name">
-								{% for c in customerFirstNames %}
-								<option value="{{c}}">{{c}}</option>
+							<SELECT name="customer_name_select">
+								{% for c in customerNames %}
+								<option value="{{c[1]}} {{c[2]}}">{{c[1]}} {{c[2]}}</option>
 								{% endfor %}
 							</SELECT>
 							<!--<input style="width:180px" type="text" name="customer_first_name" placeholder="Customer First Name">-->
 						</td>
 						<td>
-							<SELECT name="customer_last_name">
+						<!--	<SELECT name="customer_last_name">
 								{% for name in customerLastNames %}
 								<option value="{{name}}">{{name}}</option>
 								{% endfor %}
-							</SELECT>
+							</SELECT>-->
 							<!--<input style="width:180px" type="text" name="customer_last_name" placeholder="Customer Last Name">-->
 						</td>
 						<td>
-							<SELECT name="vet_first_name">
-								{% for v in vetFirstNames %}
-								<option value="{{v}}">{{v}}</option>
+							<SELECT name="vet_name_select">
+								{% for vet in vetNames %}
+								<option value="{{vet[1]}} {{vet[2]}}">{{vet[1]}} {{vet[2]}}</option>
 								{% endfor %}
 							</SELECT>
 							<!--<input style="width:120px" type="text" name="vet_first_name" placeholder="Vet First Name">-->
 						</td>
 
 						<td>
-							<SELECT name="vet_last_name">
+						<!--	<SELECT name="vet_last_name">
 								{% for vet in vetLastNames %}
 								<option value="{{vet}}">{{vet}}</option>
 								{% endfor %}
-							</SELECT>
+							</SELECT>-->
 							<!--<input style="width:120px" type="text" name="vet_last_name" placeholder="Vet Last Name">-->
 						</td>
 						<td><button id="petButton" class="btn btn-secondary" name="pet-insert" value="0">Add

@@ -324,26 +324,28 @@ def refresh_admin(feedback=None):
     vet_query = 'SELECT * from vets'
     vet_result = execute_query(db_connection, vet_query).fetchall()
 
-     # Get data for dropdowns
-    # Get customer first name
-    customer_first_name_query = "SELECT first_name FROM customers"
-    customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
-    customer_fname_list = [item for x in customer_fname_tuple for item in x]
+    # Get data for dropdowns -- get customer names
+    customer_names_query = "SELECT customer_id, first_name, last_name FROM customers"
+    customer_names_result = execute_query(db_connection, customer_names_query).fetchall()
 
     # Get customer last name
-    customer_last_name_query = "SELECT last_name FROM customers"
-    customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
-    customer_lname_list = [item for x in customer_lname_tuple for item in x]
+    # customer_last_name_query = "SELECT last_name FROM customers"
+    # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
+    # customer_lname_list = [item for x in customer_lname_tuple for item in x]
 
     # Get vet first name
-    vet_first_name_query = "SELECT first_name FROM vets"
-    vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
-    vet_fname_list = [item for x in vet_fname_tuple for item in x]
+    # vet_first_name_query = "SELECT first_name FROM vets"
+    # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
+    # vet_fname_list = [item for x in vet_fname_tuple for item in x]
 
-    # Get vet last name
-    vet_last_name_query = "SELECT last_name FROM vets"
-    vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
-    vet_lname_list = [item for x in vet_lname_tuple for item in x]
+    # # Get vet last name
+    # vet_last_name_query = "SELECT last_name FROM vets"
+    # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
+    # vet_lname_list = [item for x in vet_lname_tuple for item in x]
+
+    # Get vet names for dropdowns
+    vet_name_query = "SELECT vet_id, first_name, last_name FROM vets"
+    vet_names_result = execute_query(db_connection, vet_name_query).fetchall()
 
     # Get class name
     class_name_query = "SELECT class_name FROM classes"
@@ -369,57 +371,16 @@ def refresh_admin(feedback=None):
     if feedback:
         return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, 
                                 enroll=enroll_result, vet=vet_result, teacher=teacher_result, feedback=feedback,
-                                customerFirstNames=customer_fname_list, customerLastNames=customer_lname_list, 
-                                vetFirstNames=vet_fname_list, vetLastNames=vet_lname_list, 
+                                customerNames=customer_names_result, 
+                                vetNames=vet_names_result, 
                                 classNames=class_name_list, teacherFirstNames=teacher_fname_list,
                                 teacherLastNames=teacher_lname_list, petNames=pet_name_list)
 
 
-    # # Get data for dropdowns
-    # # Get customer first name
-    # customer_first_name_query = "SELECT first_name FROM customers"
-    # customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
-    # customer_fname_list = [item for x in customer_fname_tuple for item in x]
-
-    # # Get customer last name
-    # customer_last_name_query = "SELECT last_name FROM customers"
-    # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
-    # customer_lname_list = [item for x in customer_lname_tuple for item in x]
-
-    # # Get vet first name
-    # vet_first_name_query = "SELECT first_name FROM vets"
-    # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
-    # vet_fname_list = [item for x in vet_fname_tuple for item in x]
-
-    # # Get vet last name
-    # vet_last_name_query = "SELECT last_name FROM vets"
-    # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
-    # vet_lname_list = [item for x in vet_lname_tuple for item in x]
-
-    # # Get class name
-    # class_name_query = "SELECT class_name FROM classes"
-    # class_name_tuple = execute_query(db_connection, class_name_query).fetchall()
-    # class_name_list = [item for x in class_name_tuple for item in x]
-
-    # # Teacher first name
-    # teacher_fname_query = "SELECT first_name FROM teachers"
-    # teacher_fname_tuple = execute_query(db_connection, teacher_fname_query).fetchall()
-    # teacher_fname_list = [item for x in teacher_fname_tuple for item in x]
-
-    # # Teacher last name
-    # teacher_lname_query = "SELECT last_name FROM teachers"
-    # teacher_lname_tuple = execute_query(db_connection, teacher_lname_query).fetchall()
-    # teacher_lname_list = [item for x in teacher_lname_tuple for item in x]
-        
-    # # Pet name
-    # pet_name_query = "SELECT pet_name FROM pets"
-    # pet_name_tuple = execute_query(db_connection, pet_name_query).fetchall()
-    # pet_name_list = [item for x in pet_name_tuple for item in x]
-
     return render_template('admin.html', rows=customer_result, pets=pet_result, classes = classes_result, enroll=enroll_result, vet=vet_result, 
-                            teacher=teacher_result, customerFirstNames=customer_fname_list, customerLastNames=customer_lname_list, 
-                            vetFirstNames=vet_fname_list, vetLastNames=vet_lname_list, 
-                            classNames=class_name_list, teacherFirstNames=teacher_fname_list,
+                            teacher=teacher_result, customerNames=customer_names_result, 
+                            vetNames=vet_names_result, classNames=class_name_list, 
+                            teacherFirstNames=teacher_fname_list,
                             teacherLastNames=teacher_lname_list, petNames=pet_name_list)
 
 
@@ -443,24 +404,32 @@ def admin():
         db_connection = connect_to_database()
 
         # Get customer first name
-        customer_first_name_query = "SELECT first_name FROM customers"
-        customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
-        customer_fname_list = [item for x in customer_fname_tuple for item in x]
+        # customer_first_name_query = "SELECT first_name FROM customers"
+        # customer_fname_tuple = execute_query(db_connection, customer_first_name_query).fetchall()
+        # customer_fname_list = [item for x in customer_fname_tuple for item in x]
 
-        # Get customer last name
-        customer_last_name_query = "SELECT last_name FROM customers"
-        customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
-        customer_lname_list = [item for x in customer_lname_tuple for item in x]
+        # # Get customer last name
+        # customer_last_name_query = "SELECT last_name FROM customers"
+        # customer_lname_tuple = execute_query(db_connection, customer_last_name_query).fetchall()
+        # customer_lname_list = [item for x in customer_lname_tuple for item in x]
+
+        # Get data for dropdowns -- get customer names
+        customer_names_query = "SELECT customer_id, first_name, last_name FROM customers"
+        customer_names_result = execute_query(db_connection, customer_names_query).fetchall()
+
+        # Get vet names for dropdowns
+        vet_name_query = "SELECT vet_id, first_name, last_name FROM vets"
+        vet_names_result = execute_query(db_connection, vet_name_query).fetchall()
 
         # Get vet first name
-        vet_first_name_query = "SELECT first_name FROM vets"
-        vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
-        vet_fname_list = [item for x in vet_fname_tuple for item in x]
+        # vet_first_name_query = "SELECT first_name FROM vets"
+        # vet_fname_tuple = execute_query(db_connection, vet_first_name_query).fetchall()
+        # vet_fname_list = [item for x in vet_fname_tuple for item in x]
 
-        # Get vet last name
-        vet_last_name_query = "SELECT last_name FROM vets"
-        vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
-        vet_lname_list = [item for x in vet_lname_tuple for item in x]
+        # # Get vet last name
+        # vet_last_name_query = "SELECT last_name FROM vets"
+        # vet_lname_tuple = execute_query(db_connection, vet_last_name_query).fetchall()
+        # vet_lname_list = [item for x in vet_lname_tuple for item in x]
 
         # Get class name
         class_name_query = "SELECT class_name FROM classes"
@@ -497,9 +466,6 @@ def admin():
                     "Zip Code": request.form.get('customer-zip-code'),
                     "Customer ID": request.form.get('customer-id')
                     }
-            print(request.form.get('customer-update'))
-            print()
-            print(customer_data) #TAKE OUT
             
             # If no fields missing, do the insert
             query = 'UPDATE customers SET first_name = %s, last_name = %s, email = %s, phone = %s, address = %s, city = %s, state = %s, zip_code = %s WHERE customer_id = %s'
@@ -527,6 +493,16 @@ def admin():
 
         # If they request to update a Pet
         elif request.form.get('pet-update'):
+
+            customerName = request.form.get('customer_name_select').split()[0]
+            customerFirstName = customerName[0]
+            customerLastName = customerName[1]
+
+            print("customer last name:", customerLastName)
+
+            vetName = request.form.get('vet_name_select').split()
+            vetFirstName = vetName[0]
+            vetLastName = vetName[1]
             
             # Get pet data from form fields
             pet_data = {
@@ -535,10 +511,10 @@ def admin():
                     "Pet Breed": request.form.get('pet-breed'),
                     "Pet Age": request.form.get('pet-age'),
                     "Pet Gender": request.form.get('pet-gender'),
-                    "Vet First Name": request.form.get('vet-first-name'),
-                    "Vet Last Name": request.form.get('vet-last-name'),
-                    "Customer First Name": request.form.get('customer-first-name'),
-                    "Customer Last Name": request.form.get('customer-last-name'),
+                    "Vet First Name": request.form.get('vet_name_select').split()[0],
+                    "Vet Last Name": request.form.get('vet_name_select').split()[1],
+                    "Customer First Name": request.form.get('customer_name_select').split()[0],
+                    "Customer Last Name": request.form.get('customer_name_select').split()[1],
                     "Pet ID": request.form.get('pet-id')
                     }
             
